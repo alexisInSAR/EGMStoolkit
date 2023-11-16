@@ -300,7 +300,7 @@ if options.example == False:
                 ROIpara.release = releasei
                 downloadpara.updatelist(infoS1ROIparameter=ROIpara)
 
-        # ROIpara.displaymap(output='fig_search_%d.jpg' %(h))
+        ROIpara.displaymap(output='fig_search_%d.jpg' %(h))
         h = h + 1
 
     if options.verbose:
