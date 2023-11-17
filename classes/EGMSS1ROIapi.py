@@ -159,7 +159,7 @@ class S1ROIparameter:
                 if not (pii.upper() == 'ASCENDING' or pii.upper() == 'DESCENDING' or pii == 'None'): 
                     sys.exit('Error: pass should be Ascending or Descending.')
 
-        if (isinstance(Track_user, list) and isinstance(Pass_user, list)): 
+        if (isinstance(Track_user, list) and isinstance(Pass_user, list) and len(Track_user) !=1 and len(Pass_user) !=1): 
             if not len(Track_user) == len(Pass_user):
                 sys.exit('Error: The track and pass parameters do not have the same length.')
 
