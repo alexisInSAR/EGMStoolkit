@@ -76,20 +76,20 @@ else:
                       help="Output directory. Default: ./Output")
     
     parser.add_option("--track", dest="track", action="store", type="string", default='None',
-                      help="Track numbers. The comma can be used for multiple selections. Track and Pass must be the same length. Default: None")
+                      help="Track numbers. The comma can be used for multiple selections. Track and Pass must have the same length. Default: None")
     parser.add_option("--pass", dest="passS1", action="store", type="string", default='None',
-                      help="Passes. The comma can be used for multiple selections. Track and Pass must be the same length. Default: None")
+                      help="Passes. The comma can be used for multiple selections. Track and Pass must have the same length. Default: None")
 
     parser.add_option("--nodownload", dest="download", action="store_false", default=True,
-                      help="Block the downloading of the files. Default: False")
+                      help="Block downloading of files. Default: False")
     parser.add_option("--nounzip", dest="unzip", action="store_false", default=True,
-                      help="Block the unziping of the files. Default: False")
+                      help="Block unziping of files. Default: False")
     parser.add_option("--nozip", dest="nokeepzip", action="store_false", default=True,
-                      help="We will remove the .zip files. Default: False")
+                      help="We will remove .zip files. Default: False")
     parser.add_option("--nomerging", dest="merging", action="store_false", default=True,
-                      help="Block the merging of the EGMS results. Default: False")
+                      help="Block merging of EGMS results. Default: False")
     parser.add_option("--noclipping", dest="clipping", action="store_false", default=True,
-                      help="Block the clipping/croppring of the EGMS results. Default: False")
+                      help="Block clipping/croppring of EGMS results. Default: False")
     
     parser.add_option("--clean", dest="clean", action="store_true", default=False,
                       help="Clean the raw-data files. Default: False")

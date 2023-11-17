@@ -37,10 +37,11 @@ export PATHS1BURSTIDMAP=$EGMSTOOLKITPATH/3rdparty
 
 There are two ways to use the toolkit. 
 
-**The user needs to use the temporary token from EGMS website. It can be found at the end of donwloading links (see image below).**
+**The user needs to use the temporary token from the EGMS website. It can be found at the end of download links (see image below).**
 
 ![EGMS Token](images/example_token.png)
 
+> **Tips:** Any download links can be used, the user can use a random download link. 
 
 ### 2.1 In the terminal 
 
@@ -74,15 +75,15 @@ Options:
   -o OUTPUTDIR, --outputdir=OUTPUTDIR
                         Output directory. Default: ./Output
   --track=TRACK         Track numbers. The comma can be used for multiple
-                        selections. Track and Pass must be the same length.
+                        selections. Track and Pass must have the same length.
                         Default: None
   --pass=PASSS1         Passes. The comma can be used for multiple selections.
-                        Track and Pass must be the same length. Default: None
-  --nodownload          Block the downloading of the files. Default: False
-  --nounzip             Block the unziping of the files. Default: False
-  --nozip               We will remove the .zip files. Default: False
-  --nomerging           Block the merging of the EGMS results. Default: False
-  --noclipping          Block the clipping/croppring of the EGMS results.
+                        Track and Pass must have the same length. Default: None
+  --nodownload          Block downloading of files. Default: False
+  --nounzip             Block unziping of files. Default: False
+  --nozip               We will remove .zip files. Default: False
+  --nomerging           Block merging of EGMS results. Default: False
+  --noclipping          Block clipping/croppring of EGMS results.
                         Default: False
   --clean               Clean the raw-data files. Default: False
   -q, --quiet           Verbose. Default: True
@@ -258,8 +259,8 @@ egmsdatatools.datagridding(inputdir='./Output',outputdir='./Output',file='all',v
 
 ## 3 Developer & Contact
 
-- *Alexis Hrysiewicz,* 
+*Alexis Hrysiewicz,* 
   
-  Postdoctoral Researcher, iCRAG / UCD School of Earth Sciences, University College Dublin
+Postdoctoral Researcher, iCRAG / UCD School of Earth Sciences, University College Dublin
   
-  Email: alexis.hrysiewicz@ucd.ie 
+Email: alexis.hrysiewicz@ucd.ie 
