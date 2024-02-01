@@ -1,0 +1,15 @@
+numpy
+fiona
+shapely
+pyproj
+wget
+urllib3
+gdal
+alive_progress
+plotly
+pandas
+rasterio
+kaleido
+scipy
+concave_hull
+matplotlib

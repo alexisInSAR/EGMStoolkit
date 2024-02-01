@@ -1,0 +1,871 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
+<html>
+  
+
+  <head>
+    
+    <title>EGMStoolkit.functions.egmsdatatools</title>
+    <meta name="generator" content="pydoctor 23.9.1"> 
+        
+    </meta>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1" />
+    <link rel="stylesheet" type="text/css" href="apidocs.css" />
+    <link rel="stylesheet" type="text/css" href="readthedocstheme.css" />
+    <link rel="stylesheet" type="text/css" href="extra.css" />
+</head>
+
+  <body>
+
+    
+
+    <nav class="navbar navbar-default mainnavbar">
+      
+  
+  <div class="container-fluid">
+
+
+    <div class="navbar-header">
+      
+      <div class="navlinks">
+        <span class="navbar-brand">
+          <a href="../index.html" class="projecthome">EGMStoolkit</a> <a href="index.html">API Documentation</a>
+        </span>
+
+        <a href="moduleIndex.html">
+          Modules
+        </a>
+
+        <a href="classIndex.html">
+          Classes
+        </a>
+
+        <a href="nameIndex.html">
+          Names
+        </a>
+
+        <div id="search-box-container">
+          <div class="input-group">
+            <input id="search-box" type="search" name="search-query" placeholder="Search..." aria-label="Search" minlength="2" class="form-control" autocomplete="off" />
+            
+            <span class="input-group-btn">
+              <a style="display: none;" class="btn btn-default" id="search-clear-button" title="Clear" onclick="clearSearch()"><img src="fonts/x-circle.svg" alt="Clear" /></a>
+              <a class="btn btn-default" id="search-help-button" title="Help" onclick="toggleSearchHelpText()"><img src="fonts/info.svg" alt="Help" /></a>
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+    
+        <!-- Side navigation -->
+      <div class="sidebarcontainer">
+        <nav class="sidebar">
+  
+
+  <div>
+
+      <div class="thingTitle">
+        <span>Module</span>
+        <code class="thisobject"><a href="EGMStoolkit.functions.egmsdatatools.html" class="internal-link" title="This module">egmsdatatools</a></code> 
+      </div>
+      
+      <div>
+        
+
+        
+         
+
+        
+        
+
+        <div class="childrenKindTitle">Functions</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#convertcsv" class="internal-link" title="EGMStoolkit.functions.egmsdatatools.convertcsv">convertcsv</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#dataclipping" class="internal-link" title="EGMStoolkit.functions.egmsdatatools.dataclipping">dataclipping</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#datagridding" class="internal-link" title="EGMStoolkit.functions.egmsdatatools.datagridding">datagridding</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#datamergingcsv" class="internal-link" title="EGMStoolkit.functions.egmsdatatools.datamergingcsv">datamergingcsv</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#datamergingtiff" class="internal-link" title="EGMStoolkit.functions.egmsdatatools.datamergingtiff">datamergingtiff</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#filemergingcsv" class="internal-link" title="EGMStoolkit.functions.egmsdatatools.filemergingcsv">filemergingcsv</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#filemergingtiff" class="internal-link" title="EGMStoolkit.functions.egmsdatatools.filemergingtiff">filemergingtiff</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#listtodictmerged" class="internal-link" title="EGMStoolkit.functions.egmsdatatools.listtodictmerged">listtodictmerged</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#removerawdata" class="internal-link" title="EGMStoolkit.functions.egmsdatatools.removerawdata">removerawdata</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+
+        <div class="childrenKindTitle">Variables</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#latlon_to_meter" class="internal-link" title="EGMStoolkit.functions.egmsdatatools.latlon_to_meter">latlon<wbr></wbr>_to<wbr></wbr>_meter</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#meter_to_latlon" class="internal-link" title="EGMStoolkit.functions.egmsdatatools.meter_to_latlon">meter<wbr></wbr>_to<wbr></wbr>_latlon</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#source_crs" class="internal-link" title="EGMStoolkit.functions.egmsdatatools.source_crs">source<wbr></wbr>_crs</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#target_crs" class="internal-link" title="EGMStoolkit.functions.egmsdatatools.target_crs">target<wbr></wbr>_crs</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+        
+      </div>
+  </div><div>
+
+      <div class="thingTitle">
+        <span>Package</span>
+        <code><a href="EGMStoolkit.functions.html" class="internal-link" title="The parent of this module">functions</a></code> 
+      </div>
+      
+      <div>
+        
+
+        <div class="childrenKindTitle">Modules</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="EGMStoolkit.functions.egmsapitools.html" class="internal-link" title="EGMStoolkit.functions.egmsapitools">egmsapitools</a></code>
+            </div>
+        
+
+    </li><li class=" thisobject">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="EGMStoolkit.functions.egmsdatatools.html" class="internal-link" title="EGMStoolkit.functions.egmsdatatools">egmsdatatools</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="EGMStoolkit.functions.esa2egmsburstID.html" class="internal-link" title="EGMStoolkit.functions.esa2egmsburstID">esa2egmsburst<wbr></wbr>ID</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+        
+
+        
+         
+
+        
+         
+
+        
+         
+
+        
+         
+        
+      </div>
+  </div>
+
+</nav>
+        <!-- No sidebar toggle for read the docs theme, the sidebar is always
+          visible when the screen is width enough.
+        -->
+      </div>
+
+    </nav>
+    
+    <div class="container-fluid">
+
+      <div id="main" class="">
+        
+
+        
+
+        <div id="search-results-container" style="display: none;">
+        
+          <div id="search-buttons">
+            <span class="label label-default" id="search-docstrings-button">
+            <label class="checkbox-inline">
+              <input type="checkbox" id="toggle-search-in-docstrings-checkbox" value="false" onclick="toggleSearchInDocstrings()">
+                search in docstrings
+              </input>
+            </label>
+            </span>
+            
+          </div>
+          
+          <noscript>
+              <h1>Cannot search: JavaScript is not supported/enabled in your browser.</h1>
+          </noscript>
+  
+          <div class="hint" id="search-help-box">
+            <p class="rst-last">
+        
+              Search bar offers the following options:
+              <ul>   
+                  <li>
+                    <strong>Term presence.</strong> The below example searches for documents that 
+                      must contain “foo”, might contain “bar” and must not contain “baz”: <code>+foo bar -baz</code>
+                  </li> 
+  
+                  <li>
+                    <strong>Wildcards.</strong> The below example searches for documents with words beginning with “foo”: <code>foo*</code>
+                  </li> 
+  
+                  <li>
+                    <strong>Search in specific fields.</strong> The following search matches all objects 
+                    in "twisted.mail" that matches “search”: <code>+qname:twisted.mail.* +search</code>
+  
+                    <p>
+                      Possible fields: 'name', 'qname' (fully qualified name), 'docstring', and 'kind'.
+                      Last two fields are only applicable if "search in docstrings" is enabled.
+                    </p>
+                  </li>
+  
+                  <li>
+                    <strong>Fuzzy matches.</strong> The following search matches all documents 
+                    that have a word within 1 edit distance of “foo”: <code>foo~1</code>
+                  </li>
+              </ul>
+  
+            </p>
+          </div>
+  
+          <div id="search-status"> </div>
+  
+          <div class="warning" id="search-warn-box" style="display: none;">
+            <p class="rst-last"><span id="search-warn"></span></p>
+          </div>
+  
+          <table id="search-results">
+            <!-- Filled dynamically by JS -->
+          </table>
+          
+          <div style="margin-top: 8px;">
+            <p>Results provided by <a href="https://lunrjs.com">Lunr.js</a></p>
+          </div>
+        </div>
+
+        <div class="page-header">
+          <h1 class="module"><code><code><a href="index.html" class="internal-link">EGMStoolkit</a></code><wbr></wbr>.<code><a href="EGMStoolkit.functions.html" class="internal-link" title="EGMStoolkit.functions">functions</a></code><wbr></wbr>.<code><a href="EGMStoolkit.functions.egmsdatatools.html" class="internal-link" title="EGMStoolkit.functions.egmsdatatools">egmsdatatools</a></code></code></h1>
+          <div id="showPrivate">
+            <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
+          </div>
+        </div>
+
+        <div class="categoryHeader">
+          module documentation
+        </div>
+
+        <div class="extrasDocstring">
+          <a href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/fatal: not a git repository (or any of the parent directories): .git/src/EGMStoolkit/functions/egmsdatatools.py" class="sourceLink">(source)</a>
+          <p></p>
+        </div>
+
+        <div class="moduleDocstring">
+          <div><p>Module to add some functions post-process the data from EGMS, with <strong>`EGMStoolkit`</strong></p>
+<p>The module adds some functions, required by <code><a href="index.html" class="internal-link">EGMStoolkit</a></code> to post-process the EGMS data.</p>
+<blockquote>
+(From <code><a href="index.html" class="internal-link">EGMStoolkit</a></code> package)</blockquote>
+<dl class="rst-docutils">
+<dt>Changelog:</dt>
+<dd><ul class="rst-first rst-last rst-simple">
+<li>0.2.1: Remove the duplicate points for L2 datasets, Feb. 2024, Alexis Hrysiewicz</li>
+<li>0.2.0: Script structuring, Jan. 2024, Alexis Hrysiewicz</li>
+<li>0.1.0: Initial version, Nov. 2023</li>
+</ul>
+</dd>
+</dl>
+</div>
+        </div>
+
+        <div id="splitTables">
+          <table class="children sortable" id="id15">
+  
+  
+  <tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#convertcsv" class="internal-link" title="EGMStoolkit.functions.egmsdatatools.convertcsv">convertcsv</a></code></td>
+    <td>Interpolation of the data into a .tif raster</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#dataclipping" class="internal-link" title="EGMStoolkit.functions.egmsdatatools.dataclipping">dataclipping</a></code></td>
+    <td>Clip the datasets</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#datagridding" class="internal-link" title="EGMStoolkit.functions.egmsdatatools.datagridding">datagridding</a></code></td>
+    <td>Interpolation of the data into a .tif raster</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#datamergingcsv" class="internal-link" title="EGMStoolkit.functions.egmsdatatools.datamergingcsv">datamergingcsv</a></code></td>
+    <td>Merge the datasets in csv format</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#datamergingtiff" class="internal-link" title="EGMStoolkit.functions.egmsdatatools.datamergingtiff">datamergingtiff</a></code></td>
+    <td>Merge the datasets in tiff format (only for L3 level)</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#filemergingcsv" class="internal-link" title="EGMStoolkit.functions.egmsdatatools.filemergingcsv">filemergingcsv</a></code></td>
+    <td>Sub-function to merge the data in .csv format</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#filemergingtiff" class="internal-link" title="EGMStoolkit.functions.egmsdatatools.filemergingtiff">filemergingtiff</a></code></td>
+    <td>Sub-function to merge the geotiff data</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#listtodictmerged" class="internal-link" title="EGMStoolkit.functions.egmsdatatools.listtodictmerged">listtodictmerged</a></code></td>
+    <td>Sub-function to conver the list of a merged dictionary</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#removerawdata" class="internal-link" title="EGMStoolkit.functions.egmsdatatools.removerawdata">removerawdata</a></code></td>
+    <td>Delete the raw dataset(s) from EGMS</td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
+    <td><code><a href="#latlon_to_meter" class="internal-link" title="EGMStoolkit.functions.egmsdatatools.latlon_to_meter">latlon<wbr></wbr>_to<wbr></wbr>_meter</a></code></td>
+    <td>Pyproj class Lat/lon (epsg:4326) to meter (epsg:3035)</td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
+    <td><code><a href="#meter_to_latlon" class="internal-link" title="EGMStoolkit.functions.egmsdatatools.meter_to_latlon">meter<wbr></wbr>_to<wbr></wbr>_latlon</a></code></td>
+    <td>Pyproj class meter (epsg:3035) to Lat/lon (epsg:4326)</td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
+    <td><code><a href="#source_crs" class="internal-link" title="EGMStoolkit.functions.egmsdatatools.source_crs">source<wbr></wbr>_crs</a></code></td>
+    <td>Source CRS.</td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
+    <td><code><a href="#target_crs" class="internal-link" title="EGMStoolkit.functions.egmsdatatools.target_crs">target<wbr></wbr>_crs</a></code></td>
+    <td>Target CRS.</td>
+  </tr>
+</table>
+          
+
+            
+        </div>
+
+        <div id="childList">
+          <div class="basefunction">
+  
+  
+  <a name="EGMStoolkit.functions.egmsdatatools.convertcsv">
+    
+  </a>
+  <a name="convertcsv">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">convertcsv</span><span class="function-signature">(outputdir: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">.</span><span class="rst-variable-quote">'</span>+<a href="https://docs.python.org/3/library/os.html#os.sep" class="intersphinx-link">os.sep</a>+<span class="rst-variable-quote">'</span><span class="rst-variable-string">Output</span><span class="rst-variable-quote">'</span>, inputdir: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">.</span><span class="rst-variable-quote">'</span>+<a href="https://docs.python.org/3/library/os.html#os.sep" class="intersphinx-link">os.sep</a>+<span class="rst-variable-quote">'</span><span class="rst-variable-string">Output</span><span class="rst-variable-quote">'</span>, namefile: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>]]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">all</span><span class="rst-variable-quote">'</span>, format: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>]]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">ESRI Shapefile</span><span class="rst-variable-quote">'</span>, verbose: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>, log: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>)</span>:
+    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/fatal: not a git repository (or any of the parent directories): .git/src/EGMStoolkit/functions/egmsdatatools.py#L58">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#convertcsv" title="EGMStoolkit.functions.egmsdatatools.convertcsv">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Interpolation of the data into a .tif raster</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">outputdir:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Output directory [Default: './Ouput']</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">inputdir:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Input directory [Default: './Ouput']</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">namefile:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">File name for interpolation [Default: 'all']</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">format:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">Format of the output file [Default: 'ESRI Shapefile']</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">verbose:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Verbose [Default: <code><a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a></code>]</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">log:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> or <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Log file [Default: <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>]</td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="EGMStoolkit.functions.egmsdatatools.dataclipping">
+    
+  </a>
+  <a name="dataclipping">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">dataclipping</span><span class="function-signature">(outputdir: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">.</span><span class="rst-variable-quote">'</span>+<a href="https://docs.python.org/3/library/os.html#os.sep" class="intersphinx-link">os.sep</a>+<span class="rst-variable-quote">'</span><span class="rst-variable-string">Output</span><span class="rst-variable-quote">'</span>, inputdir: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">.</span><span class="rst-variable-quote">'</span>+<a href="https://docs.python.org/3/library/os.html#os.sep" class="intersphinx-link">os.sep</a>+<span class="rst-variable-quote">'</span><span class="rst-variable-string">Output</span><span class="rst-variable-quote">'</span>, namefile: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">all</span><span class="rst-variable-quote">'</span>, shapefile: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">bbox.shp</span><span class="rst-variable-quote">'</span>, verbose: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>, log: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>)</span>:
+    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/fatal: not a git repository (or any of the parent directories): .git/src/EGMStoolkit/functions/egmsdatatools.py#L441">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#dataclipping" title="EGMStoolkit.functions.egmsdatatools.dataclipping">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Clip the datasets</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">outputdir:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Input directory [Default: './Ouput']</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">inputdir:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Input directory [Default: './Ouput']</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">namefile:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Name of the selected file [Default: 'all']</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">shapefile:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Shapefile of the ROI [Default: 'bbox.sph']</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">verbose:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Verbose [Default: <code><a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a></code>]</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">log:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> or <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Log file [Default: <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>]</td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="EGMStoolkit.functions.egmsdatatools.datagridding">
+    
+  </a>
+  <a name="datagridding">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">datagridding</span><span class="function-signature">(paragrid, outputdir: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">.</span><span class="rst-variable-quote">'</span>+<a href="https://docs.python.org/3/library/os.html#os.sep" class="intersphinx-link">os.sep</a>+<span class="rst-variable-quote">'</span><span class="rst-variable-string">Output</span><span class="rst-variable-quote">'</span>, inputdir: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">.</span><span class="rst-variable-quote">'</span>+<a href="https://docs.python.org/3/library/os.html#os.sep" class="intersphinx-link">os.sep</a>+<span class="rst-variable-quote">'</span><span class="rst-variable-string">Output</span><span class="rst-variable-quote">'</span>, namefile: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>]]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">all</span><span class="rst-variable-quote">'</span>, verbose: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>, log: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>)</span>:
+    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/fatal: not a git repository (or any of the parent directories): .git/src/EGMStoolkit/functions/egmsdatatools.py#L143">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#datagridding" title="EGMStoolkit.functions.egmsdatatools.datagridding">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Interpolation of the data into a .tif raster</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">paragrid:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code></td><td class="fieldArgDesc">Dictionnary of the interpolation parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">outputdir:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Output directory [Default: './Ouput']</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">inputdir:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Input directory [Default: './Ouput']</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">namefile:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">File name for interpolation [Default: 'all']</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">verbose:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Verbose [Default: <code><a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a></code>]</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">log:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> or <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Log file [Default: <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>]</td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="EGMStoolkit.functions.egmsdatatools.datamergingcsv">
+    
+  </a>
+  <a name="datamergingcsv">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">datamergingcsv</span><span class="function-signature">(outputdir: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">.</span><span class="rst-variable-quote">'</span>+<a href="https://docs.python.org/3/library/os.html#os.sep" class="intersphinx-link">os.sep</a>+<span class="rst-variable-quote">'</span><span class="rst-variable-string">Output</span><span class="rst-variable-quote">'</span>, inputdir: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">.</span><span class="rst-variable-quote">'</span>+<a href="https://docs.python.org/3/library/os.html#os.sep" class="intersphinx-link">os.sep</a>+<span class="rst-variable-quote">'</span><span class="rst-variable-string">Output</span><span class="rst-variable-quote">'</span>, paratosave: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#any" class="intersphinx-link">any</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">all</span><span class="rst-variable-quote">'</span>, mode: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">onlist</span><span class="rst-variable-quote">'</span>, infoEGMSdownloader: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#any" class="intersphinx-link">any</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, verbose: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>, log: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>)</span>:
+    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/fatal: not a git repository (or any of the parent directories): .git/src/EGMStoolkit/functions/egmsdatatools.py#L290">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#datamergingcsv" title="EGMStoolkit.functions.egmsdatatools.datamergingcsv">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Merge the datasets in csv format</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">outputdir:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Input directory [Default: './Ouput']</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">inputdir:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Input directory [Default: './Ouput']</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">paratosave:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Selected parameters [Default: 'all']</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">mode:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Mode on selection. Can be 'onlist' or 'onfiles' [Default: 'onlist']</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">info<wbr></wbr>EGMSdownloader:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Class of EGMSdownloader. Can be 'onlist' or 'onfiles' [Default: <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>]</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">verbose:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Verbose [Default: <code><a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a></code>]</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">log:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> or <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Log file [Default: <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>]</td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="EGMStoolkit.functions.egmsdatatools.datamergingtiff">
+    
+  </a>
+  <a name="datamergingtiff">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">datamergingtiff</span><span class="function-signature">(outputdir: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">.</span><span class="rst-variable-quote">'</span>+<a href="https://docs.python.org/3/library/os.html#os.sep" class="intersphinx-link">os.sep</a>+<span class="rst-variable-quote">'</span><span class="rst-variable-string">Output</span><span class="rst-variable-quote">'</span>, inputdir: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">.</span><span class="rst-variable-quote">'</span>+<a href="https://docs.python.org/3/library/os.html#os.sep" class="intersphinx-link">os.sep</a>+<span class="rst-variable-quote">'</span><span class="rst-variable-string">Output</span><span class="rst-variable-quote">'</span>, paratosave: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#any" class="intersphinx-link">any</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">all</span><span class="rst-variable-quote">'</span>, mode: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">onlist</span><span class="rst-variable-quote">'</span>, infoEGMSdownloader: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#any" class="intersphinx-link">any</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, verbose: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>, log: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>)</span>:
+    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/fatal: not a git repository (or any of the parent directories): .git/src/EGMStoolkit/functions/egmsdatatools.py#L370">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#datamergingtiff" title="EGMStoolkit.functions.egmsdatatools.datamergingtiff">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Merge the datasets in tiff format (only for L3 level)</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">outputdir:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Input directory [Default: './Ouput']</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">inputdir:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Input directory [Default: './Ouput']</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">paratosave:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Selected parameters [Default: 'all']</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">mode:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Mode on selection. Can be 'onlist' or 'onfiles' [Default: 'onlist']</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">info<wbr></wbr>EGMSdownloader:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Class of EGMSdownloader. Can be 'onlist' or 'onfiles' [Default: <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>]</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">verbose:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Verbose [Default: <code><a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a></code>]</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">log:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> or <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Log file [Default: <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>]</td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="EGMStoolkit.functions.egmsdatatools.filemergingcsv">
+    
+  </a>
+  <a name="filemergingcsv">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">filemergingcsv</span><span class="function-signature">(inputdir, outputdir, name, listfile, paratosave, mode_duplicate, verbose, log)</span>:
+    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/fatal: not a git repository (or any of the parent directories): .git/src/EGMStoolkit/functions/egmsdatatools.py#L630">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#filemergingcsv" title="EGMStoolkit.functions.egmsdatatools.filemergingcsv">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Sub-function to merge the data in .csv format</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">inputdir:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">Input directory</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">outputdir:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">Input directory</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">Name of the selected file</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">listfile:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a></code></td><td class="fieldArgDesc">List of files</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">paratosave:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a></code></td><td class="fieldArgDesc">Lists of saved parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">mode<wbr></wbr>_duplicate:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc">Mode to remove the duplicate points</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">verbose:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc">Verbose</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">log:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> or <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code></td><td class="fieldArgDesc">Log file</td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="EGMStoolkit.functions.egmsdatatools.filemergingtiff">
+    
+  </a>
+  <a name="filemergingtiff">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">filemergingtiff</span><span class="function-signature">(inputdir, outputdir, name, listfile, verbose, log)</span>:
+    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/fatal: not a git repository (or any of the parent directories): .git/src/EGMStoolkit/functions/egmsdatatools.py#L598">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#filemergingtiff" title="EGMStoolkit.functions.egmsdatatools.filemergingtiff">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Sub-function to merge the geotiff data</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">inputdir:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">Input directory</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">outputdir:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">Input directory</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">Name of the selected file</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">listfile:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a></code></td><td class="fieldArgDesc">List of files</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">verbose:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc">Verbose</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">log:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> or <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code></td><td class="fieldArgDesc">Log file</td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="EGMStoolkit.functions.egmsdatatools.listtodictmerged">
+    
+  </a>
+  <a name="listtodictmerged">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">listtodictmerged</span><span class="function-signature">(list)</span>:
+    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/fatal: not a git repository (or any of the parent directories): .git/src/EGMStoolkit/functions/egmsdatatools.py#L748">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#listtodictmerged" title="EGMStoolkit.functions.egmsdatatools.listtodictmerged">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Sub-function to conver the list of a merged dictionary</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">list:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a></code></td><td class="fieldArgDesc">List of files</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td colspan="2">filedict (dict)
+release (str)
+level (str)
+track (str)
+L3compall (str)</td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="EGMStoolkit.functions.egmsdatatools.removerawdata">
+    
+  </a>
+  <a name="removerawdata">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">removerawdata</span><span class="function-signature">(inputdir: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">.</span><span class="rst-variable-quote">'</span>+<a href="https://docs.python.org/3/library/os.html#os.sep" class="intersphinx-link">os.sep</a>+<span class="rst-variable-quote">'</span><span class="rst-variable-string">Output</span><span class="rst-variable-quote">'</span>, forcemode: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>, verbose: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>, log: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>)</span>:
+    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/fatal: not a git repository (or any of the parent directories): .git/src/EGMStoolkit/functions/egmsdatatools.py#L243">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#removerawdata" title="EGMStoolkit.functions.egmsdatatools.removerawdata">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Delete the raw dataset(s) from EGMS</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">inputdir:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Input directory [Default: './Ouput']</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">forcemode:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Force mode [Default: <code><a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a></code>]</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">verbose:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Verbose [Default: <code><a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a></code>]</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">log:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> or <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>, <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a></code></td><td class="fieldArgDesc">Log file [Default: <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>]</td></tr></table></div>
+  </div>
+</div><div class="basevariable">
+  
+  
+  <a name="EGMStoolkit.functions.egmsdatatools.latlon_to_meter">
+    
+  </a>
+  <a name="latlon_to_meter">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">latlon_to_meter</span> =
+    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/fatal: not a git repository (or any of the parent directories): .git/src/EGMStoolkit/functions/egmsdatatools.py#L48">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#latlon_to_meter" title="EGMStoolkit.functions.egmsdatatools.latlon_to_meter">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>Pyproj class Lat/lon (epsg:4326) to meter (epsg:3035)</p></div>
+    
+  </div>
+</div><div class="basevariable">
+  
+  
+  <a name="EGMStoolkit.functions.egmsdatatools.meter_to_latlon">
+    
+  </a>
+  <a name="meter_to_latlon">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">meter_to_latlon</span> =
+    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/fatal: not a git repository (or any of the parent directories): .git/src/EGMStoolkit/functions/egmsdatatools.py#L51">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#meter_to_latlon" title="EGMStoolkit.functions.egmsdatatools.meter_to_latlon">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>Pyproj class meter (epsg:3035) to Lat/lon (epsg:4326)</p></div>
+    
+  </div>
+</div><div class="basevariable">
+  
+  
+  <a name="EGMStoolkit.functions.egmsdatatools.source_crs">
+    
+  </a>
+  <a name="source_crs">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">source_crs</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
+    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/fatal: not a git repository (or any of the parent directories): .git/src/EGMStoolkit/functions/egmsdatatools.py#L40">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#source_crs" title="EGMStoolkit.functions.egmsdatatools.source_crs">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>Source CRS.</p></div>
+    
+  </div>
+</div><div class="basevariable">
+  
+  
+  <a name="EGMStoolkit.functions.egmsdatatools.target_crs">
+    
+  </a>
+  <a name="target_crs">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">target_crs</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
+    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/fatal: not a git repository (or any of the parent directories): .git/src/EGMStoolkit/functions/egmsdatatools.py#L44">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#target_crs" title="EGMStoolkit.functions.egmsdatatools.target_crs">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>Target CRS.</p></div>
+    
+  </div>
+</div>
+        </div>
+      
+      </div>
+    </div>
+
+    <footer class="navbar navbar-default">
+    <hr />
+    
+    
+    <div class="container">
+      <a href="index.html">API Documentation</a> for <a href="../index.html" class="projecthome">EGMStoolkit</a>,
+    generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
+      23.9.1 at 2024-02-01 21:34:02.
+    </div>
+    
+    <script src="ajax.js" type="text/javascript"></script>
+    <script src="searchlib.js" type="text/javascript"></script>
+    <script src="search.js" type="text/javascript"></script>
+  
+  </footer>
+  
+    <script src="pydoctor.js" type="text/javascript"></script>
+
+  </body>
+</html>
