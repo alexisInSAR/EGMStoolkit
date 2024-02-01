@@ -75,7 +75,7 @@ Due to the Sentinel-1 acquisition mode, EGMStoolkit offers two different methods
 * Without deleting of duplicate of measurement points in burst/swath overlaps; 
 * With deleting of duplicate of measurement points in burst/swath overlaps based on the convace-hull algorithm.
 
-The method can be select by modifing (True or False) the variable *__removeduplicate__* in the *constant.py* scripts. The *__length_threshold__* can be modified in the same scripts (1000 by default). 
+The method can be selected by modifing (True or False) the variable *__removeduplicate__* in the *constant.py* script. The *__length_threshold__* can be modified in the same script (1000 by default). 
 
 Authors
 =======

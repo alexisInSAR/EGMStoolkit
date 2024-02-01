@@ -35,7 +35,7 @@ import matplotlib.pyplot as plt
 try: 
     from concave_hull import concave_hull_indexes
 except: 
-    usermessage.warningmsg(__name__,__name__,__file__,'Impossible to import concave_hull, required for removing duplicate points.',None,True)
+    usermessage.warningmsg(__name__,__name__,__file__,'Impossible to import concave_hull, required for removing of duplicate points.',None,True)
 
 source_crs = 'epsg:4326'
 """str: Source CRS.
