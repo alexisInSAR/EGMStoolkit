@@ -499,119 +499,122 @@ def dataclipping(outputdir: Optional[str] = '.'+os.sep+'Output',
             usermessage.egmstoolkitprint('\t%d / %d file(s): Clip the file %s to %s...' % (it,ittotal,fi,newname),log,verbose)
 
             ## Clipping using ogr2og
-            shapeinput = shapefile
-            shapeoutput = shapefile.split('.')[0]+'_poly.shp'
-            shapeoutput3035 = shapefile.split('.')[0]+'_poly_3035.shp'
+            if constants.__clipuseogr2ogr__ == True: 
 
-            schema = {
-            'geometry': 'Polygon',
-            'properties' : {'id':'int'}
-            }
+                shapeinput = shapefile
+                shapeoutput = shapefile.split('.')[0]+'_poly.shp'
+                shapeoutput3035 = shapefile.split('.')[0]+'_poly_3035.shp'
 
-            with fiona.open(shapeinput) as in_file, fiona.open(shapeoutput, 'w', 'ESRI Shapefile', schema, crs = "EPSG:4326") as out_file:
-                for index_line, row in enumerate(in_file):
-                    line = shape(row['geometry'])
-                    coordinates = []
-                    if isinstance(line, LineString):
-                        for index, point in enumerate(line.coords):
-                            if index == 0:
-                                first_pt = point
-                            coordinates.append(point)
-                        coordinates.append(first_pt)
-                        if len(coordinates) >= 3:
-                            polygon = Polygon(coordinates)
-                            out_file.write({
-                                'geometry': mapping(polygon),
-                                'properties': {'id': index_line},
-                            })
+                schema = {
+                'geometry': 'Polygon',
+                'properties' : {'id':'int'}
+                }
 
-            cmdi = "ogr2ogr -s_srs EPSG:4326 -t_srs EPSG:3035  %s %s -overwrite" % (shapeoutput3035,shapeoutput)
-            os.system(cmdi)
+                with fiona.open(shapeinput) as in_file, fiona.open(shapeoutput, 'w', 'ESRI Shapefile', schema, crs = "EPSG:4326") as out_file:
+                    for index_line, row in enumerate(in_file):
+                        line = shape(row['geometry'])
+                        coordinates = []
+                        if isinstance(line, LineString):
+                            for index, point in enumerate(line.coords):
+                                if index == 0:
+                                    first_pt = point
+                                coordinates.append(point)
+                            coordinates.append(first_pt)
+                            if len(coordinates) >= 3:
+                                polygon = Polygon(coordinates)
+                                out_file.write({
+                                    'geometry': mapping(polygon),
+                                    'properties': {'id': index_line},
+                                })
 
-            cmdi = "ogr2ogr -of CSV -clipsrc %s -s_srs EPSG:3035 -t_srs EPSG:3035 -oo HEADERS=YES -oo SEPARATOR=SEMICOLON -oo X_POSSIBLE_NAMES=easting -oo Y_POSSIBLE_NAMES=northing %s %s -overwrite" % (
-                shapeoutput3035,
-                newname, 
-                fi)
-            usermessage.egmstoolkitprint('\t\tThe command will be: %s' % (cmdi),log,verbose)
-            os.system(cmdi)
+                cmdi = "ogr2ogr -s_srs EPSG:4326 -t_srs EPSG:3035  %s %s -overwrite" % (shapeoutput3035,shapeoutput)
+                os.system(cmdi)
 
-            #Delete de quote string 
-            if platform.system() == 'Windows': # for windows
-                cmdi = 'get-content %s| %{$_ -replace """,""}' % (newname)
-                cmdibis = 'get-content %s| %{$_ -replace ",",";"}' % (newname)
-            elif platform.system() == 'Linux': # for linux
-                cmdi = "sed -i 's/\"//g' %s" % (newname)
-                cmdibis = "sed -i 's/,/;/g' %s" % (newname)
-            else: # for MacOS
-                cmdi = "sed 's/\"//g' %s > %s" % (newname,newname+'.tmp')
-                cmdibis = "sed 's/,/;/g' %s > %s" % (newname+'.tmp',newname+'.tmp2')
+                cmdi = "ogr2ogr -of CSV -clipsrc %s -s_srs EPSG:3035 -t_srs EPSG:3035 -oo HEADERS=YES -oo SEPARATOR=SEMICOLON -oo X_POSSIBLE_NAMES=easting -oo Y_POSSIBLE_NAMES=northing %s %s -overwrite" % (
+                    shapeoutput3035,
+                    newname, 
+                    fi)
+                usermessage.egmstoolkitprint('\t\tThe command will be: %s' % (cmdi),log,verbose)
+                os.system(cmdi)
 
-            os.system(cmdi)
-            os.system(cmdibis)
+                #Delete de quote string 
+                if platform.system() == 'Windows': # for windows
+                    cmdi = 'get-content %s| %{$_ -replace """,""}' % (newname)
+                    cmdibis = 'get-content %s| %{$_ -replace ",",";"}' % (newname)
+                elif platform.system() == 'Linux': # for linux
+                    cmdi = "sed -i 's/\"//g' %s" % (newname)
+                    cmdibis = "sed -i 's/,/;/g' %s" % (newname)
+                else: # for MacOS
+                    cmdi = "sed 's/\"//g' %s > %s" % (newname,newname+'.tmp')
+                    cmdibis = "sed 's/,/;/g' %s > %s" % (newname+'.tmp',newname+'.tmp2')
 
-            if os.path.isfile(newname+'.tmp2'): 
-                os.remove(newname+'.tmp')
-                os.rename(newname+'.tmp2',newname)
+                os.system(cmdi)
+                os.system(cmdibis)
+
+                if os.path.isfile(newname+'.tmp2'): 
+                    os.remove(newname+'.tmp')
+                    os.rename(newname+'.tmp2',newname)
+                else: 
+                    os.rename(newname+'.tmp',newname)
+
+                if os.path.isfile(shapeoutput): 
+                    os.remove(shapeoutput)
+                if os.path.isfile(shapeoutput3035): 
+                    os.remove(shapeoutput3035)
+
             else: 
-                os.rename(newname+'.tmp',newname)
+                ## Clippping using the Python script
+                listROI = []
+                listROIepsg3035 = []
 
-            if os.path.isfile(shapeoutput): 
-                os.remove(shapeoutput)
-            if os.path.isfile(shapeoutput3035): 
-                os.remove(shapeoutput3035)
+                schema = {
+                    'geometry': 'Polygon',
+                    'properties' : {'id':'int'}
+                    }
 
-            # ## Clippping using the Python script
-            # listROI = []
-            # listROIepsg3035 = []
+                with fiona.open(shapefile,'r','ESRI Shapefile', schema) as shpfile:
+                    for feature in shpfile:
+                        coordinates = []
+                        Xcoord = []
+                        Ycoord = []
+                        line = shape(feature['geometry'])
+                        if isinstance(line, LineString):
+                            for index, point in enumerate(line.coords):
+                                if index == 0:
+                                    first_pt = point
+                                coordinates.append(point)
+                                X, Y = latlon_to_meter.transform(point[1],point[0])
+                                Xcoord.append(X)
+                                Ycoord.append(Y)
+                        if len(coordinates) >= 3:
+                            listROI.append(Polygon(coordinates))
+                            listROIepsg3035.append(Polygon(list(zip(Xcoord, Ycoord))))
 
-            # schema = {
-            #     'geometry': 'Polygon',
-            #     'properties' : {'id':'int'}
-            #     }
-
-            # with fiona.open(shapefile,'r','ESRI Shapefile', schema) as shpfile:
-            #     for feature in shpfile:
-            #         coordinates = []
-            #         Xcoord = []
-            #         Ycoord = []
-            #         line = shape(feature['geometry'])
-            #         if isinstance(line, LineString):
-            #             for index, point in enumerate(line.coords):
-            #                 if index == 0:
-            #                     first_pt = point
-            #                 coordinates.append(point)
-            #                 X, Y = latlon_to_meter.transform(point[1],point[0])
-            #                 Xcoord.append(X)
-            #                 Ycoord.append(Y)
-            #         if len(coordinates) >= 3:
-            #             listROI.append(Polygon(coordinates))
-            #             listROIepsg3035.append(Polygon(list(zip(Xcoord, Ycoord))))
-
-            # h = 0
-            # headerline = []
-        
-            # outfile = open(newname,'w')
-            # outfile.close()
-            # with open(fi) as infile:
-            #     for line in infile:
-            #         if h == 0:
-            #             headerline = line
-            #             headerline = headerline.split(';')
-            #             nx = np.where('easting' == np.array(headerline))[0]  
-            #             ny = np.where('northing' == np.array(headerline))[0]  
-            #             with open(newname,'a') as outfile:
-            #                 outfile.write(line)
-            #         else:
-            #             linelist = line.split(';')
-            #             pti = Point(float(linelist[ny[0]]),float(linelist[nx[0]]))
-
-            #             for ROi in listROIepsg3035:
-            #                 if ROi.contains(pti):
-            #                     with open(newname,'a') as outfile:
-            #                         outfile.write(line)
-
-            #         h = h + 1
+                h = 0
+                headerline = []
             
+                outfile = open(newname,'w')
+                outfile.close()
+                with open(fi) as infile:
+                    for line in infile:
+                        if h == 0:
+                            headerline = line
+                            headerline = headerline.split(';')
+                            nx = np.where('easting' == np.array(headerline))[0]  
+                            ny = np.where('northing' == np.array(headerline))[0]  
+                            with open(newname,'a') as outfile:
+                                outfile.write(line)
+                        else:
+                            linelist = line.split(';')
+                            pti = Point(float(linelist[ny[0]]),float(linelist[nx[0]]))
+
+                            for ROi in listROIepsg3035:
+                                if ROi.contains(pti):
+                                    with open(newname,'a') as outfile:
+                                        outfile.write(line)
+
+                        h = h + 1
+                
         elif (fi.split('.')[-1] == 'tiff' or fi.split('.')[-1] == 'tif') and (not 'cropped' in fi):
 
             ## Create the polygon for cropping 

@@ -52,3 +52,5 @@ __pathS1map__ = os.path.dirname(__file__)+os.sep+'3rdparty'
 
 __removeduplicate__ = True
 __length_threshold__ = 1000
+
+__clipuseogr2ogr__ = False
