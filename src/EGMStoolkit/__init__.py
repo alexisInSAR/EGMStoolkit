@@ -14,6 +14,6 @@ __copyrightPackage__ =  "Copyright 2024, UCD / iCRAG"
 """str: Copyright of the Python package
 """
 
-__versionPackage__ = '0.2.1 Beta'
+__versionPackage__ = '0.2.2 Beta'
 """str: Current version of the Python package
 """

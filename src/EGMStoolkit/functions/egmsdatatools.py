@@ -9,6 +9,7 @@ The module adds some functions, required by `EGMStoolkit` to post-process the EG
     (From `EGMStoolkit` package)
 
 Changelog:
+    * 0.2.2: Optimisation of clipping based on ogr2ogr, Feb. 2024, Alexis Hrysiewicz
     * 0.2.1: Remove the duplicate points for L2 datasets, Feb. 2024, Alexis Hrysiewicz
     * 0.2.0: Script structuring, Jan. 2024, Alexis Hrysiewicz
     * 0.1.0: Initial version, Nov. 2023
@@ -26,6 +27,7 @@ import pyproj
 import shutil
 from typing import Optional, Union
 from matplotlib import path
+import platform
 
 from EGMStoolkit import usermessage
 from EGMStoolkit import constants
@@ -466,7 +468,7 @@ def dataclipping(outputdir: Optional[str] = '.'+os.sep+'Output',
 
     ## Create the list of files
     if namefile == 'all':
-        list_file = glob.glob('%s%s*.csv' %(outputdir,os.sep)) + glob.glob('%s%s*.tiff' %(outputdir,os.sep))
+        list_file = glob.glob('%s%s*.csv' %(inputdir,os.sep)) + glob.glob('%s%s*.tiff' %(inputdir,os.sep))
     else:
         tmp = namefile.split(',')
         for namei in tmp: 
@@ -478,7 +480,7 @@ def dataclipping(outputdir: Optional[str] = '.'+os.sep+'Output',
                 list_file.append(namei)
 
     if not list_file:
-        raise ValueError(usermessage.errormsg(__name__,'dataclipping',__file__,constants.__copyright__,'No files are detected.' % (inputdir),log))
+        raise ValueError(usermessage.errormsg(__name__,'dataclipping',__file__,constants.__copyright__,'No files are detected.',log))
 
     ## Cropping and clipping
     it = 1
@@ -492,60 +494,123 @@ def dataclipping(outputdir: Optional[str] = '.'+os.sep+'Output',
     for fi in list_file:
         
         if fi.split('.')[-1] == 'csv' and (not 'clipped' in fi):
-            newname = fi[0:-4]+'_clipped.csv'
+            newname = outputdir+os.sep+fi[0:-4].split(os.sep)[-1]+'_clipped.csv'
 
             usermessage.egmstoolkitprint('\t%d / %d file(s): Clip the file %s to %s...' % (it,ittotal,fi,newname),log,verbose)
 
-            listROI = []
-            listROIepsg3035 = []
+            ## Clipping using ogr2og
+            shapeinput = shapefile
+            shapeoutput = shapefile.split('.')[0]+'_poly.shp'
+            shapeoutput3035 = shapefile.split('.')[0]+'_poly_3035.shp'
 
             schema = {
-                'geometry': 'Polygon',
-                'properties' : {'id':'int'}
-                }
+            'geometry': 'Polygon',
+            'properties' : {'id':'int'}
+            }
 
-            with fiona.open(shapefile,'r','ESRI Shapefile', schema) as shpfile:
-                for feature in shpfile:
+            with fiona.open(shapeinput) as in_file, fiona.open(shapeoutput, 'w', 'ESRI Shapefile', schema, crs = "EPSG:4326") as out_file:
+                for index_line, row in enumerate(in_file):
+                    line = shape(row['geometry'])
                     coordinates = []
-                    Xcoord = []
-                    Ycoord = []
-                    line = shape(feature['geometry'])
                     if isinstance(line, LineString):
                         for index, point in enumerate(line.coords):
                             if index == 0:
                                 first_pt = point
                             coordinates.append(point)
-                            X, Y = latlon_to_meter.transform(point[1],point[0])
-                            Xcoord.append(X)
-                            Ycoord.append(Y)
-                    if len(coordinates) >= 3:
-                        listROI.append(Polygon(coordinates))
-                        listROIepsg3035.append(Polygon(list(zip(Xcoord, Ycoord))))
+                        coordinates.append(first_pt)
+                        if len(coordinates) >= 3:
+                            polygon = Polygon(coordinates)
+                            out_file.write({
+                                'geometry': mapping(polygon),
+                                'properties': {'id': index_line},
+                            })
 
-            h = 0
-            headerline = []
+            cmdi = "ogr2ogr -s_srs EPSG:4326 -t_srs EPSG:3035  %s %s -overwrite" % (shapeoutput3035,shapeoutput)
+            os.system(cmdi)
+
+            cmdi = "ogr2ogr -of CSV -clipsrc %s -s_srs EPSG:3035 -t_srs EPSG:3035 -oo HEADERS=YES -oo SEPARATOR=SEMICOLON -oo X_POSSIBLE_NAMES=easting -oo Y_POSSIBLE_NAMES=northing %s %s -overwrite" % (
+                shapeoutput3035,
+                newname, 
+                fi)
+            usermessage.egmstoolkitprint('\t\tThe command will be: %s' % (cmdi),log,verbose)
+            os.system(cmdi)
+
+            #Delete de quote string 
+            if platform.system() == 'Windows': # for windows
+                cmdi = 'get-content %s| %{$_ -replace """,""}' % (newname)
+                cmdibis = 'get-content %s| %{$_ -replace ",",";"}' % (newname)
+            elif platform.system() == 'Linux': # for linux
+                cmdi = "sed -i 's/\"//g' %s" % (newname)
+                cmdibis = "sed -i 's/,/;/g' %s" % (newname)
+            else: # for MacOS
+                cmdi = "sed 's/\"//g' %s > %s" % (newname,newname+'.tmp')
+                cmdibis = "sed 's/,/;/g' %s > %s" % (newname+'.tmp',newname+'.tmp2')
+
+            os.system(cmdi)
+            os.system(cmdibis)
+
+            if os.path.isfile(newname+'.tmp2'): 
+                os.remove(newname+'.tmp')
+                os.rename(newname+'.tmp2',newname)
+            else: 
+                os.rename(newname+'.tmp',newname)
+
+            if os.path.isfile(shapeoutput): 
+                os.remove(shapeoutput)
+            if os.path.isfile(shapeoutput3035): 
+                os.remove(shapeoutput3035)
+
+            # ## Clippping using the Python script
+            # listROI = []
+            # listROIepsg3035 = []
+
+            # schema = {
+            #     'geometry': 'Polygon',
+            #     'properties' : {'id':'int'}
+            #     }
+
+            # with fiona.open(shapefile,'r','ESRI Shapefile', schema) as shpfile:
+            #     for feature in shpfile:
+            #         coordinates = []
+            #         Xcoord = []
+            #         Ycoord = []
+            #         line = shape(feature['geometry'])
+            #         if isinstance(line, LineString):
+            #             for index, point in enumerate(line.coords):
+            #                 if index == 0:
+            #                     first_pt = point
+            #                 coordinates.append(point)
+            #                 X, Y = latlon_to_meter.transform(point[1],point[0])
+            #                 Xcoord.append(X)
+            #                 Ycoord.append(Y)
+            #         if len(coordinates) >= 3:
+            #             listROI.append(Polygon(coordinates))
+            #             listROIepsg3035.append(Polygon(list(zip(Xcoord, Ycoord))))
+
+            # h = 0
+            # headerline = []
         
-            outfile = open(newname,'w')
-            outfile.close()
-            with open(fi) as infile:
-                for line in infile:
-                    if h == 0:
-                        headerline = line
-                        headerline = headerline.split(';')
-                        nx = np.where('easting' == np.array(headerline))[0]  
-                        ny = np.where('northing' == np.array(headerline))[0]  
-                        with open(newname,'a') as outfile:
-                            outfile.write(line)
-                    else:
-                        linelist = line.split(';')
-                        pti = Point(float(linelist[ny[0]]),float(linelist[nx[0]]))
+            # outfile = open(newname,'w')
+            # outfile.close()
+            # with open(fi) as infile:
+            #     for line in infile:
+            #         if h == 0:
+            #             headerline = line
+            #             headerline = headerline.split(';')
+            #             nx = np.where('easting' == np.array(headerline))[0]  
+            #             ny = np.where('northing' == np.array(headerline))[0]  
+            #             with open(newname,'a') as outfile:
+            #                 outfile.write(line)
+            #         else:
+            #             linelist = line.split(';')
+            #             pti = Point(float(linelist[ny[0]]),float(linelist[nx[0]]))
 
-                        for ROi in listROIepsg3035:
-                            if ROi.contains(pti):
-                                with open(newname,'a') as outfile:
-                                    outfile.write(line)
+            #             for ROi in listROIepsg3035:
+            #                 if ROi.contains(pti):
+            #                     with open(newname,'a') as outfile:
+            #                         outfile.write(line)
 
-                    h = h + 1
+            #         h = h + 1
             
         elif (fi.split('.')[-1] == 'tiff' or fi.split('.')[-1] == 'tif') and (not 'cropped' in fi):
 
@@ -567,7 +632,7 @@ def dataclipping(outputdir: Optional[str] = '.'+os.sep+'Output',
                         'properties': {'id': index},
                     })
 
-            newname = fi[0:-5]+'_cropped.tiff'
+            newname = outputdir+os.sep+fi[0:-5].split(os.sep)[-1]+'_cropped.tiff'
 
             usermessage.egmstoolkitprint('\t%d / %d file(s): Crop the file %s to %s...' % (it,ittotal,fi,newname),log,verbose)
 
