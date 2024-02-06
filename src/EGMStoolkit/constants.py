@@ -20,6 +20,7 @@ Attributes:
     __loggingmode__ (str): Logging level. **Can be modified by the user**. Can be ``NOTSET``, ``DEBUG``, ``INFO``, ``WARN``, ``ERROR``, ``CRITICAL``
 
 Changelog:
+        * 0.2.3: Add the possibility to merge the .csv file into a .vrt file (but can fail), Feb. 2024, Alexis Hrysiewicz
         * 0.2.1: Add the options for "duplicated"-point revoming, Feb. 2024, Alexis Hrysiewicz
         * 0.2.0: Initial version, Jan. 2024
 
@@ -52,5 +53,7 @@ __pathS1map__ = os.path.dirname(__file__)+os.sep+'3rdparty'
 
 __removeduplicate__ = True
 __length_threshold__ = 1000
+
+__usevrtmerging__ = False 
 
 __clipuseogr2ogr__ = False

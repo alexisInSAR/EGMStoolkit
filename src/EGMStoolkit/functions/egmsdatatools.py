@@ -9,6 +9,7 @@ The module adds some functions, required by `EGMStoolkit` to post-process the EG
     (From `EGMStoolkit` package)
 
 Changelog:
+    * 0.2.3: Add the possibility to merge the .csv file into a .vrt file (but can fail), Feb. 2024, Alexis Hrysiewicz
     * 0.2.2: Optimisation of clipping based on ogr2ogr, Feb. 2024, Alexis Hrysiewicz
     * 0.2.1: Remove the duplicate points for L2 datasets, Feb. 2024, Alexis Hrysiewicz
     * 0.2.0: Script structuring, Jan. 2024, Alexis Hrysiewicz
@@ -28,6 +29,7 @@ import shutil
 from typing import Optional, Union
 from matplotlib import path
 import platform
+import copy 
 
 from EGMStoolkit import usermessage
 from EGMStoolkit import constants
@@ -349,20 +351,23 @@ def datamergingcsv(outputdir: Optional[str] = '.'+os.sep+'Output',
         for li in level:
             if not li == 'L3':
                 for ti in track:
-                    try:
-                        file_list = filedict[ri][li][ti]['Files']
-                        name_file = filedict[ri][li][ti]['Name']
-                        usermessage.egmstoolkitprint('Merging for %s...' % (name_file),log,verbose)
+                    # try:
+                    file_list = filedict[ri][li][ti]['Files']
+                    name_file = filedict[ri][li][ti]['Name']
+                    usermessage.egmstoolkitprint('Merging for %s...' % (name_file),log,verbose)
+                    if constants.__usevrtmerging__ == True: 
+                        filemergingcsvvrt(inputdir,outputdir,name_file,file_list,paratosave,constants.__removeduplicate__,verbose,log)
+                    else: 
                         filemergingcsv(inputdir,outputdir,name_file,file_list,paratosave,constants.__removeduplicate__,verbose,log)
-                    except:
-                        a = 'dummy'
+                    # except:
+                    #     a = 'dummy'
             else:
                 for ci in L3compall:
                     try:
                         file_list = filedict[ri][li][ci]['Files']
                         name_file = filedict[ri][li][ci]['Name']
                         usermessage.egmstoolkitprint('Merging for %s...' % (name_file),log,verbose)
-                        filemergingcsv(inputdir,outputdir,name_file,file_list,paratosave,False,verbose,log)
+                        filemergingcsv(inputdir,outputdir,name_file,file_list,paratosave,False,verbose,log) # .vrt is not available for the L3 dataset
                     except:
                         a = 'dummy'
 
@@ -458,7 +463,6 @@ def dataclipping(outputdir: Optional[str] = '.'+os.sep+'Output',
         log (str or None, Optional): Log file [Default: `None`]
 
     """ 
-        
 
     usermessage.openingmsg(__name__,__name__,__file__,constants.__copyright__,'Clip the dataset(s)',log,verbose)
     usermessage.egmstoolkitprint('\tThe file name is: %s' % (namefile),log,verbose)
@@ -691,6 +695,158 @@ def filemergingtiff(inputdir,outputdir,name,listfile,verbose,log):
         subprocess.call(cmdi,shell=True)  
     else:
         subprocess.call(cmdi,shell=True,stdout=open(os.devnull, 'wb'))  
+
+################################################################################
+## Sub-function to merge the .csv files by using .vrt format
+################################################################################
+def filemergingcsvvrt(inputdir,outputdir,name,listfile,paratosave,mode_duplicate,verbose,log): 
+    """Sub-function to merge the data in .csv format by using the .vrt format (only for L2a/L2b datasets and constant headers)
+
+    Warning: there is a bug with the raw .csv files if the duplicate mode is False and all parameters are saved. 
+        
+    Args:
+
+        inputdir (str): Input directory
+        outputdir (str): Input directory
+        name (str): Name of the selected file
+        listfile (list): List of files
+        paratosave (list): Lists of saved parameters
+        mode_duplicate (bool): Mode to remove the duplicate points
+        verbose (bool): Verbose
+        log (str or None): Log file
+
+    """
+
+    ## Detect the headers
+    first_one = True
+    date_ts = []
+    for fi in listfile:
+
+        # Detection of the file 
+        pathfi = glob.glob('%s%s*%s*%s*%s%s.csv' % (inputdir,os.sep,os.sep,os.sep,os.sep,fi))[0]
+        head = pd.read_csv(pathfi, index_col=0, nrows=0).columns.tolist()
+
+        header_para = []
+        header_ts = []
+        for hi in head:
+            if not '20' in hi:
+                header_para.append(hi)
+            else:
+                header_ts.append(hi)
+            
+        date_ts = date_ts + header_ts
+
+    date_ts = np.unique(date_ts)  
+
+    header_final = header_para
+    for ti in date_ts : 
+        header_final.append(ti)
+
+    ## Copy the files
+    first_one = True
+    h = 1
+
+    if mode_duplicate == True or (not paratosave == 'all'):
+        for fi in listfile:
+            # Detection of the file 
+            pathfi = glob.glob('%s%s*%s*%s*%s%s.csv' % (inputdir,os.sep,os.sep,os.sep,os.sep,fi))[0]
+
+            # Read the file
+            datai = pd.read_csv(pathfi,index_col=0)
+            # datai = pd.read_csv(pathfi,nrows=1000,index_col=0)
+
+            # Path computation 
+            if mode_duplicate == True:
+                xpts = datai['easting'].to_list()
+                ypts = datai['northing'].to_list()
+                pts = np.array([np.array(xpts), np.array(ypts)]).T
+
+                usermessage.egmstoolkitprint('\t\tComputation of the convace hull to remove the duplicate points',log,verbose)
+                idxes = concave_hull_indexes(
+                    pts,
+                    length_threshold=constants.__length_threshold__)      
+                pts_out = list(zip(pts[idxes][:,0],pts[idxes][:,1]))
+                Poly_out_iter = Polygon(pts_out)
+
+                if first_one == True: 
+                    Poly_out = Poly_out_iter
+                else: 
+                    
+                    xs, ys = Poly_out.exterior.xy
+
+                    path_outlines = path.Path(list(zip(xs,ys)))
+                    test_intersection = path_outlines.contains_points(list(zip(xpts,ypts)))
+                    test_intersection_inv = [not elem for elem in test_intersection]
+
+
+                    Poly_out = Poly_out.union(Poly_out_iter)
+                    
+                    pourctest = (1 - list(test_intersection).count(True) / len(datai))* 100
+                    datai = datai[test_intersection_inv]
+                    usermessage.warningmsg(__name__,__name__,__file__,'Regarding the burst coverage: %f %% of the points inside this burst will be kept.' %(pourctest),log,verbose)
+
+            datamatrix = dict()
+            if paratosave == 'all':
+                for hi in header_final:
+                    datamatrix[hi] = []
+
+            else:
+                # Mandatory parameters
+                mand_para = ['latitude', 'longitude', 'easting', 'northing', 'height', 'height_wgs84']
+                for hi in mand_para:
+                    datamatrix[hi] = []
+                # Selected parameters
+                if isinstance(paratosave,list):
+                    for hi in paratosave:
+                        datamatrix[hi] = []
+                else:
+                    for hi in paratosave.split(','):
+                        datamatrix[hi] = []
+
+            # Merging 
+            list_save = list(datamatrix.keys())
+            for mi in list_save:
+                ni = np.where(mi == np.array(head))[0]          
+                if not len(ni) == 0:
+                    datamatrix[mi] = datai[head[ni[0]]]
+                else: 
+                    datamatrix[mi] = datai[head[-1]]
+                    datamatrix[mi] = np.where(np.isnan(datamatrix[mi])==0, np.nan, datamatrix[mi])
+                
+            pdfdframetosave = pd.DataFrame(data=datamatrix)
+
+            # Create the sub-directory to store the .csv file
+            if not os.path.isdir('%s%s%s' % (outputdir,os.sep,name)): 
+                os.mkdir('%s%s%s' % (outputdir,os.sep,name))
+
+            # Save the file 
+            pdfdframetosave.to_csv('%s%s%s%s%s_%s.csv' % (outputdir,os.sep,name,os.sep,name,h), mode='w', sep=';', index=True, header = True)
+
+            h = h + 1
+            first_one = False
+
+    # Write the .vrt file
+    with open('%s%s%s.vrt' % (outputdir,os.sep,name),'w') as fvrt:
+        fvrt.write('<OGRVRTDataSource>\n') 
+        fvrt.write('\t<OGRVRTUnionLayer name="%s">\n' % (name))
+    	
+        for idx, fi in enumerate(listfile):
+            if mode_duplicate == True or (not paratosave == 'all'):
+                nametmp1 = '%s_%s' % (name,idx+1)
+                nametmp2 = '%s%s%s_%s.csv' % (name,os.sep,name,idx+1)
+            else:     
+                pathfi = glob.glob('%s%s*%s*%s*%s%s.csv' % (inputdir,os.sep,os.sep,os.sep,os.sep,fi))[0]
+                nametmp2 = os.path.abspath(pathfi)
+                nametmp1 = nametmp2.split(os.sep)[-1].split('.')[0]
+            fvrt.write('\t\t<OGRVRTLayer name="%s">\n' % (nametmp1))
+            fvrt.write('\t\t\t<SrcDataSource>%s</SrcDataSource>\n' % (nametmp2))
+            fvrt.write('\t\t\t<GeometryType>wkbPoint</GeometryType>\n')
+            fvrt.write('\t\t\t<GeometryField encoding="PointFromColumns" x="easting" y="northing"/>\n')
+            fvrt.write('\t\t\t<LayerSRS>WGS84</LayerSRS>\n')
+            fvrt.write('\t\t</OGRVRTLayer>\n')
+
+        fvrt.write('\t</OGRVRTUnionLayer>\n')
+        fvrt.write('</OGRVRTDataSource>') 
 
 ################################################################################
 ## Sub-function to merge the .csv files
