@@ -9,7 +9,7 @@ The module adds some functions, required by `EGMStoolkit` to post-process the EG
     (From `EGMStoolkit` package)
 
 Changelog:
-    * 0.2.3: Add the possibility to merge the .csv file into a .vrt file (but can fail), Feb. 2024, Alexis Hrysiewicz
+    * 0.2.3: Add the possibility to merge the L2 .csv file into a .vrt file (but can fail), Feb. 2024, Alexis Hrysiewicz
     * 0.2.2: Optimisation of clipping based on ogr2ogr, Feb. 2024, Alexis Hrysiewicz
     * 0.2.1: Remove the duplicate points for L2 datasets, Feb. 2024, Alexis Hrysiewicz
     * 0.2.0: Script structuring, Jan. 2024, Alexis Hrysiewicz
@@ -296,6 +296,9 @@ def datamergingcsv(outputdir: Optional[str] = '.'+os.sep+'Output',
     paratosave: Optional[any] = 'all',
     mode: Optional[str] = 'onlist',
     infoEGMSdownloader: Optional[any] = None,
+    __removeduplicate__: Optional[bool] = True,
+    __length_threshold__: Optional[int] = 1000,
+    __usevrtmerging__: Optional[bool] = False,
     verbose: Optional[bool] = True, 
     log: Optional[Union[str,None]] = None): 
     """Merge the datasets in csv format
@@ -307,6 +310,9 @@ def datamergingcsv(outputdir: Optional[str] = '.'+os.sep+'Output',
         paratosave (str, Optional): Selected parameters [Default: 'all']
         mode (str, Optional): Mode on selection. Can be 'onlist' or 'onfiles' [Default: 'onlist']
         infoEGMSdownloader(str, Optional): Class of EGMSdownloader. Can be 'onlist' or 'onfiles' [Default: `None`]
+        __removeduplicate__ (bool): Remove the duplicate point [Default: True]
+        __length_threshold__ (int): Length for the concave hull [Default: 1000]
+        __usevrtmerging__ (bool): Use the vrt for merging [Default: False]
         verbose (bool, Optional): Verbose [Default: `True`]
         log (str or None, Optional): Log file [Default: `None`]
 
@@ -351,23 +357,23 @@ def datamergingcsv(outputdir: Optional[str] = '.'+os.sep+'Output',
         for li in level:
             if not li == 'L3':
                 for ti in track:
-                    # try:
-                    file_list = filedict[ri][li][ti]['Files']
-                    name_file = filedict[ri][li][ti]['Name']
-                    usermessage.egmstoolkitprint('Merging for %s...' % (name_file),log,verbose)
-                    if constants.__usevrtmerging__ == True: 
-                        filemergingcsvvrt(inputdir,outputdir,name_file,file_list,paratosave,constants.__removeduplicate__,verbose,log)
-                    else: 
-                        filemergingcsv(inputdir,outputdir,name_file,file_list,paratosave,constants.__removeduplicate__,verbose,log)
-                    # except:
-                    #     a = 'dummy'
+                    try:
+                        file_list = filedict[ri][li][ti]['Files']
+                        name_file = filedict[ri][li][ti]['Name']
+                        usermessage.egmstoolkitprint('Merging for %s...' % (name_file),log,verbose)
+                        if __usevrtmerging__ == True: 
+                            filemergingcsvvrt(inputdir,outputdir,name_file,file_list,paratosave,__removeduplicate__,__length_threshold__,verbose,log)
+                        else: 
+                            filemergingcsv(inputdir,outputdir,name_file,file_list,paratosave,__removeduplicate__,__length_threshold__,verbose,log)
+                    except:
+                        a = 'dummy'
             else:
                 for ci in L3compall:
                     try:
                         file_list = filedict[ri][li][ci]['Files']
                         name_file = filedict[ri][li][ci]['Name']
                         usermessage.egmstoolkitprint('Merging for %s...' % (name_file),log,verbose)
-                        filemergingcsv(inputdir,outputdir,name_file,file_list,paratosave,False,verbose,log) # .vrt is not available for the L3 dataset
+                        filemergingcsv(inputdir,outputdir,name_file,file_list,paratosave,False,False,verbose,log) # .vrt is not available for the L3 dataset
                     except:
                         a = 'dummy'
 
@@ -449,6 +455,7 @@ def dataclipping(outputdir: Optional[str] = '.'+os.sep+'Output',
     inputdir: Optional[str] = '.'+os.sep+'Output',
     namefile: Optional[str] = 'all',
     shapefile: Optional[str] = 'bbox.shp',
+    __clipuseogr2ogr__: Optional[bool] = False,
     verbose: Optional[bool] = True, 
     log: Optional[Union[str,None]] = None): 
     """Clip the datasets
@@ -459,6 +466,7 @@ def dataclipping(outputdir: Optional[str] = '.'+os.sep+'Output',
         outputdir (str, Optional): Input directory [Default: './Ouput']
         namefile (str, Optional): Name of the selected file [Default: 'all']
         shapefile (str, Optional): Shapefile of the ROI [Default: 'bbox.sph']
+        __clipuseogr2ogr__ (bool, optional): Use ogr2ogr for clipping [Default: False]
         verbose (bool, Optional): Verbose [Default: `True`]
         log (str or None, Optional): Log file [Default: `None`]
 
@@ -503,7 +511,7 @@ def dataclipping(outputdir: Optional[str] = '.'+os.sep+'Output',
             usermessage.egmstoolkitprint('\t%d / %d file(s): Clip the file %s to %s...' % (it,ittotal,fi,newname),log,verbose)
 
             ## Clipping using ogr2og
-            if constants.__clipuseogr2ogr__ == True: 
+            if __clipuseogr2ogr__ == True: 
 
                 shapeinput = shapefile
                 shapeoutput = shapefile.split('.')[0]+'_poly.shp'
@@ -699,7 +707,7 @@ def filemergingtiff(inputdir,outputdir,name,listfile,verbose,log):
 ################################################################################
 ## Sub-function to merge the .csv files by using .vrt format
 ################################################################################
-def filemergingcsvvrt(inputdir,outputdir,name,listfile,paratosave,mode_duplicate,verbose,log): 
+def filemergingcsvvrt(inputdir,outputdir,name,listfile,paratosave,mode_duplicate,length_duplicate,verbose,log): 
     """Sub-function to merge the data in .csv format by using the .vrt format (only for L2a/L2b datasets and constant headers)
 
     Warning: there is a bug with the raw .csv files if the duplicate mode is False and all parameters are saved. 
@@ -712,6 +720,7 @@ def filemergingcsvvrt(inputdir,outputdir,name,listfile,paratosave,mode_duplicate
         listfile (list): List of files
         paratosave (list): Lists of saved parameters
         mode_duplicate (bool): Mode to remove the duplicate points
+        length_duplicate (int): Length for concave hull
         verbose (bool): Verbose
         log (str or None): Log file
 
@@ -764,7 +773,7 @@ def filemergingcsvvrt(inputdir,outputdir,name,listfile,paratosave,mode_duplicate
                 usermessage.egmstoolkitprint('\t\tComputation of the convace hull to remove the duplicate points',log,verbose)
                 idxes = concave_hull_indexes(
                     pts,
-                    length_threshold=constants.__length_threshold__)      
+                    length_threshold=length_duplicate)      
                 pts_out = list(zip(pts[idxes][:,0],pts[idxes][:,1]))
                 Poly_out_iter = Polygon(pts_out)
 
@@ -839,7 +848,7 @@ def filemergingcsvvrt(inputdir,outputdir,name,listfile,paratosave,mode_duplicate
                 nametmp2 = os.path.abspath(pathfi)
                 nametmp1 = nametmp2.split(os.sep)[-1].split('.')[0]
             fvrt.write('\t\t<OGRVRTLayer name="%s">\n' % (nametmp1))
-            fvrt.write('\t\t\t<SrcDataSource>%s</SrcDataSource>\n' % (nametmp2))
+            fvrt.write('\t\t\t<SrcDataSource relativeToVRT="1">%s</SrcDataSource>\n' % (nametmp2))
             fvrt.write('\t\t\t<GeometryType>wkbPoint</GeometryType>\n')
             fvrt.write('\t\t\t<GeometryField encoding="PointFromColumns" x="easting" y="northing"/>\n')
             fvrt.write('\t\t\t<LayerSRS>WGS84</LayerSRS>\n')
@@ -851,7 +860,7 @@ def filemergingcsvvrt(inputdir,outputdir,name,listfile,paratosave,mode_duplicate
 ################################################################################
 ## Sub-function to merge the .csv files
 ################################################################################
-def filemergingcsv(inputdir,outputdir,name,listfile,paratosave,mode_duplicate,verbose,log): 
+def filemergingcsv(inputdir,outputdir,name,listfile,paratosave,mode_duplicate,length_duplicate,verbose,log): 
     """Sub-function to merge the data in .csv format
         
     Args:
@@ -862,6 +871,7 @@ def filemergingcsv(inputdir,outputdir,name,listfile,paratosave,mode_duplicate,ve
         listfile (list): List of files
         paratosave (list): Lists of saved parameters
         mode_duplicate (bool): Mode to remove the duplicate points
+        length_duplicate (int): Length for concave hull
         verbose (bool): Verbose
         log (str or None): Log file
 
@@ -960,7 +970,7 @@ def filemergingcsv(inputdir,outputdir,name,listfile,paratosave,mode_duplicate,ve
             usermessage.egmstoolkitprint('\t\tComputation of the convace hull to remove the duplicate points',log,verbose)
             idxes = concave_hull_indexes(
                 pts,
-                length_threshold=constants.__length_threshold__)      
+                length_threshold=length_duplicate)      
             pts_out = list(zip(pts[idxes][:,0],pts[idxes][:,1]))
             path_outlines = path.Path(pts_out)
 

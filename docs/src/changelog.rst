@@ -3,6 +3,7 @@ Change log
 
 The different versions:
 
+* 0.2.3: Add the possibility to merge the L2 .csv file into a .vrt file (but can fail), Feb. 2024, Alexis Hrysiewicz
 * 0.2.2: Optimisation of clipping based on ogr2ogr, Feb. 2024, Alexis Hrysiewicz
 * 0.2.1: Fix regarding the ID burst selection, Feb. 2024, Alexis Hrysiewicz
    * The value of burst size has been changed to 750 (indead of 1500)
