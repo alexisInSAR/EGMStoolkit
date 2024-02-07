@@ -40,7 +40,7 @@
             Python
           </a>
               <div class="version">
-                0.2.3 Beta (Under dvpt)
+                0.2.5 Beta (Under dvpt)
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -763,6 +763,12 @@ EGMStoolkit.classes.EGMSdownloaderapi.EGMStoolkit.classes.EGMSdownloaderapi:
 <h3>Merge the .csv files<a class="headerlink" href="#Merge-the-.csv-files" title="Link to this heading"></a></h3>
 <p>The first post-processing is the merging of .csv. The user can define several options: - <em>outputdir</em> the ouput directory; - <em>inputdir</em> the input directory (where are stored the EGMS .csv files); - <em>verbose</em> the verbose mode - <em>paratosave</em> parameter regarding the EGMS names [‘all’ or string value]. [‘latitude’, ‘longitude’, ‘easting’, ‘northing’, ‘height’, ‘height_wgs84’] which will always be saved.</p>
 <p><strong>The last option is mode. Indeed, the scripts can find the .csv files based on the search lists (onlist mode) or on the stored files (onfiles mode). For the last mode, the downloadpara class is required.</strong></p>
+<p>Three other options are available:</p>
+<ul class="simple">
+<li><p><strong>removeduplicate</strong> (bool): Remove the duplicate points [Default: True]</p></li>
+<li><p><strong>length_threshold</strong> (int): Length for the concave hull [Default: 1000]</p></li>
+<li><p><strong>usevrtmerging</strong> (bool): Use the vrt for merging [Default: False]</p></li>
+</ul>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
@@ -841,7 +847,7 @@ Used command: gdal_merge.py -o ./Output/EGMS_L3_2018_2022_1_EW.tiff -n -9999 -a_
 <section id="Clip/crop-the-data">
 <h3>Clip/crop the data<a class="headerlink" href="#Clip/crop-the-data" title="Link to this heading"></a></h3>
 <p>The user can clip or crop the files regarding the ROI (or another shapefile).</p>
-<p>The new parameter <em>namefile</em> allows to define the file. By default, ‘all’ will clip/crop all the files.</p>
+<p>The new parameter <em>namefile</em> allows to define the file. By default, ‘all’ will clip/crop all the files. The option <strong>clipuseogr2ogr</strong> (bool, optional) can be used to force the use of ogr2ogr for clipping (default is False).</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>

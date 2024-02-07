@@ -830,6 +830,17 @@
    ]
   },
   {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Three other options are available: \n",
+    "\n",
+    "* __removeduplicate__ (bool): Remove the duplicate points [Default: True]\n",
+    "* __length_threshold__ (int): Length for the concave hull [Default: 1000]\n",
+    "* __usevrtmerging__ (bool): Use the vrt for merging [Default: False]"
+   ]
+  },
+  {
    "cell_type": "code",
    "execution_count": 23,
    "metadata": {},
@@ -919,7 +930,7 @@
     "\n",
     "The user can clip or crop the files regarding the ROI (or another shapefile).\n",
     "\n",
-    "The new parameter *namefile* allows to define the file. By default, 'all' will clip/crop all the files. "
+    "The new parameter *namefile* allows to define the file. By default, 'all' will clip/crop all the files. The option __clipuseogr2ogr__ (bool, optional) can be used to force the use of ogr2ogr for clipping (default is False)."
    ]
   },
   {

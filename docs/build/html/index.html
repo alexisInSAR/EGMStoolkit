@@ -33,10 +33,10 @@
           
           
           <a href="#" class="icon icon-home">
-            Python
+            EGMS-toolkit
           </a>
               <div class="version">
-                0.2.3 Beta (Under dvpt)
+                0.2.5 Beta (Under dvpt)
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -99,7 +99,7 @@
 <li><p>to clip/crop the datasets.</p></li>
 </ul>
 <p><strong>UNDER DEVELOPMENT</strong></p>
-<p><strong>Release info</strong>: Version 0.2.3 Beta, Feb., 2024</p>
+<p><strong>Release info</strong>: Version 0.2.5 Beta, Feb., 2024</p>
 <p>The online documentation can be found <a class="reference external" href="https://alexisinsar.github.io/EGMStoolkit/">here</a>.</p>
 <section id="dependencies-and-installation">
 <h2>Dependencies and installation<a class="headerlink" href="#dependencies-and-installation" title="Link to this heading"></a></h2>
@@ -110,8 +110,14 @@
 <li><p>GMT (with GSHHG)</p></li>
 </ul>
 <p>To install the <strong>EGMS toolkit</strong>,</p>
+<p>On Linux and MacOS:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">alexisInSAR</span><span class="o">/</span><span class="n">EGMStoolkit</span><span class="o">.</span><span class="n">git</span>
 <span class="n">pip3</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="n">EGMStoolkit</span>
+</pre></div>
+</div>
+<p>On Windows:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">alexisInSAR</span><span class="o">/</span><span class="n">EGMStoolkit</span><span class="o">.</span><span class="n">git</span>
+<span class="n">py</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip3</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="n">EGMStoolkit</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -148,7 +154,8 @@
 <li><p>Without deleting of duplicate of measurement points in burst/swath overlaps;</p></li>
 <li><p>With deleting of duplicate of measurement points in burst/swath overlaps based on the convace-hull algorithm.</p></li>
 </ul>
-<p>The method can be selected by modifing (True or False) the variable <em>__removeduplicate__</em> in the <em>constant.py</em> script. The <em>__length_threshold__</em> can be modified in the same script (1000 by default).</p>
+<p>The method can be selected by modifing (True or False) the option <em>__removeduplicate__</em>. The <em>__length_threshold__</em> can be used for the same function (1000 by default).</p>
+<p>The VRT format can be used for the merging and interpolation steps.</p>
 </section>
 <section id="authors">
 <h2>Authors<a class="headerlink" href="#authors" title="Link to this heading"></a></h2>
