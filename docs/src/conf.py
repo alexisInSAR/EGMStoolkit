@@ -7,6 +7,8 @@ import pathlib
 
 copyright = '2024, UCD / iCRAG'
 version = '0.2.5 Beta (Under dvpt)'
+project = 'EGMS-toolkit'
+author = 'Alexis Hrysiewicz University College Dublin / iCRAG'
 
 extensions = [
     "sphinx_rtd_theme",
@@ -52,7 +54,7 @@ _common_args = [
 pydoctor_args = {
     'main': [
         '--html-output={outdir}/api/', 
-        '--project-name=EGMStoolkit',
+        '--project-name=EGMS-toolkit',
         f'--project-version={version}',
         '--docformat=google', 
         '--intersphinx=https://docs.python.org/3/objects.inv',
