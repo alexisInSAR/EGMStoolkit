@@ -6,7 +6,7 @@ import subprocess
 import pathlib
 
 copyright = '2024, UCD / iCRAG'
-version = '0.2.3 Beta (Under dvpt)'
+version = '0.2.5 Beta (Under dvpt)'
 
 extensions = [
     "sphinx_rtd_theme",

@@ -10,7 +10,7 @@ EGMS toolkit
 
 **UNDER DEVELOPMENT**
 
-**Release info**: Version 0.2.3 Beta, Feb., 2024
+**Release info**: Version 0.2.5 Beta, Feb., 2024
 
 The online documentation can be found `here <https://alexisinsar.github.io/EGMStoolkit/>`_.
 
@@ -25,10 +25,19 @@ The requirements are:
 
 To install the **EGMS toolkit**, 
 
+On Linux and MacOS: 
+
 .. code-block:: bash
 
     git clone https://github.com/alexisInSAR/EGMStoolkit.git
     pip3 install -e EGMStoolkit
+
+On Windows: 
+
+.. code-block:: bash
+
+    git clone https://github.com/alexisInSAR/EGMStoolkit.git
+    py -m pip3 install -e EGMStoolkit
 
 .. note::
 
@@ -75,7 +84,9 @@ Due to the Sentinel-1 acquisition mode, EGMStoolkit offers two different methods
 * Without deleting of duplicate of measurement points in burst/swath overlaps; 
 * With deleting of duplicate of measurement points in burst/swath overlaps based on the convace-hull algorithm.
 
-The method can be selected by modifing (True or False) the variable *__removeduplicate__* in the *constant.py* script. The *__length_threshold__* can be modified in the same script (1000 by default). 
+The method can be selected by modifing (True or False) the option *__removeduplicate__*. The *__length_threshold__* can be used for the same function (1000 by default). 
+
+The VRT format can be used for the merging and interpolation steps. 
 
 Authors
 =======

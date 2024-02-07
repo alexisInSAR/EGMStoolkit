@@ -9,6 +9,8 @@ The module adds some functions, required by `EGMStoolkit` to post-process the EG
     (From `EGMStoolkit` package)
 
 Changelog:
+    * 0.2.5: Add the interpolation processing for the .vrt file + optional function arguments for "duplicate" point and vrt files, Feb. 2024, Alexis Hrysiewicz
+    * 0.2.4: Add the possibility to merge the L3 .csv file into a .vrt file and fix the problem with the L2 datasets, Feb. 2024, Alexis Hrysiewicz
     * 0.2.3: Add the possibility to merge the L2 .csv file into a .vrt file (but can fail), Feb. 2024, Alexis Hrysiewicz
     * 0.2.2: Optimisation of clipping based on ogr2ogr, Feb. 2024, Alexis Hrysiewicz
     * 0.2.1: Remove the duplicate points for L2 datasets, Feb. 2024, Alexis Hrysiewicz
@@ -23,7 +25,7 @@ import pandas as pd
 import subprocess
 import os
 import fiona
-from shapely.geometry import Polygon, mapping, shape, LineString, Point
+from shapely.geometry import Polygon, mapping, shape, LineString, Point, MultiPolygon
 import pyproj
 import shutil
 from typing import Optional, Union
@@ -186,7 +188,7 @@ def datagridding(paragrid,
     usermessage.egmstoolkitprint('\t\t Algorithm options: %s' %(paragrid['algo']),log,verbose)
 
     if namefile == 'all':
-        list_filetmp = glob.glob('%s%s*.csv' %(inputdir,os.sep))
+        list_filetmp = glob.glob('%s%s*.csv' %(inputdir,os.sep)) + glob.glob('%s%s*.vrt' %(inputdir,os.sep))
 
         list_noclip = []
         list_clip = []
@@ -232,7 +234,12 @@ def datagridding(paragrid,
             usermessage.egmstoolkitprint('\t\tInterpolation for the variable: %s' % (parai),log,verbose)
 
             if not os.path.isfile('%s%s%s_%s.tif' % (outputdir,os.sep,namefile,parai)):
-                cmdi = 'gdal_grid -zfield "%s" -a_srs EPSG:3035 -oo HEADERS=YES -oo SEPARATOR=SEMICOLON -oo X_POSSIBLE_NAMES=easting -oo Y_POSSIBLE_NAMES=northing -a %s -txe %f %f -tye %f %f -tr %f %f -of GTiff -l %s -ot Float64 %s%s%s.csv %s%s%s_%s.tif' % (parai,paragrid['algo'],paragrid['Xmin'],paragrid['Xmax'],paragrid['Ymin'],paragrid['Ymax'],paragrid['xres'],paragrid['yres'],namefile,outputdir,os.sep,namefile,outputdir,os.sep,namefile,parai)
+
+                if '.csv' in fi: 
+                    cmdi = 'gdal_grid -zfield "%s" -a_srs EPSG:3035 -oo HEADERS=YES -oo SEPARATOR=SEMICOLON -oo X_POSSIBLE_NAMES=easting -oo Y_POSSIBLE_NAMES=northing -a %s -txe %f %f -tye %f %f -tr %f %f -of GTiff -l %s -ot Float64 %s%s%s.csv %s%s%s_%s.tif' % (parai,paragrid['algo'],paragrid['Xmin'],paragrid['Xmax'],paragrid['Ymin'],paragrid['Ymax'],paragrid['xres'],paragrid['yres'],namefile,outputdir,os.sep,namefile,outputdir,os.sep,namefile,parai)
+                else: 
+                    cmdi = 'gdal_grid -zfield "%s" -a_srs EPSG:3035 -oo HEADERS=YES -oo SEPARATOR=SEMICOLON -a %s -txe %f %f -tye %f %f -tr %f %f -of GTiff -l %s -ot Float64 %s%s%s.vrt %s%s%s_%s.tif' % (parai,paragrid['algo'],paragrid['Xmin'],paragrid['Xmax'],paragrid['Ymin'],paragrid['Ymax'],paragrid['xres'],paragrid['yres'],namefile,outputdir,os.sep,namefile,outputdir,os.sep,namefile,parai)
+                
 
                 usermessage.egmstoolkitprint('\t\tThe command will be: %s' % (cmdi),log,verbose)
                 os.system(cmdi)
@@ -310,7 +317,7 @@ def datamergingcsv(outputdir: Optional[str] = '.'+os.sep+'Output',
         paratosave (str, Optional): Selected parameters [Default: 'all']
         mode (str, Optional): Mode on selection. Can be 'onlist' or 'onfiles' [Default: 'onlist']
         infoEGMSdownloader(str, Optional): Class of EGMSdownloader. Can be 'onlist' or 'onfiles' [Default: `None`]
-        __removeduplicate__ (bool): Remove the duplicate point [Default: True]
+        __removeduplicate__ (bool): Remove the duplicate points [Default: True]
         __length_threshold__ (int): Length for the concave hull [Default: 1000]
         __usevrtmerging__ (bool): Use the vrt for merging [Default: False]
         verbose (bool, Optional): Verbose [Default: `True`]
@@ -373,7 +380,10 @@ def datamergingcsv(outputdir: Optional[str] = '.'+os.sep+'Output',
                         file_list = filedict[ri][li][ci]['Files']
                         name_file = filedict[ri][li][ci]['Name']
                         usermessage.egmstoolkitprint('Merging for %s...' % (name_file),log,verbose)
-                        filemergingcsv(inputdir,outputdir,name_file,file_list,paratosave,False,False,verbose,log) # .vrt is not available for the L3 dataset
+                        if __usevrtmerging__ == True: 
+                            filemergingcsvvrt(inputdir,outputdir,name_file,file_list,paratosave,False,False,verbose,log)
+                        else:
+                            filemergingcsv(inputdir,outputdir,name_file,file_list,paratosave,False,False,verbose,log) # .vrt is not available for the L3 dataset
                     except:
                         a = 'dummy'
 
@@ -480,7 +490,7 @@ def dataclipping(outputdir: Optional[str] = '.'+os.sep+'Output',
 
     ## Create the list of files
     if namefile == 'all':
-        list_file = glob.glob('%s%s*.csv' %(inputdir,os.sep)) + glob.glob('%s%s*.tiff' %(inputdir,os.sep))
+        list_file = glob.glob('%s%s*.csv' %(inputdir,os.sep)) + glob.glob('%s%s*.tiff' %(inputdir,os.sep)) + glob.glob('%s%s*.vrt' %(inputdir,os.sep))
     else:
         tmp = namefile.split(',')
         for namei in tmp: 
@@ -501,6 +511,8 @@ def dataclipping(outputdir: Optional[str] = '.'+os.sep+'Output',
         if fi.split('.')[-1] == 'csv' and (not 'clipped' in fi):
             ittotal = ittotal+1
         elif fi.split('.')[-1] == 'tiff' and (not 'cropped' in fi):
+            ittotal = ittotal+1
+        elif fi.split('.')[-1] == 'vrt' and (not 'cropped' in fi):
             ittotal = ittotal+1
 
     for fi in list_file:
@@ -626,7 +638,10 @@ def dataclipping(outputdir: Optional[str] = '.'+os.sep+'Output',
                                         outfile.write(line)
 
                         h = h + 1
-                
+
+        elif fi.split('.')[-1] == 'vrt' and (not 'clipped' in fi):
+            usermessage.egmstoolkitprint('\t%d / %d file(s): Clipping processing is not available for the .vrt files' % (it,ittotal),log,verbose)
+
         elif (fi.split('.')[-1] == 'tiff' or fi.split('.')[-1] == 'tif') and (not 'cropped' in fi):
 
             ## Create the polygon for cropping 
@@ -755,84 +770,85 @@ def filemergingcsvvrt(inputdir,outputdir,name,listfile,paratosave,mode_duplicate
     first_one = True
     h = 1
 
-    if mode_duplicate == True or (not paratosave == 'all'):
-        for fi in listfile:
-            # Detection of the file 
-            pathfi = glob.glob('%s%s*%s*%s*%s%s.csv' % (inputdir,os.sep,os.sep,os.sep,os.sep,fi))[0]
+    for fi in listfile:
+        # Detection of the file 
+        pathfi = glob.glob('%s%s*%s*%s*%s%s.csv' % (inputdir,os.sep,os.sep,os.sep,os.sep,fi))[0]
 
-            # Read the file
-            datai = pd.read_csv(pathfi,index_col=0)
-            # datai = pd.read_csv(pathfi,nrows=1000,index_col=0)
+        # Read the file
+        datai = pd.read_csv(pathfi,index_col=0)
+        # datai = pd.read_csv(pathfi,nrows=1000,index_col=0)
 
-            # Path computation 
-            if mode_duplicate == True:
-                xpts = datai['easting'].to_list()
-                ypts = datai['northing'].to_list()
-                pts = np.array([np.array(xpts), np.array(ypts)]).T
+        # Path computation 
+        if mode_duplicate == True:
+            xpts = datai['easting'].to_list()
+            ypts = datai['northing'].to_list()
+            pts = np.array([np.array(xpts), np.array(ypts)]).T
 
-                usermessage.egmstoolkitprint('\t\tComputation of the convace hull to remove the duplicate points',log,verbose)
-                idxes = concave_hull_indexes(
-                    pts,
-                    length_threshold=length_duplicate)      
-                pts_out = list(zip(pts[idxes][:,0],pts[idxes][:,1]))
-                Poly_out_iter = Polygon(pts_out)
+            usermessage.egmstoolkitprint('\t\tComputation of the convace hull to remove the duplicate points',log,verbose)
+            idxes = concave_hull_indexes(
+                pts,
+                length_threshold=length_duplicate)      
+            pts_out = list(zip(pts[idxes][:,0],pts[idxes][:,1]))
+            Poly_out_iter = Polygon(pts_out)
 
-                if first_one == True: 
-                    Poly_out = Poly_out_iter
-                else: 
-                    
-                    xs, ys = Poly_out.exterior.xy
-
-                    path_outlines = path.Path(list(zip(xs,ys)))
-                    test_intersection = path_outlines.contains_points(list(zip(xpts,ypts)))
-                    test_intersection_inv = [not elem for elem in test_intersection]
-
-
-                    Poly_out = Poly_out.union(Poly_out_iter)
-                    
-                    pourctest = (1 - list(test_intersection).count(True) / len(datai))* 100
-                    datai = datai[test_intersection_inv]
-                    usermessage.warningmsg(__name__,__name__,__file__,'Regarding the burst coverage: %f %% of the points inside this burst will be kept.' %(pourctest),log,verbose)
-
-            datamatrix = dict()
-            if paratosave == 'all':
-                for hi in header_final:
-                    datamatrix[hi] = []
-
-            else:
-                # Mandatory parameters
-                mand_para = ['latitude', 'longitude', 'easting', 'northing', 'height', 'height_wgs84']
-                for hi in mand_para:
-                    datamatrix[hi] = []
-                # Selected parameters
-                if isinstance(paratosave,list):
-                    for hi in paratosave:
-                        datamatrix[hi] = []
-                else:
-                    for hi in paratosave.split(','):
-                        datamatrix[hi] = []
-
-            # Merging 
-            list_save = list(datamatrix.keys())
-            for mi in list_save:
-                ni = np.where(mi == np.array(head))[0]          
-                if not len(ni) == 0:
-                    datamatrix[mi] = datai[head[ni[0]]]
-                else: 
-                    datamatrix[mi] = datai[head[-1]]
-                    datamatrix[mi] = np.where(np.isnan(datamatrix[mi])==0, np.nan, datamatrix[mi])
+            if first_one == True: 
+                Poly_out = Poly_out_iter
+            else: 
                 
-            pdfdframetosave = pd.DataFrame(data=datamatrix)
+                xs, ys = Poly_out.exterior.xy
 
-            # Create the sub-directory to store the .csv file
-            if not os.path.isdir('%s%s%s' % (outputdir,os.sep,name)): 
-                os.mkdir('%s%s%s' % (outputdir,os.sep,name))
+                path_outlines = path.Path(list(zip(xs,ys)))
+                test_intersection = path_outlines.contains_points(list(zip(xpts,ypts)))
+                test_intersection_inv = [not elem for elem in test_intersection]
 
-            # Save the file 
-            pdfdframetosave.to_csv('%s%s%s%s%s_%s.csv' % (outputdir,os.sep,name,os.sep,name,h), mode='w', sep=';', index=True, header = True)
 
-            h = h + 1
-            first_one = False
+                Poly_out = Poly_out.union(Poly_out_iter)
+                
+                pourctest = (1 - list(test_intersection).count(True) / len(datai))* 100
+                datai = datai[test_intersection_inv]
+                usermessage.warningmsg(__name__,__name__,__file__,'Regarding the burst coverage: %f %% of the points inside this burst will be kept.' %(pourctest),log,verbose)
+
+        datamatrix = dict()
+        if paratosave == 'all':
+            for hi in header_final:
+                datamatrix[hi] = []
+
+        else:
+            # Mandatory parameters
+            mand_para = ['latitude', 'longitude', 'easting', 'northing', 'height', 'height_wgs84']
+            for hi in mand_para:
+                datamatrix[hi] = []
+            # Selected parameters
+            if isinstance(paratosave,list):
+                for hi in paratosave:
+                    datamatrix[hi] = []
+            else:
+                for hi in paratosave.split(','):
+                    datamatrix[hi] = []
+
+        # Merging 
+        list_save = list(datamatrix.keys())
+        for mi in list_save:
+            ni = np.where(mi == np.array(head))[0]          
+            if not len(ni) == 0:
+                datamatrix[mi] = datai[head[ni[0]]]
+            else: 
+                datamatrix[mi] = datai[head[-1]]
+                datamatrix[mi] = np.where(np.isnan(datamatrix[mi])==0, np.nan, datamatrix[mi])
+            
+        pdfdframetosave = pd.DataFrame(data=datamatrix)
+
+        # Create the sub-directory to store the .csv file
+        if not os.path.isdir('%s%s%s' % (outputdir,os.sep,name)): 
+            os.mkdir('%s%s%s' % (outputdir,os.sep,name))
+
+        # Save the file 
+        pdfdframetosave.to_csv('%s%s%s%s%s_%s.csv' % (outputdir,os.sep,name,os.sep,name,h), mode='w', sep=';', index=True, header = True)
+
+        h = h + 1
+        first_one = False
+
+        del datai, datamatrix
 
     # Write the .vrt file
     with open('%s%s%s.vrt' % (outputdir,os.sep,name),'w') as fvrt:
@@ -840,20 +856,17 @@ def filemergingcsvvrt(inputdir,outputdir,name,listfile,paratosave,mode_duplicate
         fvrt.write('\t<OGRVRTUnionLayer name="%s">\n' % (name))
     	
         for idx, fi in enumerate(listfile):
-            if mode_duplicate == True or (not paratosave == 'all'):
-                nametmp1 = '%s_%s' % (name,idx+1)
-                nametmp2 = '%s%s%s_%s.csv' % (name,os.sep,name,idx+1)
-            else:     
-                pathfi = glob.glob('%s%s*%s*%s*%s%s.csv' % (inputdir,os.sep,os.sep,os.sep,os.sep,fi))[0]
-                nametmp2 = os.path.abspath(pathfi)
-                nametmp1 = nametmp2.split(os.sep)[-1].split('.')[0]
+            nametmp1 = '%s_%s' % (name,idx+1)
+            nametmp2 = '%s%s%s_%s.csv' % (name,os.sep,name,idx+1)
+
             fvrt.write('\t\t<OGRVRTLayer name="%s">\n' % (nametmp1))
             fvrt.write('\t\t\t<SrcDataSource relativeToVRT="1">%s</SrcDataSource>\n' % (nametmp2))
             fvrt.write('\t\t\t<GeometryType>wkbPoint</GeometryType>\n')
             fvrt.write('\t\t\t<GeometryField encoding="PointFromColumns" x="easting" y="northing"/>\n')
-            fvrt.write('\t\t\t<LayerSRS>WGS84</LayerSRS>\n')
+            fvrt.write('\t\t\t<SrcSRS>EPSG:3035</SrcSRS>\n')
             fvrt.write('\t\t</OGRVRTLayer>\n')
 
+        fvrt.write('\t\t<LayerSRS>EPSG:3035</LayerSRS>\n')
         fvrt.write('\t</OGRVRTUnionLayer>\n')
         fvrt.write('</OGRVRTDataSource>') 
 
