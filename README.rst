@@ -81,8 +81,8 @@ Merging the L2 datasets
 
 Due to the Sentinel-1 acquisition mode, EGMStoolkit offers two different methods of merging: 
 
-* Without deleting of duplicate of measurement points in burst/swath overlaps; 
-* With deleting of duplicate of measurement points in burst/swath overlaps based on the convace-hull algorithm.
+* Without reducing duplicate of measurement points in burst/swath overlaps; 
+* With reducing duplicate of measurement points in burst/swath overlaps based on the convace-hull algorithm.
 
 The method can be selected by modifing (True or False) the option *__removeduplicate__*. The *__length_threshold__* can be used for the same function (1000 by default). 
 
