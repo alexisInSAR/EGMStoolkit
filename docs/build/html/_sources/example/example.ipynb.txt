@@ -835,7 +835,7 @@
    "source": [
     "Three other options are available: \n",
     "\n",
-    "* __removeduplicate__ (bool): Remove the duplicate points [Default: True]\n",
+    "* __removeduplicate__ (bool): Reduce the duplicate points [Default: True]\n",
     "* __length_threshold__ (int): Length for the concave hull [Default: 1000]\n",
     "* __usevrtmerging__ (bool): Use the vrt for merging [Default: False]"
    ]
