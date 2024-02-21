@@ -25,18 +25,16 @@ import pandas as pd
 import subprocess
 import os
 import fiona
-from shapely.geometry import Polygon, mapping, shape, LineString, Point, MultiPolygon
+from shapely.geometry import Polygon, mapping, shape, LineString, Point
 import pyproj
 import shutil
 from typing import Optional, Union
 from matplotlib import path
 import platform
-import copy 
 
 from EGMStoolkit import usermessage
 from EGMStoolkit import constants
 from EGMStoolkit.functions import egmsapitools
-import matplotlib.pyplot as plt
 
 try: 
     from concave_hull import concave_hull_indexes
