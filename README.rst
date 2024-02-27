@@ -10,7 +10,7 @@ EGMS toolkit
 
 **UNDER DEVELOPMENT**
 
-**Release info**: Version 0.2.5 Beta, Feb., 2024
+**Release info**: Version 0.2.6 Beta, Feb., 2024
 
 The online documentation can be found `here <https://alexisinsar.github.io/EGMStoolkit/>`_.
 
@@ -20,8 +20,12 @@ Dependencies and installation
 The requirements are:
 
 * Python 3
-* GDAL
+* GDAL (best with 3.8.0)
 * GMT (with GSHHG)
+
+.. note:: 
+
+    GDAL 3.8.0 (or higher) is required for data gridding. 
 
 To install the **EGMS toolkit**, 
 
@@ -93,18 +97,38 @@ Authors
 
 Alexis Hrysiewicz University College Dublin / iCRAG
 
-Partners
-========
+License
+=======
+
+EGMS-toolkit  Copyright (C) 2024  Alexis Hrysiewicz
+
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under certain conditions (see License). 
+
+Reference
+=========
+
+To do
+
+Funding
+=======
+
+The author acknowledges funding from an ESA Living Planet Fellowship (Project name: *Raised Peatland Ecohydrology Evaluation through Sentinel-1 InSAR data and Machine Learning*) and iCRAG, the Science Foundation Ireland Research Centre in Applied Geosciences.  
 
 .. list-table::
-   :widths: 75 75
-   :header-rows: 1
+   :widths: 75 75 75 
+   :header-rows: 0
 
-   * - University College Dublin 
-     - iCRAG
-   * - .. image:: private/UCDlogo.png
+   * - .. image:: https://brand.esa.int/files/2020/05/ESA_logo_2020_Deep-1024x643.jpg
+            :height: 100px
+            :alt: ESA Logo
+            :target: https://eo4society.esa.int/lpf/alexis-hrysiewicz/
+     - .. image:: https://www.icrag-centre.org/t4media/icrag-logo-new.png
+            :height: 100px
+            :alt: iCRAG logo
+            :target: https://www.icrag-centre.org
+     - .. image:: https://upload.wikimedia.org/wikipedia/en/9/9e/UCD_Dublin.png
             :height: 75px
             :alt: UCD Logo
-     - .. image:: private/icrag-logo.png
-            :height: 75px
-            :alt: iCRAG Logo
+            :target: https://www.ucd.ie/
+
+*The Python package reflects only the Author's view and not the one of the ESA. The Agency is not responsible for any use that may be made of the information it contains.*

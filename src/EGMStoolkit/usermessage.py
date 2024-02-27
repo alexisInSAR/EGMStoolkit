@@ -10,6 +10,7 @@ The module allows to generate the different user messages
     (From `EGMStoolkit` package)
 
 Changelog:
+        * 0.2.6: Small update, Feb. 2024
         * 0.2.0: Initial version, Jan. 2024
 
 """
@@ -38,9 +39,18 @@ def openingmsg(namescript,defname,filescript,copyright,msg,log,verbose):
     
     """
 
-    egmstoolkitprint('%s\n%s %s\n\n%s\n%s.%s:\n\t%s\n\n\tScript: %s\n\t\t%s\n%s\n' % (constants.__displayline1__,
-        constants.__name__,constants.__version__,constants.__displayline2__,
-        namescript,defname,msg,filescript,copyright,constants.__displayline1__)
+    egmstoolkitprint('%s\n%s %s\n\n%s\n%s.%s:\n\t%s\n\n\tScript: %s\n\t\t%s\n%s\n%s\n' % (constants.__displayline1__,
+        constants.__name__,
+        constants.__version__,
+        constants.__displayline2__,
+        namescript,
+        defname,
+        msg,
+        filescript,
+        copyright,
+        '\n\tThis program comes with ABSOLUTELY NO WARRANTY.\n\tThis is free software, and you are welcome to redistribute it under certain conditions.',
+        constants.__displayline1__,
+        )
         ,log,verbose)   
 
 ################################################################################

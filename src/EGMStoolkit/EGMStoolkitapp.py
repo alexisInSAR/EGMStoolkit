@@ -7,6 +7,7 @@ Wrapper of EGMS-toolkit
     (From `EGMStoolkit` package)
 
 Changelog:
+    * 0.2.6: Bug fixes for Windows systems, Feb. 2024, Alexis Hrysiewicz
     * 0.2.0: Script structuring, Jan. 2024, Alexis Hrysiewicz
     * 0.1.0: Initial version, Nov. 2023
 
@@ -66,8 +67,8 @@ def main():
                         help="User token given by EGMS website.")
         parser.add_option("-b", "--bbox", dest="bbox", action="store", type="string", default='None',
                         help="BBOX [WSEN] or country indices or shapefile in EPGS:4326.")
-        parser.add_option("-o", "--outputdir", dest="outputdir", action="store", type="string", default='./Output',
-                        help="Output directory. Default: ./Output")
+        parser.add_option("-o", "--outputdir", dest="outputdir", action="store", type="string", default='Output',
+                        help="Output directory. Default: Output")
         
         parser.add_option("--track", dest="track", action="store", type="string", default='None',
                         help="Track numbers. The comma can be used for multiple selections. Track and Pass must have the same length. Default: None")

@@ -9,6 +9,7 @@ The module adds some functions, required by `EGMStoolkit` to post-process the EG
     (From `EGMStoolkit` package)
 
 Changelog:
+    * 0.2.6: Bug fixes regarding the windows system + GDAL version (some information), Feb. 2024, Alexis Hrysiewicz
     * 0.2.5: Add the interpolation processing for the .vrt file + optional function arguments for "duplicate" point and vrt files, Feb. 2024, Alexis Hrysiewicz
     * 0.2.4: Add the possibility to merge the L3 .csv file into a .vrt file and fix the problem with the L2 datasets, Feb. 2024, Alexis Hrysiewicz
     * 0.2.3: Add the possibility to merge the L2 .csv file into a .vrt file (but can fail), Feb. 2024, Alexis Hrysiewicz
@@ -40,6 +41,12 @@ try:
     from concave_hull import concave_hull_indexes
 except: 
     usermessage.warningmsg(__name__,__name__,__file__,'Impossible to import concave_hull, required for removing of duplicate points.',None,True)
+
+from osgeo import __version__ as infoversiongdal
+if int(infoversiongdal.split('.')[0]) < 3: 
+    usermessage.warningmsg(__name__,__name__,__file__,'The GDAL is lower than 3.8.0 (user version : %s) but this version is required for data gridding.' % (infoversiongdal),None,True)
+elif int(infoversiongdal.split('.')[1]) < 8: 
+    usermessage.warningmsg(__name__,__name__,__file__,'The GDAL is lower than 3.8.0 (user version : %s) but this version is required for data gridding.' % (infoversiongdal),None,True)
 
 source_crs = 'epsg:4326'
 """str: Source CRS.
@@ -521,6 +528,9 @@ def dataclipping(outputdir: Optional[str] = '.'+os.sep+'Output',
             usermessage.egmstoolkitprint('\t%d / %d file(s): Clip the file %s to %s...' % (it,ittotal,fi,newname),log,verbose)
 
             ## Clipping using ogr2og
+            if platform.system() == 'Windows' and __clipuseogr2ogr__ == True:
+                raise ValueError(usermessage.errormsg(__name__,'dataclipping',__file__,constants.__copyright__,'The option __clipuseogr2ogr__ is not compatible with Windows system.',log))
+
             if __clipuseogr2ogr__ == True: 
 
                 shapeinput = shapefile
@@ -560,10 +570,10 @@ def dataclipping(outputdir: Optional[str] = '.'+os.sep+'Output',
                 os.system(cmdi)
 
                 #Delete de quote string 
-                if platform.system() == 'Windows': # for windows
-                    cmdi = 'get-content %s| %{$_ -replace """,""}' % (newname)
-                    cmdibis = 'get-content %s| %{$_ -replace ",",";"}' % (newname)
-                elif platform.system() == 'Linux': # for linux
+                # if platform.system() == 'Windows': # for windows
+                #     cmdi = 'get-content %s | %%{$_ -replace """,""}' % (newname)
+                #     cmdibis = 'get-content %s | %%{$_ -replace ",",";"}' % (newname)
+                if platform.system() == 'Linux': # for linux
                     cmdi = "sed -i 's/\"//g' %s" % (newname)
                     cmdibis = "sed -i 's/,/;/g' %s" % (newname)
                 else: # for MacOS
@@ -576,8 +586,6 @@ def dataclipping(outputdir: Optional[str] = '.'+os.sep+'Output',
                 if os.path.isfile(newname+'.tmp2'): 
                     os.remove(newname+'.tmp')
                     os.rename(newname+'.tmp2',newname)
-                else: 
-                    os.rename(newname+'.tmp',newname)
 
                 if os.path.isfile(shapeoutput): 
                     os.remove(shapeoutput)
@@ -1015,7 +1023,7 @@ def listtodictmerged(list):
 
     ## Extraction of the parameters
     for fi in list:
-        namei = fi.split('/')[-1].split('.')[0]
+        namei = fi.split(os.sep)[-1].split('.')[0]
         ri = egmsapitools.check_release_fromfile(namei)
 
         if ri[1] == '':
