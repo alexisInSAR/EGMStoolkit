@@ -54,7 +54,9 @@
 <li class="toctree-l2"><a class="reference internal" href="#run-the-toolkit">Run the toolkit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#merging-the-l2-datasets">Merging the L2 datasets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#authors">Authors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#partners">Partners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reference">Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#funding">Funding</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="example/example.html">Example of EGMS toolkit in Python environment</a></li>
@@ -103,16 +105,20 @@
 <li><p>to clip/crop the datasets.</p></li>
 </ul>
 <p><strong>UNDER DEVELOPMENT</strong></p>
-<p><strong>Release info</strong>: Version 0.2.5 Beta, Feb., 2024</p>
+<p><strong>Release info</strong>: Version 0.2.6 Beta, Feb., 2024</p>
 <p>The online documentation can be found <a class="reference external" href="https://alexisinsar.github.io/EGMStoolkit/">here</a>.</p>
 <section id="dependencies-and-installation">
 <h2>Dependencies and installation<a class="headerlink" href="#dependencies-and-installation" title="Link to this heading"></a></h2>
 <p>The requirements are:</p>
 <ul class="simple">
 <li><p>Python 3</p></li>
-<li><p>GDAL</p></li>
+<li><p>GDAL (best with 3.8.0)</p></li>
 <li><p>GMT (with GSHHG)</p></li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>GDAL 3.8.0 (or higher) is required for data gridding.</p>
+</div>
 <p>To install the <strong>EGMS toolkit</strong>,</p>
 <p>On Linux and MacOS:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">alexisInSAR</span><span class="o">/</span><span class="n">EGMStoolkit</span><span class="o">.</span><span class="n">git</span>
@@ -165,26 +171,35 @@
 <h2>Authors<a class="headerlink" href="#authors" title="Link to this heading"></a></h2>
 <p>Alexis Hrysiewicz University College Dublin / iCRAG</p>
 </section>
-<section id="partners">
-<h2>Partners<a class="headerlink" href="#partners" title="Link to this heading"></a></h2>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Link to this heading"></a></h2>
+<p>EGMS-toolkit  Copyright (C) 2024  Alexis Hrysiewicz</p>
+<p>This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under certain conditions (see License).</p>
+</section>
+<section id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Link to this heading"></a></h2>
+<p>To do</p>
+</section>
+<section id="funding">
+<h2>Funding<a class="headerlink" href="#funding" title="Link to this heading"></a></h2>
+<p>The author acknowledges funding from an ESA Living Planet Fellowship (Project name: <em>Raised Peatland Ecohydrology Evaluation through Sentinel-1 InSAR data and Machine Learning</em>) and iCRAG, the Science Foundation Ireland Research Centre in Applied Geosciences.</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
 </colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>University College Dublin</p></th>
-<th class="head"><p>iCRAG</p></th>
-</tr>
-</thead>
 <tbody>
-<tr class="row-even"><td><a class="reference internal image-reference" href="_images/UCDlogo.png"><img alt="UCD Logo" src="_images/UCDlogo.png" style="height: 75px;" /></a>
+<tr class="row-odd"><td><a class="reference external image-reference" href="https://eo4society.esa.int/lpf/alexis-hrysiewicz/"><img alt="ESA Logo" src="https://brand.esa.int/files/2020/05/ESA_logo_2020_Deep-1024x643.jpg" style="height: 100px;" /></a>
 </td>
-<td><a class="reference internal image-reference" href="_images/icrag-logo.png"><img alt="iCRAG Logo" src="_images/icrag-logo.png" style="height: 75px;" /></a>
+<td><a class="reference external image-reference" href="https://www.icrag-centre.org"><img alt="iCRAG logo" src="https://www.icrag-centre.org/t4media/icrag-logo-new.png" style="height: 100px;" /></a>
+</td>
+<td><a class="reference external image-reference" href="https://www.ucd.ie/"><img alt="UCD Logo" src="https://upload.wikimedia.org/wikipedia/en/9/9e/UCD_Dublin.png" style="height: 75px;" /></a>
 </td>
 </tr>
 </tbody>
 </table>
+<p><em>The Python package reflects only the Author’s view and not the one of the ESA. The Agency is not responsible for any use that may be made of the information it contains.</em></p>
 </section>
 </section>
 

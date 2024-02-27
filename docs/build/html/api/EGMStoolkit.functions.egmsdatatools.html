@@ -412,6 +412,7 @@
 <dl class="rst-docutils">
 <dt>Changelog:</dt>
 <dd><ul class="rst-first rst-last rst-simple">
+<li>0.2.6: Bug fixes regarding the windows system + GDAL version (some information), Feb. 2024, Alexis Hrysiewicz</li>
 <li>0.2.5: Add the interpolation processing for the .vrt file + optional function arguments for "duplicate" point and vrt files, Feb. 2024, Alexis Hrysiewicz</li>
 <li>0.2.4: Add the possibility to merge the L3 .csv file into a .vrt file and fix the problem with the L2 datasets, Feb. 2024, Alexis Hrysiewicz</li>
 <li>0.2.3: Add the possibility to merge the L2 .csv file into a .vrt file (but can fail), Feb. 2024, Alexis Hrysiewicz</li>
@@ -520,7 +521,7 @@
     
     
     <span class="py-keyword">def</span> <span class="py-defname">convertcsv</span><span class="function-signature">(outputdir: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">.</span><span class="rst-variable-quote">'</span>+<a href="https://docs.python.org/3/library/os.html#os.sep" class="intersphinx-link">os.sep</a>+<span class="rst-variable-quote">'</span><span class="rst-variable-string">Output</span><span class="rst-variable-quote">'</span>, inputdir: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">.</span><span class="rst-variable-quote">'</span>+<a href="https://docs.python.org/3/library/os.html#os.sep" class="intersphinx-link">os.sep</a>+<span class="rst-variable-quote">'</span><span class="rst-variable-string">Output</span><span class="rst-variable-quote">'</span>, namefile: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>]]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">all</span><span class="rst-variable-quote">'</span>, format: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>]]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">ESRI Shapefile</span><span class="rst-variable-quote">'</span>, verbose: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>, log: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>)</span>:
-    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L64">
+    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L69">
       
       (source)
     </a>
@@ -547,7 +548,7 @@
     
     
     <span class="py-keyword">def</span> <span class="py-defname">dataclipping</span><span class="function-signature">(outputdir: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">.</span><span class="rst-variable-quote">'</span>+<a href="https://docs.python.org/3/library/os.html#os.sep" class="intersphinx-link">os.sep</a>+<span class="rst-variable-quote">'</span><span class="rst-variable-string">Output</span><span class="rst-variable-quote">'</span>, inputdir: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">.</span><span class="rst-variable-quote">'</span>+<a href="https://docs.python.org/3/library/os.html#os.sep" class="intersphinx-link">os.sep</a>+<span class="rst-variable-quote">'</span><span class="rst-variable-string">Output</span><span class="rst-variable-quote">'</span>, namefile: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">all</span><span class="rst-variable-quote">'</span>, shapefile: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">bbox.shp</span><span class="rst-variable-quote">'</span>, __clipuseogr2ogr__: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>, verbose: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>, log: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>)</span>:
-    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L464">
+    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L469">
       
       (source)
     </a>
@@ -574,7 +575,7 @@
     
     
     <span class="py-keyword">def</span> <span class="py-defname">datagridding</span><span class="function-signature">(paragrid, outputdir: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">.</span><span class="rst-variable-quote">'</span>+<a href="https://docs.python.org/3/library/os.html#os.sep" class="intersphinx-link">os.sep</a>+<span class="rst-variable-quote">'</span><span class="rst-variable-string">Output</span><span class="rst-variable-quote">'</span>, inputdir: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">.</span><span class="rst-variable-quote">'</span>+<a href="https://docs.python.org/3/library/os.html#os.sep" class="intersphinx-link">os.sep</a>+<span class="rst-variable-quote">'</span><span class="rst-variable-string">Output</span><span class="rst-variable-quote">'</span>, namefile: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>]]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">all</span><span class="rst-variable-quote">'</span>, verbose: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>, log: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>)</span>:
-    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L149">
+    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L154">
       
       (source)
     </a>
@@ -601,7 +602,7 @@
     
     
     <span class="py-keyword">def</span> <span class="py-defname">datamergingcsv</span><span class="function-signature">(outputdir: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">.</span><span class="rst-variable-quote">'</span>+<a href="https://docs.python.org/3/library/os.html#os.sep" class="intersphinx-link">os.sep</a>+<span class="rst-variable-quote">'</span><span class="rst-variable-string">Output</span><span class="rst-variable-quote">'</span>, inputdir: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">.</span><span class="rst-variable-quote">'</span>+<a href="https://docs.python.org/3/library/os.html#os.sep" class="intersphinx-link">os.sep</a>+<span class="rst-variable-quote">'</span><span class="rst-variable-string">Output</span><span class="rst-variable-quote">'</span>, paratosave: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#any" class="intersphinx-link">any</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">all</span><span class="rst-variable-quote">'</span>, mode: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">onlist</span><span class="rst-variable-quote">'</span>, infoEGMSdownloader: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#any" class="intersphinx-link">any</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, __removeduplicate__: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>, __length_threshold__: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a>]</code> = 1000, __usevrtmerging__: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>, verbose: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>, log: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>)</span>:
-    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L301">
+    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L306">
       
       (source)
     </a>
@@ -628,7 +629,7 @@
     
     
     <span class="py-keyword">def</span> <span class="py-defname">datamergingtiff</span><span class="function-signature">(outputdir: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">.</span><span class="rst-variable-quote">'</span>+<a href="https://docs.python.org/3/library/os.html#os.sep" class="intersphinx-link">os.sep</a>+<span class="rst-variable-quote">'</span><span class="rst-variable-string">Output</span><span class="rst-variable-quote">'</span>, inputdir: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">.</span><span class="rst-variable-quote">'</span>+<a href="https://docs.python.org/3/library/os.html#os.sep" class="intersphinx-link">os.sep</a>+<span class="rst-variable-quote">'</span><span class="rst-variable-string">Output</span><span class="rst-variable-quote">'</span>, paratosave: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#any" class="intersphinx-link">any</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">all</span><span class="rst-variable-quote">'</span>, mode: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">onlist</span><span class="rst-variable-quote">'</span>, infoEGMSdownloader: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#any" class="intersphinx-link">any</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, verbose: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>, log: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>)</span>:
-    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L393">
+    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L398">
       
       (source)
     </a>
@@ -655,7 +656,7 @@
     
     
     <span class="py-keyword">def</span> <span class="py-defname">filemergingcsv</span><span class="function-signature">(inputdir, outputdir, name, listfile, paratosave, mode_duplicate, length_duplicate, verbose, log)</span>:
-    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L876">
+    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L882">
       
       (source)
     </a>
@@ -682,7 +683,7 @@
     
     
     <span class="py-keyword">def</span> <span class="py-defname">filemergingcsvvrt</span><span class="function-signature">(inputdir, outputdir, name, listfile, paratosave, mode_duplicate, length_duplicate, verbose, log)</span>:
-    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L725">
+    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L731">
       
       (source)
     </a>
@@ -711,7 +712,7 @@
     
     
     <span class="py-keyword">def</span> <span class="py-defname">filemergingtiff</span><span class="function-signature">(inputdir, outputdir, name, listfile, verbose, log)</span>:
-    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L693">
+    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L699">
       
       (source)
     </a>
@@ -738,7 +739,7 @@
     
     
     <span class="py-keyword">def</span> <span class="py-defname">listtodictmerged</span><span class="function-signature">(list)</span>:
-    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L995">
+    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L1001">
       
       (source)
     </a>
@@ -769,7 +770,7 @@ L3compall (str)</td></tr></table></div>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">removerawdata</span><span class="function-signature">(inputdir: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">.</span><span class="rst-variable-quote">'</span>+<a href="https://docs.python.org/3/library/os.html#os.sep" class="intersphinx-link">os.sep</a>+<span class="rst-variable-quote">'</span><span class="rst-variable-string">Output</span><span class="rst-variable-quote">'</span>, forcemode: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>, verbose: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>, log: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>)</span>:
-    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L254">
+    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L259">
       
       (source)
     </a>
@@ -795,7 +796,7 @@ L3compall (str)</td></tr></table></div>
   <div class="functionHeader">
     
     <span class="py-defname">latlon_to_meter</span> =
-    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L54">
+    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L59">
       
       (source)
     </a>
@@ -822,7 +823,7 @@ L3compall (str)</td></tr></table></div>
   <div class="functionHeader">
     
     <span class="py-defname">meter_to_latlon</span> =
-    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L57">
+    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L62">
       
       (source)
     </a>
@@ -849,7 +850,7 @@ L3compall (str)</td></tr></table></div>
   <div class="functionHeader">
     
     <span class="py-defname">source_crs</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
-    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L46">
+    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L51">
       
       (source)
     </a>
@@ -876,7 +877,7 @@ L3compall (str)</td></tr></table></div>
   <div class="functionHeader">
     
     <span class="py-defname">target_crs</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
-    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L50">
+    <a class="sourceLink" href="https://github.com/alexisInSAR/EGMStoolkit.git/tree/main/src/EGMStoolkit/functions/egmsdatatools.py#L55">
       
       (source)
     </a>
@@ -904,7 +905,7 @@ L3compall (str)</td></tr></table></div>
     <div class="container">
       <a href="index.html">API Documentation</a> for <a href="../index.html" class="projecthome">EGMS-toolkit</a>,
     generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-      23.9.1 at 2024-02-14 13:03:28.
+      23.9.1 at 2024-02-27 17:46:00.
     </div>
     
     <script src="ajax.js" type="text/javascript"></script>
