@@ -9,6 +9,7 @@ The module contains the classe and the methods to detect the tile regarding a us
     (From `EGMStoolkit` package)
 
 Changelog:
+    * 0.2.7: Add the Folium package in order to create the map
     * 0.2.1: Fix regarding the EGMS-ID bursts, Feb. 2024, Alexis Hrysiewicz
     * 0.2.0: Script structuring, Jan. 2024, Alexis Hrysiewicz
     * 0.1.0: Initial version, Nov. 2023
@@ -26,7 +27,13 @@ from alive_progress import alive_bar
 import pickle
 import pyproj
 import plotly.graph_objects as go
+import folium
+from folium import plugins
+import webbrowser
 from typing import Optional, Union
+import io
+from PIL import Image
+import selenium
 
 from EGMStoolkit.functions import esa2egmsburstID
 from EGMStoolkit import usermessage
@@ -464,12 +471,14 @@ class S1ROIparameter:
     ## Create a map of the burst IDs
     ################################################################################
     def displaymap(self,
-        output: Optional[Union[str,None]] = None, 
+        output: Optional[Union[str,None]] = None,
+        use_folium: Optional[bool] = True,  
         verbose: Optional[Union[bool,None]] = None): 
         """Create a map of the burst IDs
         
         Args:
             output (str or None, Optional): File for the figure. If none, the figure will be displayed [Default: `None`]
+            use_folium(bool, Optional): Use Folium package to create the map [Default: `True`]
             verbose (bool or None, Optional): Verbose if `None`, use the verbose mode of the job [Default: `None`]
 
         Return
@@ -490,8 +499,57 @@ class S1ROIparameter:
         if (not self.Data) and (not self.DataL3):
             raise ValueError(usermessage.errormsg(__name__,'displaymap',__file__,constants.__copyright__,'The search list(s) is/are empty',self.log))
 
-        fig = go.Figure(go.Scattermapbox(
-            mode = "lines"))
+        ## Create the map
+        if use_folium: 
+            usermessage.egmstoolkitprint('Create a map using Folium...',self.log,verbose)
+            m = folium.Map(location=[0, 0],
+                zoom_start=15,control_scale = True)
+            
+            # add some basemap
+            # tile2 = folium.TileLayer(
+            #     tiles = 'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}',
+            #     attr = 'Google',
+            #     name = 'Google Satellite Hydrid',
+            #     overlay = False,
+            #     control = True,
+            # ).add_to(m)
+
+            # tile3 = folium.TileLayer(
+            #     tiles = 'http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}',
+            #     attr = 'Google',
+            #     name = 'Google Satellite',
+            #     overlay = False,
+            #     control = True,
+            # ).add_to(m)
+
+            # tile4 = folium.TileLayer(
+            #     tiles = 'https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}',
+            #     attr = 'Google',
+            #     name = 'Google Maps',
+            #     overlay = False,
+            #     control = True,
+            # ).add_to(m)
+            
+            # tile5 = folium.TileLayer(
+            #     tiles = 'http://services.arcgisonline.com/ArcGIS/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}',
+            #     attr = 'Esri',
+            #     name = 'Esri Topography',
+            #     overlay = False,
+            #     control = True,
+            # ).add_to(m)
+            
+            # tile1 = folium.TileLayer(
+            #     tiles = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+            #     attr = 'Esri',
+            #     name = 'Esri Satellite',
+            #     overlay = False,
+            #     control = True,
+            # ).add_to(m)
+            
+        else: 
+            usermessage.egmstoolkitprint('Create a map using Plotly...',self.log,verbose)
+            fig = go.Figure(go.Scattermapbox(
+                mode = "lines"))
 
         lonall = []
         latall = []
@@ -509,6 +567,8 @@ class S1ROIparameter:
         
         # Plot the bursts
         if self.Data:
+            if use_folium: 
+                groupL2= folium.FeatureGroup(name='<b>L2a/L2b EGMS dataset</b>')
             for tracki in self.Data:
                 
                 ni = np.where(tracki == listtrackunique)[0][0]
@@ -517,30 +577,53 @@ class S1ROIparameter:
                     for iwi in self.Data[tracki]['IW%s' %(idx)]:
                         lonall = lonall + iwi['polyburst'].exterior.coords.xy[0].tolist()
                         latall = latall + iwi['polyburst'].exterior.coords.xy[1].tolist()
+                        if use_folium:
+                            colori = listcolor[ni].replace('rgb(','').replace(')','').split(',')
+                            folium.PolyLine(list(zip(iwi['polyburst'].exterior.coords.xy[1].tolist(),iwi['polyburst'].exterior.coords.xy[0].tolist())),
+                                color= f'#{int(colori[0]):02x}{int(colori[1]):02x}{int(colori[2]):02x}',
+                                weight=2,
+                                popup=folium.Popup('%s IW%s / ID: %d' % (tracki,idx,iwi['egms_burst_id'])),
+                                opacity=1).add_to(groupL2)
 
-                        fig.add_trace(go.Scattermapbox(
-                            mode = "lines",
-                            showlegend = False,
-                            line=dict(color=listcolor[ni]), 
-                            lon = iwi['polyburst'].exterior.coords.xy[0].tolist(),
-                            lat = iwi['polyburst'].exterior.coords.xy[1].tolist(), 
-                            hovertemplate='%s IW%s' % (tracki,idx), 
-                            name='ID %d' % (iwi['egms_burst_id'])))
+                        else: 
+                            fig.add_trace(go.Scattermapbox(
+                                mode = "lines",
+                                showlegend = False,
+                                line=dict(color=listcolor[ni]), 
+                                lon = iwi['polyburst'].exterior.coords.xy[0].tolist(),
+                                lat = iwi['polyburst'].exterior.coords.xy[1].tolist(), 
+                                hovertemplate='%s IW%s' % (tracki,idx), 
+                                name='ID %d' % (iwi['egms_burst_id'])))
+            if use_folium:
+                groupL2.add_to(m)
         
         try:
+            if use_folium:
+                groupL3 = folium.FeatureGroup(name='<b>L3 UD/EW EGMS dataset</b>')
+
             for tilei in self.DataL3['polyL3ll']:
-                
                 lonall = lonall + tilei.exterior.coords.xy[0].tolist()
                 latall = latall + tilei.exterior.coords.xy[1].tolist()
 
-                fig.add_trace(go.Scattermapbox(
-                    mode = "lines",
-                    showlegend = False,
-                    line=dict(color='red'), 
-                    lon = tilei.exterior.coords.xy[0].tolist(),
-                    lat = tilei.exterior.coords.xy[1].tolist(), 
-                    hovertemplate='L3 UD/EW Grid', 
-                    name='L3 UD/EW Grid'))
+                if use_folium:
+                    folium.PolyLine(list(zip(tilei.exterior.coords.xy[1].tolist(),tilei.exterior.coords.xy[0].tolist())),
+                        color='red',
+                        weight=2,
+                        popup=folium.Popup('L3 UD/EW Grid'),
+                        opacity=1).add_to(groupL3)
+                else: 
+                    fig.add_trace(go.Scattermapbox(
+                        mode = "lines",
+                        showlegend = False,
+                        line=dict(color='red'), 
+                        lon = tilei.exterior.coords.xy[0].tolist(),
+                        lat = tilei.exterior.coords.xy[1].tolist(), 
+                        hovertemplate='L3 UD/EW Grid', 
+                        name='L3 UD/EW Grid'))
+                    
+            if use_folium:        
+                groupL3.add_to(m)
+
         except:
             a = 'dummy'
                     
@@ -558,7 +641,16 @@ class S1ROIparameter:
                     listROI.append(Polygon(coordinates))
 
         for polyi in listROI:
-            fig.add_trace(go.Scattermapbox(
+            if use_folium:
+                groupROI= folium.FeatureGroup(name='<b>ROI</b>')
+                folium.PolyLine(list(zip(polyi.exterior.coords.xy[1].tolist(),polyi.exterior.coords.xy[0].tolist())),
+                        color='black',
+                        weight=2,
+                        popup=folium.Popup('<b>ROI</b>'),
+                        opacity=1).add_to(groupROI)
+                groupROI.add_to(m)
+            else:
+                fig.add_trace(go.Scattermapbox(
                         mode = "lines",
                         line=dict(color='rgb(0,0,0)'),
                         showlegend = False,
@@ -567,16 +659,48 @@ class S1ROIparameter:
                         hovertemplate='ROI', 
                         name='ROI'))
         
-        max_bound = max(abs(np.min(lonall)-np.max(lonall)), abs(np.min(latall)-np.max(latall))) * 111
-        zoom = 10 - np.log(max_bound)
-        fig.update_layout(
-            margin ={'l':0,'t':0,'b':0,'r':0},
-            mapbox = {'style': "open-street-map",
-                    'zoom': zoom,
-                    'center': {'lon': np.mean(lonall), 'lat': np.mean(latall)}})
-                
+        if use_folium:
+            minimap = plugins.MiniMap()
+            m.add_child(minimap)
+            plugins.MousePosition().add_to(m)
+            folium.plugins.Fullscreen(
+                position="topright",
+                title="Expand me",
+                title_cancel="Exit me",
+                force_separate_button=True).add_to(m)
+
+            m.fit_bounds([[np.min(latall), np.min(lonall)], [np.max(latall), np.max(lonall)]])
+            folium.map.LayerControl('topright', collapsed=False).add_to(m)                                                                       
+
+        else:
+            max_bound = max(abs(np.min(lonall)-np.max(lonall)), abs(np.min(latall)-np.max(latall))) * 111
+            zoom = 10 - np.log(max_bound)
+            fig.update_layout(
+                margin ={'l':100,'t':100,'b':100,'r':100},
+                mapbox = {'style': "open-street-map",
+                        'zoom': zoom,
+                        'center': {'lon': np.mean(lonall), 'lat': np.mean(latall)}})
+            fig.update_layout(
+                xaxis_title="Longitude", yaxis_title="Latitude"
+                )
+            fig.update_layout(title={'yref':'container','text':'Search of EGMS-toolkit'},title_font={'size':30})
+
         if output == None: 
-            fig.show()
+            if not use_folium:
+                fig.show()
+            else: 
+                usermessage.egmstoolkitprint('\tMap saved in map_tmp.html. It will be opened.',self.log,verbose)
+                m.save("map_tmp.html")
+                webbrowser.open('file://' + os.path.realpath("map_tmp.html"))
         else: 
-            fig.write_image(output)
+            if not use_folium:
+                fig.write_image(output)
+            else: 
+                img_data = m._to_png(5)
+                img = Image.open(io.BytesIO(img_data))
+                img.save('tmp.png')
+                im1 = Image.open('tmp.png').convert('RGB')
+                im1.save(output)
+                os.remove('tmp.png')
+
             usermessage.egmstoolkitprint('Map saved in %s.' % (output),self.log,verbose)

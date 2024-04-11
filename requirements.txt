@@ -1,6 +1,8 @@
 numpy
 fiona
+folium
 shapely
+selenium
 pyproj
 wget
 urllib3
