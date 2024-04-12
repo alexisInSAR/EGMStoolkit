@@ -13,6 +13,7 @@ Welcome to ``EGMStoolkit``'s documentation!
    example/example.ipynb
    knownprob
    changelog   
+   contrib  
 
 .. toctree::
    :maxdepth: 1

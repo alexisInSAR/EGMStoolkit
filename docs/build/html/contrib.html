@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Issues and improvements &mdash; EGMS-toolkit  documentation</title>
+  <title>Contribution &mdash; EGMS-toolkit  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
@@ -21,8 +21,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Change log" href="changelog.html" />
-    <link rel="prev" title="Example of EGMS toolkit in Python environment" href="example/example.html" /> 
+    <link rel="next" title="API Reference" href="api/index.html" />
+    <link rel="prev" title="Change log" href="changelog.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -51,9 +51,13 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="readme.html">EGMS toolkit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example/example.html">Example of EGMS toolkit in Python environment</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Issues and improvements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="knownprob.html">Issues and improvements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Change log</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contrib.html">Contribution</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Contribution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-matlab-egmstoolkitimport-m-script">The MATLAB <em>EGMStoolkitimport.m</em> script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-python-egmstoolkitimport-py-script">The Python <em>EGMStoolkitimport.py</em> script</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Further information</span></p>
 <ul>
@@ -78,9 +82,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Issues and improvements</li>
+      <li class="breadcrumb-item active">Contribution</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/knownprob.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/contrib.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -88,22 +92,35 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="issues-and-improvements">
-<h1>Issues and improvements<a class="headerlink" href="#issues-and-improvements" title="Link to this heading"></a></h1>
-<p>This page summarises the different known issues:</p>
-<ul class="simple">
-<li><p><strong>HTTP Error 429: Too Many Requests</strong>, the <em>timeerror462</em> variable requires to be increased.</p></li>
-<li><p>The produced shapefiles use the string format for the number features.</p></li>
-<li><p>GDAL 3.8.0 (min.) is required for data gridding because of the open options.</p></li>
-</ul>
+  <section id="contribution">
+<h1>Contribution<a class="headerlink" href="#contribution" title="Link to this heading"></a></h1>
+<p>This page some contributions. The script can be done in the <em>contrib</em> direction (i.e., root/contrib). They are classified regarding the language used.</p>
+<section id="the-matlab-egmstoolkitimport-m-script">
+<h2>The MATLAB <em>EGMStoolkitimport.m</em> script<a class="headerlink" href="#the-matlab-egmstoolkitimport-m-script" title="Link to this heading"></a></h2>
+<p>The MATAB script allows to import and display the EGMS results (in .csv format). The user needs to have a version of MATLAB installed and the Mapping Toolbox. The contrib direction should be in the MATLAB path.</p>
+<p><strong>First, the user can import any .csv dataset:</strong></p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">EGMStoolkitimport</span><span class="p">(</span><span class="s">&#39;EGMS_file.csv&#39;</span><span class="p">,</span><span class="s">&#39;delimiter&#39;</span><span class="p">,</span><span class="s">&#39;;&#39;</span><span class="p">,</span><span class="s">&#39;verbose&#39;</span><span class="p">,</span><span class="nb">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The delimiter and verbose options are optional.</p>
+<p><strong>Then, it is possible to display the dataset:</strong></p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="s">&#39;mean_velocity&#39;</span><span class="p">,</span><span class="s">&#39;geobasemap&#39;</span><span class="p">,</span><span class="nb">true</span><span class="p">,</span><span class="s">&#39;ts_plot&#39;</span><span class="p">,</span><span class="nb">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><em>geobasemap</em> (bool) will create the map with satellite imagery (optional, True by default). <em>ts_plot</em> (bool) will ask the user to create time series plot (optional, False by default). Both options are optional. We recommend using ‘geobasemap=False’ for large datasets.</p>
+</section>
+<section id="the-python-egmstoolkitimport-py-script">
+<h2>The Python <em>EGMStoolkitimport.py</em> script<a class="headerlink" href="#the-python-egmstoolkitimport-py-script" title="Link to this heading"></a></h2>
+<p>Under development.</p>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="example/example.html" class="btn btn-neutral float-left" title="Example of EGMS toolkit in Python environment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="changelog.html" class="btn btn-neutral float-right" title="Change log" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="changelog.html" class="btn btn-neutral float-left" title="Change log" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api/index.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

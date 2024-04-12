@@ -97,6 +97,11 @@ Authors
 
 Alexis Hrysiewicz University College Dublin / iCRAG
 
+Change log
+==========
+
+See the **Change log** section of the documentation. 
+
 License
 =======
 

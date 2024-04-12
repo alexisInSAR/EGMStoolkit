@@ -9,7 +9,7 @@ The module contains the classe and the methods to detect the tile regarding a us
     (From `EGMStoolkit` package)
 
 Changelog:
-    * 0.2.7: Add the Folium package in order to create the map
+    * 0.2.7: Add the Folium package in order to create the map, Apr. 2024, Alexis Hrysiewicz
     * 0.2.1: Fix regarding the EGMS-ID bursts, Feb. 2024, Alexis Hrysiewicz
     * 0.2.0: Script structuring, Jan. 2024, Alexis Hrysiewicz
     * 0.1.0: Initial version, Nov. 2023
@@ -473,12 +473,14 @@ class S1ROIparameter:
     def displaymap(self,
         output: Optional[Union[str,None]] = None,
         use_folium: Optional[bool] = True,  
+        unlockfoliumtiles: Optional[bool] = constants.__unlockfoliumtiles__, 
         verbose: Optional[Union[bool,None]] = None): 
         """Create a map of the burst IDs
         
         Args:
             output (str or None, Optional): File for the figure. If none, the figure will be displayed [Default: `None`]
             use_folium(bool, Optional): Use Folium package to create the map [Default: `True`]
+            unlockfoliumtiles(bool, Optional): Unlock the availability of other tile source [Default: see constants.__unlockfoliumtiles__]
             verbose (bool or None, Optional): Verbose if `None`, use the verbose mode of the job [Default: `None`]
 
         Return
@@ -492,65 +494,76 @@ class S1ROIparameter:
         if not isinstance(verbose,bool):
             raise ValueError(usermessage.errormsg(__name__,'displaymap',__file__,constants.__copyright__,'Verbose must be True or False',self.log))
         
+        if not isinstance(use_folium,bool):
+            raise ValueError(usermessage.errormsg(__name__,'displaymap',__file__,constants.__copyright__,'use_folium must be True or False',self.log))
+        
+        if not isinstance(unlockfoliumtiles,bool):
+            raise ValueError(usermessage.errormsg(__name__,'displaymap',__file__,constants.__copyright__,'unlockfoliumtiles must be True or False',self.log))
+               
         usermessage.openingmsg(__name__,__name__,__file__,constants.__copyright__,'Display a map of the selected burst IDs',self.log,verbose)
         
+        if (unlockfoliumtiles == True) and (use_folium == False):
+            usermessage.warningmsg(__name__,'displaymap',__file__,'The unlockfoliumtiles currently is not compatible with Plotly.',self.log,True)
+            
         self.checkparameter(verbose=False)
 
         if (not self.Data) and (not self.DataL3):
             raise ValueError(usermessage.errormsg(__name__,'displaymap',__file__,constants.__copyright__,'The search list(s) is/are empty',self.log))
 
-        ## Create the map
+        ## Create the map using Folium or Plotly
         if use_folium: 
             usermessage.egmstoolkitprint('Create a map using Folium...',self.log,verbose)
             m = folium.Map(location=[0, 0],
                 zoom_start=15,control_scale = True)
             
-            # add some basemap
-            # tile2 = folium.TileLayer(
-            #     tiles = 'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}',
-            #     attr = 'Google',
-            #     name = 'Google Satellite Hydrid',
-            #     overlay = False,
-            #     control = True,
-            # ).add_to(m)
+            if unlockfoliumtiles:
+                # Add some other basemaps
+                tile2 = folium.TileLayer(
+                    tiles = 'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}',
+                    attr = 'Google',
+                    name = 'Google Satellite Hydrid',
+                    overlay = False,
+                    control = True,
+                ).add_to(m)
 
-            # tile3 = folium.TileLayer(
-            #     tiles = 'http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}',
-            #     attr = 'Google',
-            #     name = 'Google Satellite',
-            #     overlay = False,
-            #     control = True,
-            # ).add_to(m)
+                tile3 = folium.TileLayer(
+                    tiles = 'http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}',
+                    attr = 'Google',
+                    name = 'Google Satellite',
+                    overlay = False,
+                    control = True,
+                ).add_to(m)
 
-            # tile4 = folium.TileLayer(
-            #     tiles = 'https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}',
-            #     attr = 'Google',
-            #     name = 'Google Maps',
-            #     overlay = False,
-            #     control = True,
-            # ).add_to(m)
-            
-            # tile5 = folium.TileLayer(
-            #     tiles = 'http://services.arcgisonline.com/ArcGIS/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}',
-            #     attr = 'Esri',
-            #     name = 'Esri Topography',
-            #     overlay = False,
-            #     control = True,
-            # ).add_to(m)
-            
-            # tile1 = folium.TileLayer(
-            #     tiles = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-            #     attr = 'Esri',
-            #     name = 'Esri Satellite',
-            #     overlay = False,
-            #     control = True,
-            # ).add_to(m)
-            
+                tile4 = folium.TileLayer(
+                    tiles = 'https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}',
+                    attr = 'Google',
+                    name = 'Google Maps',
+                    overlay = False,
+                    control = True,
+                ).add_to(m)
+                
+                tile5 = folium.TileLayer(
+                    tiles = 'http://services.arcgisonline.com/ArcGIS/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}',
+                    attr = 'Esri',
+                    name = 'Esri Topography',
+                    overlay = False,
+                    control = True,
+                ).add_to(m)
+                
+                tile1 = folium.TileLayer(
+                    tiles = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+                    attr = 'Esri',
+                    name = 'Esri Satellite',
+                    overlay = False,
+                    control = True,
+                ).add_to(m)
+    
         else: 
             usermessage.egmstoolkitprint('Create a map using Plotly...',self.log,verbose)
             fig = go.Figure(go.Scattermapbox(
                 mode = "lines"))
 
+        # Create empty lists
         lonall = []
         latall = []
 
@@ -569,8 +582,9 @@ class S1ROIparameter:
         if self.Data:
             if use_folium: 
                 groupL2= folium.FeatureGroup(name='<b>L2a/L2b EGMS dataset</b>')
+
+            # For L2 datasets
             for tracki in self.Data:
-                
                 ni = np.where(tracki == listtrackunique)[0][0]
 
                 for idx in ['1','2','3']: 
@@ -584,7 +598,6 @@ class S1ROIparameter:
                                 weight=2,
                                 popup=folium.Popup('%s IW%s / ID: %d' % (tracki,idx,iwi['egms_burst_id'])),
                                 opacity=1).add_to(groupL2)
-
                         else: 
                             fig.add_trace(go.Scattermapbox(
                                 mode = "lines",
@@ -594,10 +607,12 @@ class S1ROIparameter:
                                 lat = iwi['polyburst'].exterior.coords.xy[1].tolist(), 
                                 hovertemplate='%s IW%s' % (tracki,idx), 
                                 name='ID %d' % (iwi['egms_burst_id'])))
+                            
             if use_folium:
-                groupL2.add_to(m)
+                m.add_child(groupL2)
         
         try:
+            # For L3 datasets
             if use_folium:
                 groupL3 = folium.FeatureGroup(name='<b>L3 UD/EW EGMS dataset</b>')
 
@@ -627,6 +642,7 @@ class S1ROIparameter:
         except:
             a = 'dummy'
                     
+        # For the ROI
         listROI = []            
         with fiona.open(self.ROIs) as shpfile:
             for feature in shpfile:
@@ -659,6 +675,7 @@ class S1ROIparameter:
                         hovertemplate='ROI', 
                         name='ROI'))
         
+        # Map finalisation
         if use_folium:
             minimap = plugins.MiniMap()
             m.add_child(minimap)
@@ -685,6 +702,7 @@ class S1ROIparameter:
                 )
             fig.update_layout(title={'yref':'container','text':'Search of EGMS-toolkit'},title_font={'size':30})
 
+        # Ouput 
         if output == None: 
             if not use_folium:
                 fig.show()

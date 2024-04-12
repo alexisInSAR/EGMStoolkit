@@ -1,4 +1,4 @@
-%   EGMStoolkit
+%   EGMStoolkitimport
 %       MATLAB class for EGMStoolkit
 %
 %       The class allows to import and manipulate the EGMS results in
@@ -8,7 +8,7 @@
 %
 %   -------------------------------------------------------
 %   Authors:    Alexis Hrysiewicz, UCD / iCRAG
-%   Version:    0.2.4 Beta
+%   Version:    0.2.7 Beta
 %   Date:       11/04/2024
 %
 %   -------------------------------------------------------
@@ -26,14 +26,14 @@
 %   -------------------------------------------------------
 %   Example:
 %       data =
-%       EGMStoolkit('EGMS_L3_2018_2022_1_UD_clipped.csv','delimiter',';','verbose',true);
+%       EGMStoolkitimport('EGMS_L3_2018_2022_1_UD_clipped.csv','delimiter',';','verbose',true);
 %       % delimiter and verbose options are optional; 
 %       data.plot('mean_velocity','geobasemap',true,'ts_plot',true); 
 %           % geobasemap will create a map with satellite imagery (optional, True by default). 
-%           % ts_plot will will ask the user to create time series plot (optional, False by default). 
+%           % ts_plot will ask the user to create time series plot (optional, False by default). 
 %
 
-classdef EGMStoolkit
+classdef EGMStoolkitimport
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %% Class properties
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -67,7 +67,7 @@ classdef EGMStoolkit
         seasonality_std(:,1) double {mustBeReal, mustBeReal} = [] % Vector of seasonality_std. Default value is []. 
 
         displacement(:,:) double {mustBeReal, mustBeReal} = [] % Matrix of displacement. Default value is []. 
-        time(:,:) datetime {mustBeVector} = NaT(1) % Time vector (in datetime). Default value is NaT. 
+        time(:,:) datetime {mustBeVector} = NaT(0,1) % Time vector (in datetime). Default value is NaT. 
 
         verbose (1,:) logical = true % Verbose mode (can be true or false)
     end
@@ -81,7 +81,7 @@ classdef EGMStoolkit
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     methods
         %% Method to read the EGMS file
-        function obj = EGMStoolkit(filename,varargin)
+        function obj = EGMStoolkitimport(filename,varargin)
 
             % Create the input parameters
             p = inputParser;
@@ -122,7 +122,7 @@ classdef EGMStoolkit
             data = readtable(obj.filename,'Headerlines',1);
 
             % Reorgnaise the dataset
-            time = [];
+            time = NaT(0,1);
             displacement = [];
 
             for idx = 1 : length(headerline)
@@ -178,6 +178,10 @@ classdef EGMStoolkit
             if isempty(tmp) || all(isnan(tmp))
                 error('No data for this parameter.');
             end
+
+            if (p.Results.ts_plot == true) & isempty(obj.displacement) == 1
+                error('The displacement data are empty.');
+            end 
 
             % Plot the map
             fig1 = figure('Name',sprintf('%s from %s',replace(p.Results.parameter,'_',' '),obj.filename),'NumberTitle','on');

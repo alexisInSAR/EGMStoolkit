@@ -1,11 +1,12 @@
 Change log
 ##########
 
-The different versions:
+The different versions are as follows:
 
-* 0.2.7: Some changes, Feb. 2024, Alexis Hrysiewicz
-   * Add a MATLAB function to import the EGMS data in .csv format (see contrib directory).   
-   * Add the Folium package to create the map (see EGMSS1ROIapi class). 
+* 0.2.7: Some changes, Apr. 2024, Alexis Hrysiewicz
+   * Add a MATLAB function to import the EGMS data in .csv format (see contrib directory)
+   * Add the Folium package to create the map (see EGMSS1ROIapi class)
+   * Folium, selenium and pillow Python packages have been added to the requirements
 * 0.2.6: Bug fixes regarding the windows system + min. version of GDAL 3.8 + message update, Feb. 2024, Alexis Hrysiewicz
 * 0.2.5: Add the interpolation processing for the .vrt file + optional function arguments for "duplicate" point and vrt files, Feb. 2024, Alexis Hrysiewicz
 * 0.2.4: Add the possibility to merge the L3 .csv file into a .vrt file and fix the problem with the L2 datasets, Feb. 2024, Alexis Hrysiewicz
