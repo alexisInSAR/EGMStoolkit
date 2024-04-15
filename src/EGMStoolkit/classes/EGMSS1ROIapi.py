@@ -473,14 +473,13 @@ class S1ROIparameter:
     def displaymap(self,
         output: Optional[Union[str,None]] = None,
         use_folium: Optional[bool] = True,  
-        unlockfoliumtiles: Optional[bool] = constants.__unlockfoliumtiles__, 
+        # unlockfoliumtiles: Optional[bool] = constants.__unlockfoliumtiles__, 
         verbose: Optional[Union[bool,None]] = None): 
         """Create a map of the burst IDs
         
         Args:
             output (str or None, Optional): File for the figure. If none, the figure will be displayed [Default: `None`]
             use_folium(bool, Optional): Use Folium package to create the map [Default: `True`]
-            unlockfoliumtiles(bool, Optional): Unlock the availability of other tile source [Default: see constants.__unlockfoliumtiles__]
             verbose (bool or None, Optional): Verbose if `None`, use the verbose mode of the job [Default: `None`]
 
         Return
@@ -497,13 +496,13 @@ class S1ROIparameter:
         if not isinstance(use_folium,bool):
             raise ValueError(usermessage.errormsg(__name__,'displaymap',__file__,constants.__copyright__,'use_folium must be True or False',self.log))
         
-        if not isinstance(unlockfoliumtiles,bool):
-            raise ValueError(usermessage.errormsg(__name__,'displaymap',__file__,constants.__copyright__,'unlockfoliumtiles must be True or False',self.log))
+        # if not isinstance(unlockfoliumtiles,bool):
+        #     raise ValueError(usermessage.errormsg(__name__,'displaymap',__file__,constants.__copyright__,'unlockfoliumtiles must be True or False',self.log))
                
         usermessage.openingmsg(__name__,__name__,__file__,constants.__copyright__,'Display a map of the selected burst IDs',self.log,verbose)
         
-        if (unlockfoliumtiles == True) and (use_folium == False):
-            usermessage.warningmsg(__name__,'displaymap',__file__,'The unlockfoliumtiles currently is not compatible with Plotly.',self.log,True)
+        # if (unlockfoliumtiles == True) and (use_folium == False):
+        #     usermessage.warningmsg(__name__,'displaymap',__file__,'The unlockfoliumtiles currently is not compatible with Plotly.',self.log,True)
             
         self.checkparameter(verbose=False)
 
@@ -516,47 +515,47 @@ class S1ROIparameter:
             m = folium.Map(location=[0, 0],
                 zoom_start=15,control_scale = True)
             
-            if unlockfoliumtiles:
-                # Add some other basemaps
-                tile2 = folium.TileLayer(
-                    tiles = 'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}',
-                    attr = 'Google',
-                    name = 'Google Satellite Hydrid',
-                    overlay = False,
-                    control = True,
-                ).add_to(m)
+            # if unlockfoliumtiles:
+            #     # Add some other basemaps
+            #     tile2 = folium.TileLayer(
+            #         tiles = 'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}',
+            #         attr = 'Google',
+            #         name = 'Google Satellite Hydrid',
+            #         overlay = False,
+            #         control = True,
+            #     ).add_to(m)
 
-                tile3 = folium.TileLayer(
-                    tiles = 'http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}',
-                    attr = 'Google',
-                    name = 'Google Satellite',
-                    overlay = False,
-                    control = True,
-                ).add_to(m)
+            #     tile3 = folium.TileLayer(
+            #         tiles = 'http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}',
+            #         attr = 'Google',
+            #         name = 'Google Satellite',
+            #         overlay = False,
+            #         control = True,
+            #     ).add_to(m)
 
-                tile4 = folium.TileLayer(
-                    tiles = 'https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}',
-                    attr = 'Google',
-                    name = 'Google Maps',
-                    overlay = False,
-                    control = True,
-                ).add_to(m)
+            #     tile4 = folium.TileLayer(
+            #         tiles = 'https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}',
+            #         attr = 'Google',
+            #         name = 'Google Maps',
+            #         overlay = False,
+            #         control = True,
+            #     ).add_to(m)
                 
-                tile5 = folium.TileLayer(
-                    tiles = 'http://services.arcgisonline.com/ArcGIS/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}',
-                    attr = 'Esri',
-                    name = 'Esri Topography',
-                    overlay = False,
-                    control = True,
-                ).add_to(m)
+            #     tile5 = folium.TileLayer(
+            #         tiles = 'http://services.arcgisonline.com/ArcGIS/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}',
+            #         attr = 'Esri',
+            #         name = 'Esri Topography',
+            #         overlay = False,
+            #         control = True,
+            #     ).add_to(m)
                 
-                tile1 = folium.TileLayer(
-                    tiles = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-                    attr = 'Esri',
-                    name = 'Esri Satellite',
-                    overlay = False,
-                    control = True,
-                ).add_to(m)
+            #     tile1 = folium.TileLayer(
+            #         tiles = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+            #         attr = 'Esri',
+            #         name = 'Esri Satellite',
+            #         overlay = False,
+            #         control = True,
+            #     ).add_to(m)
     
         else: 
             usermessage.egmstoolkitprint('Create a map using Plotly...',self.log,verbose)
