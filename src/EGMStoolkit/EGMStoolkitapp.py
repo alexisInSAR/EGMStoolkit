@@ -7,6 +7,7 @@ Wrapper of EGMS-toolkit
     (From `EGMStoolkit` package)
 
 Changelog:
+    * 0.2.8: Fix regarding the force option for removerawdata, Apr. 2024, Alexis Hrysiewicz
     * 0.2.6: Bug fixes for Windows systems, Feb. 2024, Alexis Hrysiewicz
     * 0.2.0: Script structuring, Jan. 2024, Alexis Hrysiewicz
     * 0.1.0: Initial version, Nov. 2023
@@ -327,7 +328,7 @@ def main():
 
         # Clean the raw data
         if options.clean: 
-            egmsdatatools.removerawdata(inputdir=options.outputdir,verbose=options.verbose,force=True,log=log)
+            egmsdatatools.removerawdata(inputdir=options.outputdir,verbose=options.verbose,forcemode=True,log=log)
     
     else: 
         ## Open the documentation
