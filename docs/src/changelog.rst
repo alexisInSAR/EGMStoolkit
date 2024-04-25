@@ -3,7 +3,9 @@ Change log
 
 The different versions are as follows:
 
-* 0.2.9: Fix regarding the Track_user and Pass_user options (wrong typo.) in the wrapper, Apr. 2024, Alexis Hrysiewicz
+* 0.2.9: Some fixes, Apr. 2024, Alexis Hrysiewicz
+   * Fix regarding the cropping mode and L3 data in the wrapper
+   * Fix regarding the Track_user and Pass_user options (wrong typo.) in the wrapper
 * 0.2.8: Fix regarding the application: forcemode option (wrong typo.) in the wrapper, Apr. 2024, Alexis Hrysiewicz
 * 0.2.7: Some changes, Apr. 2024, Alexis Hrysiewicz
    * Add a MATLAB function to import the EGMS data in .csv format (see contrib directory)

@@ -7,7 +7,7 @@ Wrapper of EGMS-toolkit
     (From `EGMStoolkit` package)
 
 Changelog:
-    * 0.2.9: Fix regarding the Track_user and Pass_user options, Apr. 2024, Alexis Hrysiewicz
+    * 0.2.9: Fix regarding the Track_user, Pass_user options and the cropping of L3 data, Apr. 2024, Alexis Hrysiewicz
     * 0.2.8: Fix regarding the force option for removerawdata, Apr. 2024, Alexis Hrysiewicz
     * 0.2.6: Bug fixes for Windows systems, Feb. 2024, Alexis Hrysiewicz
     * 0.2.0: Script structuring, Jan. 2024, Alexis Hrysiewicz
@@ -174,9 +174,8 @@ def main():
 
         info = EGMSS1burstIDapi.S1burstIDmap(verbose=options.verbose,log=log)
         # Download the latest ID map
-        print('dede')
         info.downloadfile()
-        print('dede2')
+
         ###########################################################################
         # (2) Check the tile/bursts available according the user imputs
 
@@ -321,7 +320,8 @@ def main():
         # Merge the .csv files 
         if options.download and options.unzip and options.merging:
             egmsdatatools.datamergingcsv(infoEGMSdownloader=downloadpara,inputdir=options.outputdir,outputdir=options.outputdir,mode='onfiles',verbose=options.verbose,paratosave='all',log=log) 
-            egmsdatatools.datamergingtiff(infoEGMSdownloader=downloadpara,inputdir=options.outputdir,outputdir=options.outputdir,mode='onfiles',verbose=options.verbose,log=log)
+            if ('UD' in leveli) or ('EW' in leveli):
+                egmsdatatools.datamergingtiff(infoEGMSdownloader=downloadpara,inputdir=options.outputdir,outputdir=options.outputdir,mode='onfiles',verbose=options.verbose,log=log)
 
         # Clip/crop the data
         if options.download and options.unzip and options.merging and options.clipping:
