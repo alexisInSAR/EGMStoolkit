@@ -7,6 +7,7 @@ Wrapper of EGMS-toolkit
     (From `EGMStoolkit` package)
 
 Changelog:
+    * 0.2.9: Fix regarding the Track_user and Pass_user options, Apr. 2024, Alexis Hrysiewicz
     * 0.2.8: Fix regarding the force option for removerawdata, Apr. 2024, Alexis Hrysiewicz
     * 0.2.6: Bug fixes for Windows systems, Feb. 2024, Alexis Hrysiewicz
     * 0.2.0: Script structuring, Jan. 2024, Alexis Hrysiewicz
@@ -284,7 +285,7 @@ def main():
                             ROIpara.detectfromIDmap(infoburstID=info)
                             check_dectection = True
                         else:
-                            ROIpara.detectfromIDmap(infoburstID=info,Track=[eval(tii) for tii in tracklist],Pass=passlist)
+                            ROIpara.detectfromIDmap(infoburstID=info,Track_user=[eval(tii) for tii in tracklist],Pass_user=passlist)
                             check_dectection = True
                 else:
                     ROIpara.detectfromIDmap(infoburstID=info)
