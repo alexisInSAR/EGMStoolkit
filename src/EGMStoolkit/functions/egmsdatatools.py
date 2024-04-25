@@ -9,6 +9,7 @@ The module adds some functions, required by `EGMStoolkit` to post-process the EG
     (From `EGMStoolkit` package)
 
 Changelog:
+    * 0.2.9: A correction of typo., Apr. 2024, Alexis Hrysiewicz
     * 0.2.6: Bug fixes regarding the windows system + GDAL version (some information), Feb. 2024, Alexis Hrysiewicz
     * 0.2.5: Add the interpolation processing for the .vrt file + optional function arguments for "duplicate" point and vrt files, Feb. 2024, Alexis Hrysiewicz
     * 0.2.4: Add the possibility to merge the L3 .csv file into a .vrt file and fix the problem with the L2 datasets, Feb. 2024, Alexis Hrysiewicz
@@ -447,7 +448,7 @@ def datamergingtiff(outputdir: Optional[str] = '.'+os.sep+'Output',
         listfiles = glob.glob('%s%s*%s*%s*%s*.tiff' % (inputdir,os.sep,os.sep,os.sep,os.sep))
     
     if not listfiles:
-        raise ValueError(usermessage.errormsg(__name__,'datamergingtiff',__file__,constants.__copyright__,'No files are detected.' % (inputdir),log))
+        raise ValueError(usermessage.errormsg(__name__,'datamergingtiff',__file__,constants.__copyright__,'No files are detected.',log))
 
     filedict, release, level, track, L3compall = listtodictmerged(listfiles)
     
