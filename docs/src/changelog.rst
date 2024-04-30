@@ -3,6 +3,9 @@ Change log
 
 The different versions are as follows:
 
+* 0.2.10: Some fixes on the MATLAB script, Apr. 2024, Alexis Hrysiewicz
+   * Add the cluster_label parameters into the no-saved parameters
+   * Fix the colorscale from -10 to 10 mm/yr (plot methods)
 * 0.2.9: Some fixes, Apr. 2024, Alexis Hrysiewicz
    * Fix regarding the cropping mode and L3 data in the wrapper
    * Fix regarding the Track_user and Pass_user options (wrong typo.) in the wrapper

@@ -8,7 +8,7 @@
 %
 %   -------------------------------------------------------
 %   Authors:    Alexis Hrysiewicz, UCD / iCRAG
-%   Version:    0.2.7 Beta
+%   Version:    0.2.10 Beta
 %   Date:       11/04/2024
 %
 %   -------------------------------------------------------
@@ -17,6 +17,8 @@
 %
 %   -------------------------------------------------------
 %   Version history:
+%       0.2.10 Beta:    Add the cluster_label information into no-saved
+%       data; Freeze the colormap to -10 - 10 mm/yr. 
 %       0.2.7 Beta:     Initial (unreleased)
 %
 %   -------------------------------------------------------
@@ -127,8 +129,8 @@ classdef EGMStoolkitimport
 
             for idx = 1 : length(headerline)
 
-                if (strcmp(headerline{idx},'pid') == 0) & (strcmp(headerline{idx},'mp_type') == 0)
-
+                if (strcmp(headerline{idx},'pid') == 0) & (strcmp(headerline{idx},'mp_type') == 0) & (strcmp(headerline{idx},'cluster_label') == 0)
+ 
                     if isempty(strfind(headerline{idx},'2')) == 0
                         displacement = [displacement table2array(data(:,idx))];
                         time = [time; datetime(headerline{idx},'InputFormat','uuuuMMdd')];
@@ -186,11 +188,11 @@ classdef EGMStoolkitimport
             % Plot the map
             fig1 = figure('Name',sprintf('%s from %s',replace(p.Results.parameter,'_',' '),obj.filename),'NumberTitle','on');
             if p.Results.geobasemap
-                geoscatter(obj.latitude,obj.longitude,[],tmp,'filled'); colormap jet; c1 = colorbar; ylabel(c1,p.Results.parameter); caxis([quantile(tmp,0.1) quantile(tmp,0.9)]);
+                geoscatter(obj.latitude,obj.longitude,[],tmp,'filled'); colormap jet; c1 = colorbar; ylabel(c1,p.Results.parameter); caxis([-10 10]);
                 geobasemap('satellite');
                 title(sprintf('%s',replace(p.Results.parameter,'_',' ')));
             else
-                scatter(obj.longitude,obj.latitude,[],tmp,'filled'); colormap jet; c1 = colorbar; ylabel(c1,p.Results.parameter); caxis([quantile(tmp,0.1) quantile(tmp,0.9)]);
+                scatter(obj.longitude,obj.latitude,[],tmp,'filled'); colormap jet; c1 = colorbar; ylabel(c1,p.Results.parameter); caxis([-10 10]);
                 ylabel('Latitude');
                 xlabel('Longitude');
                 title(sprintf('%s',replace(p.Results.parameter,'_',' ')));
