@@ -9,6 +9,7 @@ The module adds some functions, required by `EGMStoolkit` to post-process the EG
     (From `EGMStoolkit` package)
 
 Changelog:
+    * 0.2.11: Fix regarding the input and output directory for data gridding, Aug. 2024, Alexis Hrysiewicz
     * 0.2.9: A correction of typo., Apr. 2024, Alexis Hrysiewicz
     * 0.2.6: Bug fixes regarding the windows system + GDAL version (some information), Feb. 2024, Alexis Hrysiewicz
     * 0.2.5: Add the interpolation processing for the .vrt file + optional function arguments for "duplicate" point and vrt files, Feb. 2024, Alexis Hrysiewicz
@@ -195,7 +196,6 @@ def datagridding(paragrid,
 
     if namefile == 'all':
         list_filetmp = glob.glob('%s%s*.csv' %(inputdir,os.sep)) + glob.glob('%s%s*.vrt' %(inputdir,os.sep))
-
         list_noclip = []
         list_clip = []
         for li in list_filetmp:
@@ -214,9 +214,9 @@ def datagridding(paragrid,
         if not os.sep in namefile:
             list_file_final = []
             for ni in tmp:
-                list_file_final.append(inputdir+'/'+ni)
+                list_file_final.append(inputdir+os.sep+ni)
         else:
-            list_file_final = [namefile]
+            list_file_final = [inputdir+os.sep+namefile]
 
     if not list_file_final:
         raise ValueError(usermessage.errormsg(__name__,'datagridding',__file__,constants.__copyright__,'The list of files is empty.',log))
@@ -234,7 +234,7 @@ def datagridding(paragrid,
     for fi in list_file_final:
         usermessage.egmstoolkitprint('\t%d / %d Processing of the file: %s:' %(it,len(list_file_final),fi),log,verbose)
 
-        namefile = fi[0:-4].split('/')[-1]
+        namefile = fi[0:-4].split(os.sep)[-1]
 
         for parai in paragrid['variable'].split(','):
             usermessage.egmstoolkitprint('\t\tInterpolation for the variable: %s' % (parai),log,verbose)
@@ -242,9 +242,9 @@ def datagridding(paragrid,
             if not os.path.isfile('%s%s%s_%s.tif' % (outputdir,os.sep,namefile,parai)):
 
                 if '.csv' in fi: 
-                    cmdi = 'gdal_grid -zfield "%s" -a_srs EPSG:3035 -oo HEADERS=YES -oo SEPARATOR=SEMICOLON -oo X_POSSIBLE_NAMES=easting -oo Y_POSSIBLE_NAMES=northing -a %s -txe %f %f -tye %f %f -tr %f %f -of GTiff -l %s -ot Float64 %s%s%s.csv %s%s%s_%s.tif' % (parai,paragrid['algo'],paragrid['Xmin'],paragrid['Xmax'],paragrid['Ymin'],paragrid['Ymax'],paragrid['xres'],paragrid['yres'],namefile,outputdir,os.sep,namefile,outputdir,os.sep,namefile,parai)
+                    cmdi = 'gdal_grid -zfield "%s" -a_srs EPSG:3035 -oo HEADERS=YES -oo SEPARATOR=SEMICOLON -oo X_POSSIBLE_NAMES=easting -oo Y_POSSIBLE_NAMES=northing -a %s -txe %f %f -tye %f %f -tr %f %f -of GTiff -l %s -ot Float64 %s%s%s.csv %s%s%s_%s.tif' % (parai,paragrid['algo'],paragrid['Xmin'],paragrid['Xmax'],paragrid['Ymin'],paragrid['Ymax'],paragrid['xres'],paragrid['yres'],namefile,inputdir,os.sep,namefile,outputdir,os.sep,namefile,parai)
                 else: 
-                    cmdi = 'gdal_grid -zfield "%s" -a_srs EPSG:3035 -oo HEADERS=YES -oo SEPARATOR=SEMICOLON -a %s -txe %f %f -tye %f %f -tr %f %f -of GTiff -l %s -ot Float64 %s%s%s.vrt %s%s%s_%s.tif' % (parai,paragrid['algo'],paragrid['Xmin'],paragrid['Xmax'],paragrid['Ymin'],paragrid['Ymax'],paragrid['xres'],paragrid['yres'],namefile,outputdir,os.sep,namefile,outputdir,os.sep,namefile,parai)
+                    cmdi = 'gdal_grid -zfield "%s" -a_srs EPSG:3035 -oo HEADERS=YES -oo SEPARATOR=SEMICOLON -a %s -txe %f %f -tye %f %f -tr %f %f -of GTiff -l %s -ot Float64 %s%s%s.vrt %s%s%s_%s.tif' % (parai,paragrid['algo'],paragrid['Xmin'],paragrid['Xmax'],paragrid['Ymin'],paragrid['Ymax'],paragrid['xres'],paragrid['yres'],namefile,inputdir,os.sep,namefile,outputdir,os.sep,namefile,parai)
                 
 
                 usermessage.egmstoolkitprint('\t\tThe command will be: %s' % (cmdi),log,verbose)

@@ -10,7 +10,7 @@ EGMS toolkit
 
 **UNDER DEVELOPMENT**
 
-**Release info**: Version 0.2.10 Beta, Apr., 2024
+**Release info**: Version 0.2.11 Beta, Aug., 2024
 
 The online documentation can be found `here <https://alexisinsar.github.io/EGMStoolkit/>`_.
 
@@ -112,7 +112,7 @@ This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you a
 Reference
 =========
 
-To do
+Hrysiewicz, A., Khoshlahjeh Azar, M., & Holohan, E. P. (2024). EGMS-toolkit: a set of Python scripts for improved access to datasets from the European Ground Motion Service. Earth Science Informatics. https://doi.org/10.1007/s12145-024-01356-w 
 
 Funding
 =======
