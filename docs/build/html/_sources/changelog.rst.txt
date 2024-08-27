@@ -3,6 +3,7 @@ Change log
 
 The different versions are as follows:
 
+* 0.2.11: Fix regarding the input and output directory for data gridding, Aug. 2024, Alexis Hrysiewicz
 * 0.2.10: Some fixes on the MATLAB script, Apr. 2024, Alexis Hrysiewicz
    * Add the cluster_label parameters into the no-saved parameters
    * Fix the colorscale from -10 to 10 mm/yr (plot methods)
