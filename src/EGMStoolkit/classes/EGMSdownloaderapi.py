@@ -9,6 +9,7 @@ The module contains the classe and the methods to download the tile regarding a 
     (From `EGMStoolkit` package)
 
 Changelog:
+    * 0.2.12: Add the support of the 2019_2013 release, Nov. 2024, Alexis Hrysiewicz
     * 0.2.0: Script structuring, Jan. 2024, Alexis Hrysiewicz
     * 0.1.0: Initial version, Nov. 2023
 
@@ -465,7 +466,7 @@ class egmsdownloader:
 
         #  Clean the empty directories 
         for i1 in ['L2a', 'L2b', 'L3UD', 'L3EW']:
-            for i2 in ['2015_2021', '2018_2022']:
+            for i2 in ['2015_2021', '2018_2022', '2019_2023']:
                 if os.path.isdir('%s%s%s%s%s' % (outputdir,os.sep,i1,os.sep,i2)):
                     if len(os.listdir('%s%s%s%s%s' % (outputdir,os.sep,i1,os.sep,i2))) == 0: 
                         shutil.rmtree('%s%s%s%s%s' % (outputdir,os.sep,i1,os.sep,i2))

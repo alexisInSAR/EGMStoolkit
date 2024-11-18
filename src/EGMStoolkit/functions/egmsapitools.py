@@ -9,6 +9,7 @@ The module adds some functions, required by to run `EGMStoolkit`.
     (From `EGMStoolkit` package)
 
 Changelog:
+    * 0.2.12: Add the support of the 2019_2013 release, Nov. 2024, Alexis Hrysiewicz
     * 0.2.1: Remove the duplicate points for L2 datasets, Feb. 2024, Alexis Hrysiewicz
     * 0.2.0: Script structuring, Jan. 2024, Alexis Hrysiewicz
     * 0.1.0: Initial version, Nov. 2023
@@ -38,6 +39,8 @@ def check_release(inputrelease):
         ext_release = ''
     elif inputrelease == '2018_2022':
         ext_release = '_2018_2022_1'
+    elif inputrelease == '2019_2023':
+        ext_release = '_2019_2023_1'
     else: 
         raise ValueError(usermessage.errormsg(__name__,'check_release',__file__,constants.__copyright__,'The release is not correct.',None))
 
@@ -68,6 +71,9 @@ def check_release_fromfile(namefile):
     if '_2018_2022_1' in ni[-1]: 
         inputrelease = '2018_2022'
         ext_release = '_2018_2022_1'
+    elif '_2019_2023_1' in ni[-1]: 
+        inputrelease = '2019_2023'
+        ext_release = '_2019_2023_1'
     else: 
         inputrelease = '2015_2021'
         ext_release = ''

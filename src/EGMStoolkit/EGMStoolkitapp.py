@@ -7,6 +7,7 @@ Wrapper of EGMS-toolkit
     (From `EGMStoolkit` package)
 
 Changelog:
+    * 0.2.12: Add the support of the 2019_2013 release, Nov. 2024, Alexis Hrysiewicz
     * 0.2.9: Fix regarding the Track_user, Pass_user options and the cropping of L3 data, Apr. 2024, Alexis Hrysiewicz
     * 0.2.8: Fix regarding the force option for removerawdata, Apr. 2024, Alexis Hrysiewicz
     * 0.2.6: Bug fixes for Windows systems, Feb. 2024, Alexis Hrysiewicz
@@ -64,7 +65,7 @@ def main():
         parser.add_option("-l", "--level", dest="level", action="store", type="string", default='L2a,L2b',
                         help="Selected levels of EGMS data: [L2a,L2b,L3UD,L3EW]. Default: [L2a,L2b]. The comma can be used for multiple selections.")                
         parser.add_option("-r", "--release", dest="release", action="store", type="string", default='2018_2022',
-                        help="Selected releases of EGMS data: [2015_2021,2018_2022]. Default: [2018_2022]. The comma can be used for multiple selections.")  
+                        help="Selected releases of EGMS data: [2015_2021,2018_2022,2019_2023. Default: [2019_2023]. The comma can be used for multiple selections.")  
         parser.add_option("-t", "--token", dest="token", action="store", type="string", default='XXXXXXXXX',
                         help="User token given by EGMS website.")
         parser.add_option("-b", "--bbox", dest="bbox", action="store", type="string", default='None',
@@ -116,7 +117,7 @@ def main():
         ###########################################################################
 
         if options.token == 'XXXXXXXXX':
-            raise ValueError(usermessage.errormsg(__name__,__name__,__file__,constants.__copyright__,'The bbox parameter is not correct.',None))
+            raise ValueError(usermessage.errormsg(__name__,__name__,__file__,constants.__copyright__,'The token parameter is not correct.',None))
 
         if options.logmode:
             log = 'egmstoolkit.log'

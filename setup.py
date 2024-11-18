@@ -14,7 +14,7 @@ with open("README.rst", "r") as readme_file:
     readme = readme_file.read()
 
 setup(name='EGMStoolkit', 
-    version='0.2.11', 
+    version='0.2.12', 
     author="Alexis Hrysiewicz UCD/iCRAG",
     author_email="alexis.hrysiewicz@ucd.ie",
     description="EGMS Toolbox",

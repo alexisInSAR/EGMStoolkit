@@ -9,6 +9,7 @@ The module contains the classe and the methods to detect the tile regarding a us
     (From `EGMStoolkit` package)
 
 Changelog:
+    * 0.2.12: Add the support of the 2019_2013 release, Nov. 2024, Alexis Hrysiewicz
     * 0.2.7: Add the Folium package in order to create the map, Apr. 2024, Alexis Hrysiewicz
     * 0.2.1: Fix regarding the EGMS-ID bursts, Feb. 2024, Alexis Hrysiewicz
     * 0.2.0: Script structuring, Jan. 2024, Alexis Hrysiewicz
@@ -67,7 +68,7 @@ class S1ROIparameter:
         ROIs (any): ROI polygon 
         egmslevel (str): EGMS level of LOS-displacement data [Default: 'L2a']
         egmsL3component (str): EGMS level of 3D-displacement data [Default: 'UD']
-        release (str): EGMS release code [Default: '2018_2022']
+        release (str): EGMS release code [Default: '2019_2023']
         Data (dict): Storage of available data [Default: empty]
         DataL3 (dict): Storage of available data [Default: empty]
         workdirectory (str): Full path of the work directory [Default: './']
@@ -83,7 +84,7 @@ class S1ROIparameter:
         bbox: Optional[Union[str,None]] = None,
         egmslevel: Optional[str] = 'L2a',
         egmsL3component: Optional[str] = 'UD',
-        release: Optional[str] = '2018_2022',
+        release: Optional[str] = '2019_2023',
         workdirectory: Optional[str] = '.'+os.sep,
         verbose: Optional[bool] = True,
         log: Optional[Union[str, None]] = None): 
@@ -94,7 +95,7 @@ class S1ROIparameter:
             bbox (str or None, Optional): Bbox [Default: `None`]
             egmslevel (str, Optional): EGMS level of LOS-displacement data [Default: 'L2a']
             egmsL3component (str, Optional): EGMS level of 3D-displacement data [Default: 'UD']
-            release (str, Optional): EGMS release code [Default: '2018_2022']
+            release (str, Optional): EGMS release code [Default: '2019_2023']
             workdirectory (str, Optional): Full path of the work directory [Default: './']
             verbose (bool, Optional): Verbose [Default: `True`]
             log (str or None, Optional): Loggin mode [Default: `None`]
@@ -168,8 +169,9 @@ class S1ROIparameter:
         if not (self.egmsL3component == 'UD' or self.egmsL3component == 'EW'):
             raise ValueError(usermessage.errormsg(__name__,'checkparameter',__file__,constants.__copyright__,'The 3D-component parameter is not correct',self.log))
         
-        if not (self.release == '2015_2021' or self.release == '2018_2022'):
+        if not (self.release == '2015_2021' or self.release == '2018_2022' or self.release == '2019_2023'):
             raise ValueError(usermessage.errormsg(__name__,'checkparameter',__file__,constants.__copyright__,'The release parameter is not correct',self.log))
+        
 
         return self
     
