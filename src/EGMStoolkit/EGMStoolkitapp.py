@@ -64,7 +64,7 @@ def main():
 
         parser.add_option("-l", "--level", dest="level", action="store", type="string", default='L2a,L2b',
                         help="Selected levels of EGMS data: [L2a,L2b,L3UD,L3EW]. Default: [L2a,L2b]. The comma can be used for multiple selections.")                
-        parser.add_option("-r", "--release", dest="release", action="store", type="string", default='2018_2022',
+        parser.add_option("-r", "--release", dest="release", action="store", type="string", default='2019_2023',
                         help="Selected releases of EGMS data: [2015_2021,2018_2022,2019_2023. Default: [2019_2023]. The comma can be used for multiple selections.")  
         parser.add_option("-t", "--token", dest="token", action="store", type="string", default='XXXXXXXXX',
                         help="User token given by EGMS website.")
