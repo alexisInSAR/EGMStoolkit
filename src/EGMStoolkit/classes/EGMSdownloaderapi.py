@@ -9,7 +9,7 @@ The module contains the classe and the methods to download the tile regarding a 
     (From `EGMStoolkit` package)
 
 Changelog:
-    * 0.2.12: Add the support of the 2019_2013 release, Nov. 2024, Alexis Hrysiewicz
+    * 0.2.12: Add the support of the 2019_2023 release, Nov. 2024, Alexis Hrysiewicz
     * 0.2.0: Script structuring, Jan. 2024, Alexis Hrysiewicz
     * 0.1.0: Initial version, Nov. 2023
 

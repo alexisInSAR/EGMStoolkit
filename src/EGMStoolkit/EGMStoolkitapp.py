@@ -7,7 +7,8 @@ Wrapper of EGMS-toolkit
     (From `EGMStoolkit` package)
 
 Changelog:
-    * 0.2.12: Add the support of the 2019_2013 release, Nov. 2024, Alexis Hrysiewicz
+    * 0.2.13: Fix regarding the use of shapefiles, Jan. 2025, Alexis Hrysiewicz
+    * 0.2.12: Add the support of the 2019_2023 release, Nov. 2024, Alexis Hrysiewicz
     * 0.2.9: Fix regarding the Track_user, Pass_user options and the cropping of L3 data, Apr. 2024, Alexis Hrysiewicz
     * 0.2.8: Fix regarding the force option for removerawdata, Apr. 2024, Alexis Hrysiewicz
     * 0.2.6: Bug fixes for Windows systems, Feb. 2024, Alexis Hrysiewicz
@@ -239,7 +240,7 @@ def main():
             list_bbox = []
         if listtmp2:
             list_bbox.append(listtmp2[0][0])
-        if listtmp2:
+        if listtmp3:
             for i1 in listtmp3:
                 list_bbox.append(i1)
 
@@ -260,7 +261,6 @@ def main():
         for bboxi in list_bbox:
 
             ROIpara = EGMSS1ROIapi.S1ROIparameter(verbose=options.verbose,log=log)
-
             ROIpara.bbox = bboxi
             ROIpara.createROI()
 

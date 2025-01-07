@@ -3,7 +3,10 @@ Change log
 
 The different versions are as follows:
 
-* 0.2.12: Add the support of the 2019_2013 release, Nov. 2024, Alexis Hrysiewicz
+* 0.2.13: Some fixes, Jan. 2025, Alexis Hrysiewicz
+   * Fix regarding the use of shapefiles
+   * Fix regarding the location of GTiff coordinates (i.e., -co AREA_OR_POINT=Point)
+* 0.2.12: Add the support of the 2019_2023 release, Nov. 2024, Alexis Hrysiewicz
 * 0.2.11: Fix regarding the input and output directory for data gridding, Aug. 2024, Alexis Hrysiewicz
 * 0.2.10: Some fixes on the MATLAB script, Apr. 2024, Alexis Hrysiewicz
    * Add the cluster_label parameters into the no-saved parameters

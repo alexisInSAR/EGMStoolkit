@@ -5,8 +5,8 @@ import os
 import subprocess
 import pathlib
 
-copyright = '2024, UCD / iCRAG'
-version = '0.2.12 Beta'
+copyright = '2025, UCD / iCRAG'
+version = '0.2.13 Beta'
 project = 'EGMS-toolkit'
 author = 'Alexis Hrysiewicz University College Dublin / iCRAG'
 

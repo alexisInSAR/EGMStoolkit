@@ -3,14 +3,13 @@ EGMS toolkit
 
 **EGMS toolkit** is a set of python scripts to download and manage the InSAR data from `European Ground Motion Service <https://egms.land.copernicus.eu>`_. The toolkit allows:
 
-
 * to download the data automatically; 
 * to merge the files; 
 * to clip/crop the datasets.  
 
 **UNDER DEVELOPMENT**
 
-**Release info**: Version 0.2.12 Beta, Nov., 2024
+**Release info**: Version 0.2.13 Beta, Jan., 2025
 
 The online documentation can be found `here <https://alexisinsar.github.io/EGMStoolkit/>`_.
 
@@ -105,7 +104,7 @@ See the **Change log** section of the documentation.
 License
 =======
 
-EGMS-toolkit  Copyright (C) 2024  Alexis Hrysiewicz
+EGMS-toolkit  Copyright (C) 2025  Alexis Hrysiewicz
 
 This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under certain conditions (see License). 
 
