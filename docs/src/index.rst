@@ -11,6 +11,7 @@ Welcome to ``EGMStoolkit``'s documentation!
 
    readme
    example/example.ipynb
+   advexample/index
    knownprob
    changelog   
    contrib  

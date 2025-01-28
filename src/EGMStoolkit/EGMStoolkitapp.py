@@ -337,7 +337,6 @@ def main():
         import webbrowser
         import requests
 
-
         usermessage.openingmsg(__name__,main.__name__,__file__,constants.__copyright__,'Run the EGMStoolkit documentation via the default web browser',None,True)
         urlfile = 'file:'+__file__.replace('EGMStoolkitapp.py','')+'..'+os.sep+'..'+os.sep+'docs'+os.sep+'build'+os.sep+'html'+os.sep+'index.html'
         urlonline = 'https://alexisinsar.github.io/EGMStoolkit/'

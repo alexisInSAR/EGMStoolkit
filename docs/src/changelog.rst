@@ -3,6 +3,9 @@ Change log
 
 The different versions are as follows:
 
+* 0.2.14: Some changes and additions, end-Jan. 2025, Alexis Hrysiewicz
+   * Fix regarding the GTiff coordinates
+   * Add an advanced example in the Documentation for data interpolation
 * 0.2.13: Some fixes, Jan. 2025, Alexis Hrysiewicz
    * Fix regarding the use of shapefiles
    * Fix regarding the location of GTiff coordinates (i.e., -co AREA_OR_POINT=Point)

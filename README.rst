@@ -9,7 +9,7 @@ EGMS toolkit
 
 **UNDER DEVELOPMENT**
 
-**Release info**: Version 0.2.13 Beta, Jan., 2025
+**Release info**: Version 0.2.14 Beta, Jan., 2025
 
 The online documentation can be found `here <https://alexisinsar.github.io/EGMStoolkit/>`_.
 

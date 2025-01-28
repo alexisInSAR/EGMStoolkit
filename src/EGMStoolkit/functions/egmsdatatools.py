@@ -9,6 +9,7 @@ The module adds some functions, required by `EGMStoolkit` to post-process the EG
     (From `EGMStoolkit` package)
 
 Changelog:
+    * 0.2.14: SEcond fix regarding the location of GTiff coordinates (i.e., -co AREA_OR_POINT=Point), end-Jan 2025, Alexis Hrysiewicz
     * 0.2.13: Fix regarding the location of GTiff coordinates (i.e., -co AREA_OR_POINT=Point), Jan 2025, Alexis Hrysiewicz
     * 0.2.11: Fix regarding the input and output directory for data gridding, Aug. 2024, Alexis Hrysiewicz
     * 0.2.9: A correction of typo., Apr. 2024, Alexis Hrysiewicz
@@ -158,6 +159,7 @@ def datagridding(paragrid,
     outputdir: Optional[str] = '.'+os.sep+'Output',
     inputdir: Optional[str] = '.'+os.sep+'Output',
     namefile: Optional[Union[bool,None]] = 'all',
+    AREA_OR_POINT: Optional[str] = 'Point',
     verbose: Optional[bool] = True, 
     log: Optional[Union[str,None]] = None): 
     """Interpolation of the data into a .tif raster
@@ -167,6 +169,7 @@ def datagridding(paragrid,
         paragrid (dict): Dictionnary of the interpolation parameters
         outputdir (str, Optional): Output directory [Default: './Ouput']
         inputdir (str, Optional): Input directory [Default: './Ouput']
+        AREA_OR_POINT (str, Optional): Metadata for the GTiff creation regarding the coordinate locations. Can be POINT or AREA. [Default: 'POINT']
         namefile (str): File name for interpolation [Default: 'all']
         verbose (bool, Optional): Verbose [Default: `True`]
         log (str or None, Optional): Log file [Default: `None`]
@@ -181,6 +184,9 @@ def datagridding(paragrid,
 
     if (not 'invdist' in paragrid['algo']) and (not 'invdistnn' in paragrid['algo']) and (not 'average' in paragrid['algo']) and (not 'nearest' in paragrid['algo'])  and (not 'linear' in paragrid['algo']):
         raise ValueError(usermessage.errormsg(__name__,'datagridding',__file__,constants.__copyright__,'The paragrid parameter is not correct.',log))
+    
+    if (not AREA_OR_POINT in ['Point','Area']):
+        raise ValueError(usermessage.errormsg(__name__,'datagridding',__file__,constants.__copyright__,'AREA_OR_POINT must be Area or Point.',log))
 
     usermessage.openingmsg(__name__,__name__,__file__,constants.__copyright__,'Interpolation of the data into a .tif raster',log,verbose)
     usermessage.egmstoolkitprint('\tThe file name is: %s' % (namefile),log,verbose)
@@ -243,12 +249,18 @@ def datagridding(paragrid,
             if not os.path.isfile('%s%s%s_%s.tif' % (outputdir,os.sep,namefile,parai)):
 
                 if '.csv' in fi: 
-                    cmdi = 'gdal_grid -zfield "%s" -a_srs EPSG:3035 -co AREA_OR_POINT=Point -oo HEADERS=YES -oo SEPARATOR=SEMICOLON -oo X_POSSIBLE_NAMES=easting -oo Y_POSSIBLE_NAMES=northing -a %s -txe %f %f -tye %f %f -tr %f %f -of GTiff -l %s -ot Float64 %s%s%s.csv %s%s%s_%s.tif' % (parai,paragrid['algo'],paragrid['Xmin'],paragrid['Xmax'],paragrid['Ymin'],paragrid['Ymax'],paragrid['xres'],paragrid['yres'],namefile,inputdir,os.sep,namefile,outputdir,os.sep,namefile,parai)
+                    cmdi = 'gdal_grid -of ENVI -zfield "%s" -a_srs EPSG:3035 -oo HEADERS=YES -oo SEPARATOR=SEMICOLON -oo X_POSSIBLE_NAMES=easting -oo Y_POSSIBLE_NAMES=northing -a %s -txe %f %f -tye %f %f -tr %f %f -of GTiff -l %s -ot Float64 %s%s%s.csv %s%s%s_%s.tif'% (parai,paragrid['algo'],paragrid['Xmin'],paragrid['Xmax'],paragrid['Ymin'],paragrid['Ymax'],paragrid['xres'],paragrid['yres'],namefile,inputdir,os.sep,namefile,outputdir,os.sep,namefile,parai)
                 else: 
-                    cmdi = 'gdal_grid -zfield "%s" -a_srs EPSG:3035 -co AREA_OR_POINT=Point -oo HEADERS=YES -oo SEPARATOR=SEMICOLON -a %s -txe %f %f -tye %f %f -tr %f %f -of GTiff -l %s -ot Float64 %s%s%s.vrt %s%s%s_%s.tif' % (parai,paragrid['algo'],paragrid['Xmin'],paragrid['Xmax'],paragrid['Ymin'],paragrid['Ymax'],paragrid['xres'],paragrid['yres'],namefile,inputdir,os.sep,namefile,outputdir,os.sep,namefile,parai)
+                    cmdi = 'gdal_grid -of ENVI -zfield "%s" -a_srs EPSG:3035 -oo HEADERS=YES -oo SEPARATOR=SEMICOLON -a %s -txe %f %f -tye %f %f -tr %f %f -of GTiff -l %s -ot Float64 %s%s%s.vrt %s%s%s_%s.tif' % (parai,paragrid['algo'],paragrid['Xmin'],paragrid['Xmax'],paragrid['Ymin'],paragrid['Ymax'],paragrid['xres'],paragrid['yres'],namefile,inputdir,os.sep,namefile,outputdir,os.sep,namefile,parai)
 
                 usermessage.egmstoolkitprint('\t\tThe command will be: %s' % (cmdi),log,verbose)
                 os.system(cmdi)
+
+                if AREA_OR_POINT == 'Point': 
+                    cmdi = 'gdal_edit.py -mo AREA_OR_POINT=%s %s%s%s_%s.tif --config GTIFF_POINT_GEO_IGNORE YES' % (AREA_OR_POINT,outputdir,os.sep,namefile,parai)
+                    usermessage.egmstoolkitprint('\t\tThe command will be: %s' % (cmdi),log,verbose)
+                    os.system(cmdi)
+
             else:
                 usermessage.egmstoolkitprint('\t\tThe .tif file has been detected. Please delete it for a new interpolation.',log,verbose)
 
