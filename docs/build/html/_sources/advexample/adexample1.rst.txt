@@ -61,7 +61,7 @@ So there are 4 files to be downloaded.
 
 .. code:: python 
 
-    downloadpara.token = 'd210e301785b462bb4c1d9ed20778f2e'
+    downloadpara.token = 'xxxxxxxxxxxxxxxxxxxx'
     downloadpara.download(outputdir='./Output')
     downloadpara.unzipfile(outputdir='./Output')
 
