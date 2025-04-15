@@ -35,6 +35,7 @@ from typing import Optional, Union
 import io
 from PIL import Image
 import selenium
+from itertools import product
 
 from EGMStoolkit.functions import esa2egmsburstID
 from EGMStoolkit import usermessage
@@ -346,7 +347,7 @@ class S1ROIparameter:
                                     for i1 in Pass_usertmp:
                                         Pass_user.append(i1[0])
 
-                                for (tracki, passi) in zip(Track_user, Pass_user):
+                                for (tracki, passi) in product(Track_user, Pass_user):
                                     
                                     if (tracki == relative_orbit_number or str(tracki) == 'None') and (passi.upper() == orbit_pass or passi == 'None'):
                                         if not "%s_%04d" % (orbit_pass,relative_orbit_number) in self.Data:
