@@ -663,11 +663,12 @@ For the EGMS data: L3EW
 <h3>Unzip the files<a class="headerlink" href="#Unzip-the-files" title="Permalink to this heading"></a></h3>
 <p>The downlaoded files are .zip archives. The following method will unzip the archives.</p>
 <p><strong>However, it is possible to unzip the file directly with the download method by using the unzipmode option.</strong></p>
+<p><em>nbworker</em> option enable the parallel unzipping by giving the number of workers.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">downloadpara</span><span class="o">.</span><span class="n">unzipfile</span><span class="p">(</span><span class="n">outputdir</span><span class="o">=</span><span class="s1">&#39;./Output&#39;</span><span class="p">,</span><span class="n">unzipmode</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">cleanmode</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">downloadpara</span><span class="o">.</span><span class="n">unzipfile</span><span class="p">(</span><span class="n">outputdir</span><span class="o">=</span><span class="s1">&#39;./Output&#39;</span><span class="p">,</span><span class="n">unzipmode</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">nbworker</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">cleanmode</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -696,8 +697,7 @@ EGMStoolkit.classes.EGMSdownloaderapi.EGMStoolkit.classes.EGMSdownloaderapi:
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>

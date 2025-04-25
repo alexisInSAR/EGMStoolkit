@@ -695,12 +695,14 @@
     "\n",
     "The downlaoded files are .zip archives. The following method will unzip the archives. \n",
     "\n",
-    "**However, it is possible to unzip the file directly with the *download* method by using the *unzipmode* option.**"
+    "**However, it is possible to unzip the file directly with the *download* method by using the *unzipmode* option.** \n",
+    "\n",
+    "*nbworker* option enable the parallel unzipping by giving the number of workers."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 21,
+   "execution_count": null,
    "metadata": {},
    "outputs": [
     {
@@ -738,7 +740,7 @@
     }
    ],
    "source": [
-    "downloadpara.unzipfile(outputdir='./Output',unzipmode=True,cleanmode=True,verbose=True) "
+    "downloadpara.unzipfile(outputdir='./Output',unzipmode=True,nbworker=2,cleanmode=True,verbose=True) "
    ]
   },
   {
