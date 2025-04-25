@@ -9,6 +9,7 @@ The module contains the classe and the methods to download the tile regarding a 
     (From `EGMStoolkit` package)
 
 Changelog:
+    * 0.2.15: Add the possibility to unzip files in parallel, Alexis Hrysiewicz, Apr. 2025
     * 0.2.12: Add the support of the 2019_2023 release, Nov. 2024, Alexis Hrysiewicz
     * 0.2.0: Script structuring, Jan. 2024, Alexis Hrysiewicz
     * 0.1.0: Initial version, Nov. 2023
@@ -23,6 +24,7 @@ import glob
 import shutil
 import time
 from typing import Optional, Union
+from joblib import Parallel, delayed
 
 from EGMStoolkit.functions import egmsapitools
 from EGMStoolkit import usermessage
@@ -348,6 +350,7 @@ class egmsdownloader:
     def unzipfile(self,
         outputdir: Optional[str] = '.%sOutput' % (os.sep),     
         unzipmode: Optional[bool] = True,
+        nbworker: Optional[int] = 1,
         cleanmode: Optional[bool] = False,        
         verbose: Optional[Union[bool,None]] = None):
         """Unzip the EGMS files
@@ -356,6 +359,7 @@ class egmsdownloader:
 
             outputdir (str, Optional): Path of the output directory [Default: './Output']
             unzipmode (bool, Optional): Unzip the file [Default: `True`]
+            nbworker (int, Optional): Number of workers for unzipping [Default: 1]
             cleanmode (bool, Optional): Delete the file after unzipping [Default: `False`]
             verbose (bool or None, Optional): Verbose if `None`, use the verbose mode of the job [Default: `None`]
 
@@ -370,33 +374,52 @@ class egmsdownloader:
         if not isinstance(verbose,bool):
             raise ValueError(usermessage.errormsg(__name__,'unzipfile',__file__,constants.__copyright__,'Verbose must be True or False',self.log))
         
+        if not isinstance(nbworker,int):
+            raise ValueError(usermessage.errormsg(__name__,'nbworker',__file__,constants.__copyright__,'nbworker must be an int.',self.log))
+        else: 
+            if nbworker < 1: 
+                raise ValueError(usermessage.errormsg(__name__,'nbworker',__file__,constants.__copyright__,'nbworker must be >= 1.',self.log))
+
         self.checkparameter(verbose = False)
 
         usermessage.openingmsg(__name__,__name__,__file__,constants.__copyright__,'Unzip the EGMS files',self.log,verbose)
 
         list_files = glob.glob('%s%s*%s*%s*.zip' % (outputdir,os.sep,os.sep,os.sep))
-        
+
+        ####################
+        def unziponefile(fi,cleanmode,h): 
+            pathsplit = fi.split(os.sep)
+            namefile = fi.split(os.sep)[-1].split('.')[0]
+            pathdirfile = ''
+            for i1 in np.arange(len(pathsplit)-1):
+                if i1 == 0:
+                    pathdirfile = pathsplit[i1] 
+                else:
+                    pathdirfile = pathdirfile + os.sep + pathsplit[i1]     
+
+            if not h == None:           
+                usermessage.egmstoolkitprint('%d / %d files: Unzip the file: %s' % (h,len(list_files),pathsplit[-1]),self.log,verbose)
+            else: 
+                usermessage.egmstoolkitprint('Unzip the file: %s' % (pathsplit[-1]),self.log,verbose)
+
+            with zipfile.ZipFile("%s" %(fi), 'r') as zip_ref:
+                zip_ref.extractall('%s%s%s' % (pathdirfile,os.sep,namefile))
+
+            if os.path.isdir('%s%s%s' % (pathdirfile,os.sep,namefile)) and (cleanmode): 
+                os.remove(fi)
+        ####################
+
         if unzipmode:
-            h = 1
-            for fi in list_files: 
-                pathsplit = fi.split(os.sep)
-                namefile = fi.split(os.sep)[-1].split('.')[0]
-                pathdirfile = ''
-                for i1 in np.arange(len(pathsplit)-1):
-                    if i1 == 0:
-                        pathdirfile = pathsplit[i1] 
-                    else:
-                        pathdirfile = pathdirfile + os.sep + pathsplit[i1]                
-                usermessage.egmstoolkitprint('%d / %d files: Unzip the file: %s' % (h,len(list_files),pathsplit[-1]),self.log,verbose)  
-                h = h + 1
-
-                with zipfile.ZipFile("%s" %(fi), 'r') as zip_ref:
-                    zip_ref.extractall('%s%s%s' % (pathdirfile,os.sep,namefile))
-
-                if os.path.isdir('%s%s%s' % (pathdirfile,os.sep,namefile)) and (cleanmode): 
-                    os.remove(fi)
+            if nbworker == 1: 
+                h = 1
+                for fi in list_files: 
+                    unziponefile(fi,cleanmode,h)
+                    h =+ 1
+            else: 
+                usermessage.egmstoolkitprint('Unzipping with %s workers' % (nbworker),self.log,verbose)  
+                Parallel(n_jobs=nbworker)(delayed(unziponefile)(fi,cleanmode,None) for fi in list_files)
         else: 
-            usermessage.egmstoolkitprint('\tNo processing.',self.log,verbose)  
+                usermessage.egmstoolkitprint('\tNo processing.',self.log,verbose)  
 
         return self
 

@@ -9,6 +9,9 @@ The module contains the classe and the methods to detect the tile regarding a us
     (From `EGMStoolkit` package)
 
 Changelog:
+    * 0.2.15: Several changes
+        * Bug fix regarding multiple tracks and pass, Apr. 2025, Diego Talledo
+        * Add the possibility to give Polygon shapefiles, Apr. 2025, Alexis Hrysiewicz
     * 0.2.12: Add the support of the 2019_2013 release, Nov. 2024, Alexis Hrysiewicz
     * 0.2.7: Add the Folium package in order to create the map, Apr. 2024, Alexis Hrysiewicz
     * 0.2.1: Fix regarding the EGMS-ID bursts, Feb. 2024, Alexis Hrysiewicz
@@ -18,7 +21,7 @@ Changelog:
 """
 
 import os 
-from shapely.geometry import Polygon, mapping, shape, LineString
+from shapely.geometry import Polygon, mapping, shape, LineString, MultiLineString
 from osgeo import gdal
 import fiona
 import numpy as np
@@ -225,8 +228,37 @@ class S1ROIparameter:
 
         elif os.path.isfile(self.bbox):
             usermessage.egmstoolkitprint('Use the vector file giving by the user: %s' % (self.bbox),self.log,verbose)
-            gdal.VectorTranslate(self.workdirectory+os.sep+'bbox.shp',self.bbox,options='-f "ESRI Shapefile" -t_srs "EPSG:4326"')
-        
+            shape = fiona.open(self.bbox)
+            if shape.schema['geometry'] == 'MultiLineString':
+                gdal.VectorTranslate(self.workdirectory+os.sep+'bbox.shp',self.bbox,options='-f "ESRI Shapefile" -t_srs "EPSG:4326"')
+            else: 
+                usermessage.egmstoolkitprint('\tThe shapefile is not a MultiLineString shape. It will be converted...',self.log,verbose)
+
+                with fiona.open(self.bbox) as roifile:   
+                    listpts = []        
+                    for feature in roifile:
+                        pts = feature['geometry']["coordinates"][0]     
+                        lontmp = []
+                        lattmp = []  
+                        if not roifile.crs == 'EPSG:4326':
+                                meter_to_latlon = pyproj.Transformer.from_crs(roifile.crs,'epsg:4326')
+                                for index, point in enumerate(pts):
+                                    lati, loni = meter_to_latlon.transform(point[0],point[1])
+                                    lontmp.append(loni)
+                                    lattmp.append(lati)
+
+                        else:
+                            for index, point in enumerate(pts):
+                                lontmp.append(point[0])
+                                lattmp.append(point[1])
+
+                        listpts.append((list(zip(lontmp, lattmp))))
+                    bbox = MultiLineString(listpts)
+
+                    schema = {'geometry': 'MultiLineString','properties': {'FID': 'int'}}
+                    with fiona.open(self.workdirectory+os.sep+'bbox.shp', mode='w', driver='ESRI Shapefile',schema = schema, crs = "EPSG:4326")  as output:
+                        output.write({'geometry':mapping(bbox),'properties': {'FID':1}})
+
         elif isinstance(self.bbox, str): # ERROR
             usermessage.egmstoolkitprint('Use the country name given by the user',self.log,verbose)
 
@@ -347,6 +379,9 @@ class S1ROIparameter:
                                     for i1 in Pass_usertmp:
                                         Pass_user.append(i1[0])
 
+                                ############################################################
+                                ## bug fix regarding multiple tracks and pass, Diego Talledo, Apr. 2025
+                                ############################################################
                                 for (tracki, passi) in product(Track_user, Pass_user):
                                     
                                     if (tracki == relative_orbit_number or str(tracki) == 'None') and (passi.upper() == orbit_pass or passi == 'None'):

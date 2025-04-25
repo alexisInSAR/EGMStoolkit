@@ -3,6 +3,10 @@ Change log
 
 The different versions are as follows:
 
+* 0.2.15: 
+   * Bug fix regarding multiple tracks and pass, Diego Talledo, Apr. 2025 see `GitHub issue <https://github.com/alexisInSAR/EGMStoolkit/issues/4>`_
+   * It now is possible to give a Polygon shapefile as the Region of Interest, the file will be converted, Alexis Hrysiewicz, Apr. 2025 see `GitHub issue <https://github.com/alexisInSAR/EGMStoolkit/issues/1>`_
+   * Add the possibility to unzip files in parallel, Alexis Hrysiewicz, Apr. 2025 (on an idea of Diego Talledo, see `GitHub issue <https://github.com/alexisInSAR/EGMStoolkit/issues/2>`_).
 * 0.2.14: Some changes and additions, end-Jan. 2025, Alexis Hrysiewicz
    * Fix regarding the GTiff coordinates
    * Add an advanced example in the Documentation for data interpolation

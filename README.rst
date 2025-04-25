@@ -9,7 +9,7 @@ EGMS toolkit
 
 **UNDER DEVELOPMENT**
 
-**Release info**: Version 0.2.14 Beta, Jan., 2025
+**Release info**: Version 0.2.15 Beta, Apr., 2025
 
 The online documentation can be found `here <https://alexisinsar.github.io/EGMStoolkit/>`_.
 
@@ -19,7 +19,7 @@ Dependencies and installation
 The requirements are:
 
 * Python 3
-* GDAL (best with 3.8.0)
+* GDAL (best with >= 3.8.0)
 * GMT (with GSHHG)
 
 .. note:: 
@@ -126,11 +126,11 @@ The author acknowledges funding from an ESA Living Planet Fellowship (Project na
             :height: 100px
             :alt: ESA Logo
             :target: https://eo4society.esa.int/lpf/alexis-hrysiewicz/
-     - .. image:: https://www.icrag-centre.org/t4media/icrag-logo-new.png
+     - .. image:: https://www.icrag-centre.org/t4media/iCRAG_RI_stacked-new_digital-01%20(2)(1).png
             :height: 100px
             :alt: iCRAG logo
             :target: https://www.icrag-centre.org
-     - .. image:: https://upload.wikimedia.org/wikipedia/en/9/9e/UCD_Dublin.png
+     - .. image:: https://www.ucd.ie/t4media/crest-ucd.svg
             :height: 75px
             :alt: UCD Logo
             :target: https://www.ucd.ie/

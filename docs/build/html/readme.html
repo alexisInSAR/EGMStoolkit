@@ -14,9 +14,9 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -37,7 +37,7 @@
             EGMS-toolkit
           </a>
               <div class="version">
-                0.2.14 Beta
+                0.2.15 Beta
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -100,7 +100,7 @@
            <div itemprop="articleBody">
              
   <section id="egms-toolkit">
-<h1>EGMS toolkit<a class="headerlink" href="#egms-toolkit" title="Link to this heading"></a></h1>
+<h1>EGMS toolkit<a class="headerlink" href="#egms-toolkit" title="Permalink to this heading"></a></h1>
 <p><strong>EGMS toolkit</strong> is a set of python scripts to download and manage the InSAR data from <a class="reference external" href="https://egms.land.copernicus.eu">European Ground Motion Service</a>. The toolkit allows:</p>
 <ul class="simple">
 <li><p>to download the data automatically;</p></li>
@@ -108,14 +108,14 @@
 <li><p>to clip/crop the datasets.</p></li>
 </ul>
 <p><strong>UNDER DEVELOPMENT</strong></p>
-<p><strong>Release info</strong>: Version 0.2.14 Beta, Jan., 2025</p>
+<p><strong>Release info</strong>: Version 0.2.15 Beta, Apr., 2025</p>
 <p>The online documentation can be found <a class="reference external" href="https://alexisinsar.github.io/EGMStoolkit/">here</a>.</p>
 <section id="dependencies-and-installation">
-<h2>Dependencies and installation<a class="headerlink" href="#dependencies-and-installation" title="Link to this heading"></a></h2>
+<h2>Dependencies and installation<a class="headerlink" href="#dependencies-and-installation" title="Permalink to this heading"></a></h2>
 <p>The requirements are:</p>
 <ul class="simple">
 <li><p>Python 3</p></li>
-<li><p>GDAL (best with 3.8.0)</p></li>
+<li><p>GDAL (best with &gt;= 3.8.0)</p></li>
 <li><p>GMT (with GSHHG)</p></li>
 </ul>
 <div class="admonition note">
@@ -139,7 +139,7 @@
 </div>
 </section>
 <section id="run-the-toolkit">
-<h2>Run the toolkit<a class="headerlink" href="#run-the-toolkit" title="Link to this heading"></a></h2>
+<h2>Run the toolkit<a class="headerlink" href="#run-the-toolkit" title="Permalink to this heading"></a></h2>
 <p>There are two ways to use the toolkit (in shell or in Python).</p>
 <p><strong>The user needs to use the temporary token from the EGMS website. It can be found at the end of download links (see image below). Any download links can be used, the user can use a random download link.</strong></p>
 <a class="reference internal image-reference" href="_images/example_token.png"><img alt="EGMS Token" src="_images/example_token.png" style="width: 750px;" /></a>
@@ -161,7 +161,7 @@
 <p><strong>In addition, EGMStoolkit can be used in a Python environment: see the example in the EGMStoolkit documentation.</strong></p>
 </section>
 <section id="merging-the-l2-datasets">
-<h2>Merging the L2 datasets<a class="headerlink" href="#merging-the-l2-datasets" title="Link to this heading"></a></h2>
+<h2>Merging the L2 datasets<a class="headerlink" href="#merging-the-l2-datasets" title="Permalink to this heading"></a></h2>
 <p>Due to the Sentinel-1 acquisition mode, EGMStoolkit offers two different methods of merging:</p>
 <ul class="simple">
 <li><p>Without reducing duplicate of measurement points in burst/swath overlaps;</p></li>
@@ -171,24 +171,24 @@
 <p>The VRT format can be used for the merging and interpolation steps.</p>
 </section>
 <section id="authors">
-<h2>Authors<a class="headerlink" href="#authors" title="Link to this heading"></a></h2>
+<h2>Authors<a class="headerlink" href="#authors" title="Permalink to this heading"></a></h2>
 <p>Alexis Hrysiewicz University College Dublin / iCRAG</p>
 </section>
 <section id="change-log">
-<h2>Change log<a class="headerlink" href="#change-log" title="Link to this heading"></a></h2>
+<h2>Change log<a class="headerlink" href="#change-log" title="Permalink to this heading"></a></h2>
 <p>See the <strong>Change log</strong> section of the documentation.</p>
 </section>
 <section id="license">
-<h2>License<a class="headerlink" href="#license" title="Link to this heading"></a></h2>
+<h2>License<a class="headerlink" href="#license" title="Permalink to this heading"></a></h2>
 <p>EGMS-toolkit  Copyright (C) 2025  Alexis Hrysiewicz</p>
 <p>This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under certain conditions (see License).</p>
 </section>
 <section id="reference">
-<h2>Reference<a class="headerlink" href="#reference" title="Link to this heading"></a></h2>
+<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h2>
 <p>Hrysiewicz, A., Khoshlahjeh Azar, M., &amp; Holohan, E. P. (2024). EGMS-toolkit: a set of Python scripts for improved access to datasets from the European Ground Motion Service. Earth Science Informatics. <a class="reference external" href="https://doi.org/10.1007/s12145-024-01356-w">https://doi.org/10.1007/s12145-024-01356-w</a></p>
 </section>
 <section id="funding">
-<h2>Funding<a class="headerlink" href="#funding" title="Link to this heading"></a></h2>
+<h2>Funding<a class="headerlink" href="#funding" title="Permalink to this heading"></a></h2>
 <p>The author acknowledges funding from an ESA Living Planet Fellowship (Project name: <em>Raised Peatland Ecohydrology Evaluation through Sentinel-1 InSAR data and Machine Learning</em>) and iCRAG, the Science Foundation Ireland Research Centre in Applied Geosciences.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -199,9 +199,9 @@
 <tbody>
 <tr class="row-odd"><td><a class="reference external image-reference" href="https://eo4society.esa.int/lpf/alexis-hrysiewicz/"><img alt="ESA Logo" src="https://brand.esa.int/files/2020/05/ESA_logo_2020_Deep-1024x643.jpg" style="height: 100px;" /></a>
 </td>
-<td><a class="reference external image-reference" href="https://www.icrag-centre.org"><img alt="iCRAG logo" src="https://www.icrag-centre.org/t4media/icrag-logo-new.png" style="height: 100px;" /></a>
+<td><a class="reference external image-reference" href="https://www.icrag-centre.org"><img alt="iCRAG logo" src="https://www.icrag-centre.org/t4media/iCRAG_RI_stacked-new_digital-01%20(2)(1).png" style="height: 100px;" /></a>
 </td>
-<td><a class="reference external image-reference" href="https://www.ucd.ie/"><img alt="UCD Logo" src="https://upload.wikimedia.org/wikipedia/en/9/9e/UCD_Dublin.png" style="height: 75px;" /></a>
+<td><a class="reference external image-reference" href="https://www.ucd.ie/"><img alt="UCD Logo" height="75px" src="https://www.ucd.ie/t4media/crest-ucd.svg" /></a>
 </td>
 </tr>
 </tbody>

@@ -7,6 +7,7 @@ Wrapper of EGMS-toolkit
     (From `EGMStoolkit` package)
 
 Changelog:
+    * 0.2.15: Add the possibility to unzip files in parallel, Alexis Hrysiewicz, Apr. 2025
     * 0.2.13: Fix regarding the use of shapefiles, Jan. 2025, Alexis Hrysiewicz
     * 0.2.12: Add the support of the 2019_2023 release, Nov. 2024, Alexis Hrysiewicz
     * 0.2.9: Fix regarding the Track_user, Pass_user options and the cropping of L3 data, Apr. 2024, Alexis Hrysiewicz
@@ -83,6 +84,8 @@ def main():
                         help="Block downloading of files. Default: False")
         parser.add_option("--nounzip", dest="unzip", action="store_false", default=True,
                         help="Block unziping of files. Default: False")
+        parser.add_option("--unzipworker", dest="unzipworker", action="store", type="int", default='1',
+                        help="Number of worker for file unzipping. Default: 1")
         parser.add_option("--nozip", dest="nokeepzip", action="store_false", default=True,
                         help="We will remove .zip files. Default: False")
         parser.add_option("--nomerging", dest="merging", action="store_false", default=True,
@@ -313,7 +316,10 @@ def main():
 
         # Unzip the files
         if options.download and options.unzip:
-            downloadpara.unzipfile(outputdir=options.outputdir,unzipmode=True,cleanmode=options.nokeepzip) 
+            downloadpara.unzipfile(outputdir=options.outputdir,
+                                   unzipmode=True,
+                                   nbworker=options.unzipworker,
+                                   cleanmode=options.nokeepzip) 
 
         ###########################################################################
         # (4) Post-process of the files (all these steps are optional)
