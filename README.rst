@@ -51,11 +51,43 @@ Run the toolkit
 
 There are two ways to use the toolkit (in shell or in Python). 
 
-**The user needs to use the temporary token from the EGMS website. It can be found at the end of download links (see image below). Any download links can be used, the user can use a random download link.**
+**To use the EGMS toolkit, you need a temporary token from the EGMS website. Follow these steps:**
 
-.. image:: private/example_token.png
+1. Go to the `EGMS website <https://egms.land.copernicus.eu/>`_.
+2. Log in with your account;
+
+.. image:: private/login_step.png
     :width: 750px
-    :alt: EGMS Token
+    :alt: EGMS login
+
+3. You will be redirected to EU Login page, make sure to provide your credentials and click on "Sign in";
+
+.. image:: private/sign_in_page_step.png
+    :width: 750px
+    :alt: EU Login
+
+4. After logging in, you will be redirected to the EGMS website, click on the "Geographic archive search" button and draw a small bounding box on the map to select the area of interest. Double click to confirm the selection, make sure to not select a large area.;
+
+.. image:: private/egms_search_step.png
+    :width: 750px
+    :alt: EGMS search
+
+5. After selecting the area, click on "Download links";
+
+.. image:: private/download_links_step.png
+    :width: 750px
+    :alt: EGMS download links
+
+6. A ``.txt`` file will be downloaded, open it you should see something like this::
+
+.. code-block:: text
+
+    https://egms.land.copernicus.eu/insar-api/archive/download/EGMS_L3_E26N19_100km_E_2019_2023_2.zip?id=fce0bde58db242f2a0d8e59e06728ffe
+    https://egms.land.copernicus.eu/insar-api/archive/download/EGMS_L3_E26N19_100km_U_2019_2023_2.zip?id=fce0bde58db242f2a0d8e59e06728ffe
+
+7. The token is the string of characters after ``id=``. In the example above, the token is ``fce0bde58db242f2a0d8e59e06728ffe``. Copy this token and use it with the toolkit.
+
+.. note:: This token is temporary and may expire. If you encounter issues, repeat these steps to obtain a new token.
 
 **Please find an example of the script use in your shell terminal.**
 
