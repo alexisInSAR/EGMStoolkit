@@ -51,11 +51,49 @@ Run the toolkit
 
 There are two ways to use the toolkit (in shell or in Python). 
 
-**The user needs to use the temporary token from the EGMS website. It can be found at the end of download links (see image below). Any download links can be used, the user can use a random download link.**
+**To use the EGMS toolkit, you must first obtain a temporary token from the EGMS website. Follow the steps below:**
 
-.. image:: private/example_token.png
-    :width: 750px
-    :alt: EGMS Token
+1. Visit the `EGMS website <https://egms.land.copernicus.eu/>`_.
+2. Log in using your credentials:
+
+   .. image:: private/login_step.png
+      :width: 750px
+      :alt: EGMS login page
+
+3. You will be redirected to the EU Login portal. Enter your credentials and click **Sign in**:
+
+   .. image:: private/sign_in_page_step.png
+      :width: 750px
+      :alt: EU Login
+
+4. Once logged in, you'll be redirected back to the EGMS website. Click on **Geographic archive search**, then draw a small bounding box on the map to define your area of interest. Double-click to confirm the selection.  
+   **Important:** avoid selecting a large area.
+
+   .. image:: private/egms_search_step.png
+      :width: 750px
+      :alt: EGMS area selection
+
+5. After selecting the area, click on **Download links**:
+
+   .. image:: private/download_links_step.png
+      :width: 750px
+      :alt: EGMS download links
+
+6. A ``.txt`` file will be downloaded. Open the file — it should contain download links similar to the example below:
+
+   .. code-block:: text
+
+      https://egms.land.copernicus.eu/insar-api/archive/download/EGMS_L3_E26N19_100km_E_2019_2023_2.zip?id=fce0bde58db242f2a0d8e59e06728ffe
+      https://egms.land.copernicus.eu/insar-api/archive/download/EGMS_L3_E26N19_100km_U_2019_2023_2.zip?id=fce0bde58db242f2a0d8e59e06728ffe
+
+7. The token is the string that follows ``id=`` in the URL. In the example above, the token is:
+
+   ``fce0bde58db242f2a0d8e59e06728ffe``
+
+   Copy this token and provide it to the EGMS toolkit when prompted.
+
+.. note::  
+   This token is temporary and may expire. If it does, simply repeat these steps to generate a new one.
 
 **Please find an example of the script use in your shell terminal.**
 
