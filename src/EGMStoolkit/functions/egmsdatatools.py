@@ -9,6 +9,7 @@ The module adds some functions, required by `EGMStoolkit` to post-process the EG
     (From `EGMStoolkit` package)
 
 Changelog:
+    * 0.2.16: Bug fix in the datagridding (duplication of -of option), Jul. 2025, Alexis Hrysiewicz   
     * 0.2.14: SEcond fix regarding the location of GTiff coordinates (i.e., -co AREA_OR_POINT=Point), end-Jan 2025, Alexis Hrysiewicz
     * 0.2.13: Fix regarding the location of GTiff coordinates (i.e., -co AREA_OR_POINT=Point), Jan 2025, Alexis Hrysiewicz
     * 0.2.11: Fix regarding the input and output directory for data gridding, Aug. 2024, Alexis Hrysiewicz
@@ -249,9 +250,9 @@ def datagridding(paragrid,
             if not os.path.isfile('%s%s%s_%s.tif' % (outputdir,os.sep,namefile,parai)):
 
                 if '.csv' in fi: 
-                    cmdi = 'gdal_grid -of ENVI -zfield "%s" -a_srs EPSG:3035 -oo HEADERS=YES -oo SEPARATOR=SEMICOLON -oo X_POSSIBLE_NAMES=easting -oo Y_POSSIBLE_NAMES=northing -a %s -txe %f %f -tye %f %f -tr %f %f -of GTiff -l %s -ot Float64 %s%s%s.csv %s%s%s_%s.tif'% (parai,paragrid['algo'],paragrid['Xmin'],paragrid['Xmax'],paragrid['Ymin'],paragrid['Ymax'],paragrid['xres'],paragrid['yres'],namefile,inputdir,os.sep,namefile,outputdir,os.sep,namefile,parai)
+                    cmdi = 'gdal_grid -zfield "%s" -a_srs EPSG:3035 -oo HEADERS=YES -oo SEPARATOR=SEMICOLON -oo X_POSSIBLE_NAMES=easting -oo Y_POSSIBLE_NAMES=northing -a %s -txe %f %f -tye %f %f -tr %f %f -of GTiff -l %s -ot Float64 %s%s%s.csv %s%s%s_%s.tif'% (parai,paragrid['algo'],paragrid['Xmin'],paragrid['Xmax'],paragrid['Ymin'],paragrid['Ymax'],paragrid['xres'],paragrid['yres'],namefile,inputdir,os.sep,namefile,outputdir,os.sep,namefile,parai)
                 else: 
-                    cmdi = 'gdal_grid -of ENVI -zfield "%s" -a_srs EPSG:3035 -oo HEADERS=YES -oo SEPARATOR=SEMICOLON -a %s -txe %f %f -tye %f %f -tr %f %f -of GTiff -l %s -ot Float64 %s%s%s.vrt %s%s%s_%s.tif' % (parai,paragrid['algo'],paragrid['Xmin'],paragrid['Xmax'],paragrid['Ymin'],paragrid['Ymax'],paragrid['xres'],paragrid['yres'],namefile,inputdir,os.sep,namefile,outputdir,os.sep,namefile,parai)
+                    cmdi = 'gdal_grid -of GTiff -zfield "%s" -a_srs EPSG:3035 -oo HEADERS=YES -oo SEPARATOR=SEMICOLON -a %s -txe %f %f -tye %f %f -tr %f %f -of GTiff -l %s -ot Float64 %s%s%s.vrt %s%s%s_%s.tif' % (parai,paragrid['algo'],paragrid['Xmin'],paragrid['Xmax'],paragrid['Ymin'],paragrid['Ymax'],paragrid['xres'],paragrid['yres'],namefile,inputdir,os.sep,namefile,outputdir,os.sep,namefile,parai)
 
                 usermessage.egmstoolkitprint('\t\tThe command will be: %s' % (cmdi),log,verbose)
                 os.system(cmdi)
