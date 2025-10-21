@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gridding of L2a and L2b EGMS data to minimise the overlap artefacts &mdash; EGMS-toolkit  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Issues and improvements" href="../knownprob.html" />
+    <link rel="prev" title="Advanced examples of EGMS toolkit" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            EGMS-toolkit
+          </a>
+              <div class="version">
+                0.3.0 Beta
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">EGMS toolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../example/example.html">Example of EGMS toolkit in Python environment</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Advanced examples of EGMS toolkit</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Gridding of L2a and L2b EGMS data to minimise the overlap artefacts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../knownprob.html">Issues and improvements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Change log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contrib.html">Contribution</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Further information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/alexisInSAR/EGMStoolkit.git">EGMS-toolkit GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.ucd.ie">University College Dublin</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.icrag-centre.org">iCRAG</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://land.copernicus.eu/en/products/european-ground-motion-service">EGMS documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">EGMS-toolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Advanced examples of EGMS toolkit</a></li>
+      <li class="breadcrumb-item active">Gridding of L2a and L2b EGMS data to minimise the overlap artefacts</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/advexample/adexample1.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="gridding-of-l2a-and-l2b-egms-data-to-minimise-the-overlap-artefacts">
+<h1>Gridding of L2a and L2b EGMS data to minimise the overlap artefacts<a class="headerlink" href="#gridding-of-l2a-and-l2b-egms-data-to-minimise-the-overlap-artefacts" title="Permalink to this heading"></a></h1>
+<p><em>By Alexis Hrysiewicz, Jan. 2025</em></p>
+<div class="danger admonition">
+<p class="admonition-title">For your information</p>
+<p>This documentation is an early version.</p>
+</div>
+<p>This example offers the way in order to download EGMS data in L2a (or L2b) level and to use interpolations for minimising of burst-overlap artefacts. This example therefore proposes an advanced use of <strong>EGMS toolkit</strong>.</p>
+<p>First, we import the <strong>EGMS toolkit</strong> package and the required packages.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">EGMStoolkit.classes</span> <span class="kn">import</span> <span class="n">EGMSS1burstIDapi</span>
+<span class="kn">from</span> <span class="nn">EGMStoolkit.classes</span> <span class="kn">import</span> <span class="n">EGMSS1ROIapi</span>
+<span class="kn">from</span> <span class="nn">EGMStoolkit.classes</span> <span class="kn">import</span> <span class="n">EGMSdownloaderapi</span>
+<span class="kn">from</span> <span class="nn">EGMStoolkit.functions</span> <span class="kn">import</span> <span class="n">egmsdatatools</span>
+<span class="kn">import</span> <span class="nn">fiona</span><span class="o">,</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Polygon</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">LineString</span><span class="p">,</span> <span class="n">Point</span>
+<span class="kn">import</span> <span class="nn">pyproj</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">osgeo</span> <span class="kn">import</span> <span class="n">gdal</span><span class="p">,</span> <span class="n">osr</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+</pre></div>
+</div>
+<p>Then we detect the available data based on the following parameters:
+* L2a level;
+* Region of Interest over Dublin, Ireland
+* 2018-2020 release
+* Track number 1
+* Ascending data</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">info</span> <span class="o">=</span> <span class="n">EGMSS1burstIDapi</span><span class="o">.</span><span class="n">S1burstIDmap</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">log</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">info</span><span class="o">.</span><span class="n">downloadfile</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">ROIpara</span> <span class="o">=</span> <span class="n">EGMSS1ROIapi</span><span class="o">.</span><span class="n">S1ROIparameter</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">ROIpara</span><span class="o">.</span><span class="n">egmslevel</span> <span class="o">=</span> <span class="s1">&#39;L2a&#39;</span>
+<span class="n">ROIpara</span><span class="o">.</span><span class="n">bbox</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">6.427059639290446</span><span class="p">,</span><span class="mf">53.2606655698541</span><span class="p">,</span><span class="o">-</span><span class="mf">6.0952332730202095</span><span class="p">,</span><span class="mf">53.41811986118854</span><span class="p">]</span>
+<span class="n">ROIpara</span><span class="o">.</span><span class="n">release</span> <span class="o">=</span> <span class="s1">&#39;2018_2022&#39;</span>
+
+<span class="n">ROIpara</span><span class="o">.</span><span class="n">createROI</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ROIpara</span><span class="o">.</span><span class="n">detectfromIDmap</span><span class="p">(</span><span class="n">info</span><span class="p">,</span><span class="n">Track_user</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">Pass_user</span><span class="o">=</span><span class="s1">&#39;Ascending&#39;</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">ROIpara</span><span class="o">.</span><span class="n">displaymap</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;fig_search_adexample1.jpg&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The search parameters are now ready. We can send the request to retreive the files.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">downloadpara</span> <span class="o">=</span> <span class="n">EGMSdownloaderapi</span><span class="o">.</span><span class="n">egmsdownloader</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">downloadpara</span><span class="o">.</span><span class="n">updatelist</span><span class="p">(</span><span class="n">infoS1ROIparameter</span><span class="o">=</span><span class="n">ROIpara</span><span class="p">)</span>
+<span class="n">downloadpara</span><span class="o">.</span><span class="n">printlist</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>So there are 4 files to be downloaded.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">downloadpara</span><span class="o">.</span><span class="n">token</span> <span class="o">=</span> <span class="s1">&#39;xxxxxxxxxxxxxxxxxxxx&#39;</span>
+<span class="n">downloadpara</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">outputdir</span><span class="o">=</span><span class="s1">&#39;./Output&#39;</span><span class="p">)</span>
+<span class="n">downloadpara</span><span class="o">.</span><span class="n">unzipfile</span><span class="p">(</span><span class="n">outputdir</span><span class="o">=</span><span class="s1">&#39;./Output&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The files therefore are downloaded and unzipped. For this example, only two parameters will be manipulated: (1) <em>mean_velocity</em>, (2)
+<em>mean_velocity_std</em>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If all parameters need to be stored, a parameter variable can be generated from any file header of EGMS dataset. For example,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;Output/L2a/2018_2022/EGMS_L2a_001_0314_IW2_VV_2018_2022_1/EGMS_L2a_001_0314_IW2_VV_2018_2022_1.csv&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fi</span><span class="p">:</span>
+    <span class="n">first_line</span> <span class="o">=</span> <span class="n">fi</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+<span class="n">paralist</span> <span class="o">=</span> <span class="n">first_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here, all parameters (i.e., <em>mean_velocity</em>) and displacement for each date will be manipulated and stored. There are 294 parameters, including 269 observation dates.</p>
+</div>
+<p>The following lines will run the merging. The duplicated-point removal must be deactived as the interpolation will be average the observation points.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">paralist</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mean_velocity&#39;</span><span class="p">,</span><span class="s1">&#39;mean_velocity_std&#39;</span><span class="p">]</span>
+
+<span class="n">egmsdatatools</span><span class="o">.</span><span class="n">datamergingcsv</span><span class="p">(</span><span class="n">infoEGMSdownloader</span><span class="o">=</span><span class="n">downloadpara</span><span class="p">,</span><span class="n">inputdir</span><span class="o">=</span><span class="s1">&#39;./Output&#39;</span><span class="p">,</span><span class="n">outputdir</span><span class="o">=</span><span class="s1">&#39;./Output&#39;</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;onlist&#39;</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">paratosave</span><span class="o">=</span><span class="n">paralist</span><span class="p">,</span><span class="n">__removeduplicate__</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now, we therefore have a .csv file with the EGMS observations. The idea is to grid these observations into the regular grid (no clip or cropped will be required). Based on our Region of Interest shapefile, we can extract the final image extent.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">schema</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;geometry&#39;</span><span class="p">:</span> <span class="s1">&#39;Polygon&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;properties&#39;</span> <span class="p">:</span> <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="s1">&#39;int&#39;</span><span class="p">}</span>
+    <span class="p">}</span>
+
+<span class="n">latlon_to_meter</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Transformer</span><span class="o">.</span><span class="n">from_crs</span><span class="p">(</span><span class="s1">&#39;epsg:4326&#39;</span><span class="p">,</span> <span class="s1">&#39;epsg:3035&#39;</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">fiona</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;bbox.shp&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;ESRI Shapefile&#39;</span><span class="p">,</span> <span class="n">schema</span><span class="p">)</span> <span class="k">as</span> <span class="n">shpfile</span><span class="p">:</span>
+    <span class="n">coordinates</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">Xcoord</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">Ycoord</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">shpfile</span><span class="p">:</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">shape</span><span class="p">(</span><span class="n">feature</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">LineString</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">point</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">coords</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">first_pt</span> <span class="o">=</span> <span class="n">point</span>
+                <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">latlon_to_meter</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">Xcoord</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+                <span class="n">Ycoord</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And we can create the interpolation parameters. The grid is aligned to the coordinates used by EGMS for L3 datasets.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">paragrid</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;Xmin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">Xcoord</span><span class="p">)</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span>
+<span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;Ymin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">Ycoord</span><span class="p">)</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span>
+<span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;Xmax&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fix</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">Xcoord</span><span class="p">)</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span>
+<span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;Ymax&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fix</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">Ycoord</span><span class="p">)</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span>
+<span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;xres&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;yres&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;algo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;average:radius1=100:radius2=100:angle=0.0:nodata=-9999&#39;</span> <span class="c1"># Alfgorithm used and options</span>
+<span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;variable&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">paralist</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Finally, we can run the interpolation via the <strong>EGMS toolkit</strong> tool.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">egmsdatatools</span><span class="o">.</span><span class="n">datagridding</span><span class="p">(</span><span class="n">inputdir</span><span class="o">=</span><span class="s1">&#39;./Output&#39;</span><span class="p">,</span><span class="n">outputdir</span><span class="o">=</span><span class="s1">&#39;./Geotiff&#39;</span><span class="p">,</span><span class="n">namefile</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">paragrid</span><span class="o">=</span><span class="n">paragrid</span><span class="p">,</span><span class="n">AREA_OR_POINT</span><span class="o">=</span><span class="s1">&#39;Area&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><strong>This following sections are optional but improve the result quality.</strong></p>
+<p>Even if the rasters are correct, the GDAL-based interpolation uses a circular kernel. It means that we extrapolated some points. However the goal is to avoid any extrapolation, and to ideally interpolate only pixels with EGMS measurement points. The solution is to create a mask by counting numbers of measurement points.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;Output/EGMS_L2a_001_VV_2018_2022_1.csv&#39;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+
+<span class="n">centersX</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;Xmin&#39;</span><span class="p">],</span><span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;Xmax&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;xres&#39;</span><span class="p">],</span><span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;xres&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;xres&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">centersY</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;Ymin&#39;</span><span class="p">],</span><span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;Ymax&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;yres&#39;</span><span class="p">],</span><span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;yres&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;yres&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
+
+<span class="n">H</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram2d</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;easting&#39;</span><span class="p">],</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;northing&#39;</span><span class="p">],</span><span class="n">bins</span><span class="o">=</span><span class="p">[</span><span class="n">centersX</span><span class="p">,</span> <span class="n">centersY</span><span class="p">])</span>
+<span class="n">H</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flipud</span><span class="p">(</span><span class="n">H</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The variable <em>H</em> contains the numbers of measurement points for each pixel.</p>
+<p>To be more conservative, we can define a threshold to keep pixels containing at least <em>x</em> points. Here only the pixels with at least 1 measurement points will be kept.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">H</span><span class="p">[</span><span class="n">H</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>Then we save a GTiff image of this mask using GDAL:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">image_size</span> <span class="o">=</span> <span class="n">H</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">nx</span> <span class="o">=</span> <span class="n">image_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ny</span> <span class="o">=</span> <span class="n">image_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">dst_ds</span> <span class="o">=</span> <span class="n">gdal</span><span class="o">.</span><span class="n">GetDriverByName</span><span class="p">(</span><span class="s1">&#39;GTiff&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">Create</span><span class="p">(</span><span class="s1">&#39;Geotiff/mask.tif&#39;</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">geotransform</span> <span class="o">=</span> <span class="p">(</span><span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;Xmin&#39;</span><span class="p">],</span> <span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;xres&#39;</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;Ymax&#39;</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;yres&#39;</span><span class="p">])</span>
+
+<span class="n">dst_ds</span><span class="o">.</span><span class="n">SetGeoTransform</span><span class="p">(</span><span class="n">geotransform</span><span class="p">)</span>
+<span class="n">srs</span> <span class="o">=</span> <span class="n">osr</span><span class="o">.</span><span class="n">SpatialReference</span><span class="p">()</span>
+<span class="n">srs</span><span class="o">.</span><span class="n">ImportFromEPSG</span><span class="p">(</span><span class="mi">3035</span><span class="p">)</span>
+<span class="n">dst_ds</span><span class="o">.</span><span class="n">SetProjection</span><span class="p">(</span><span class="n">srs</span><span class="o">.</span><span class="n">ExportToWkt</span><span class="p">())</span>
+<span class="n">dst_ds</span><span class="o">.</span><span class="n">GetRasterBand</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">WriteArray</span><span class="p">(</span><span class="n">H</span><span class="p">)</span>
+<span class="n">dst_ds</span><span class="o">.</span><span class="n">GetRasterBand</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">SetNoDataValue</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+<span class="n">dst_ds</span><span class="o">.</span><span class="n">FlushCache</span><span class="p">()</span>
+<span class="n">dst_ds</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+</div>
+<p>The last code section is for the application of the computed mask.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read the mask</span>
+<span class="n">src_ds</span> <span class="o">=</span> <span class="n">gdal</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="s1">&#39;Geotiff/mask.tif&#39;</span><span class="p">)</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="n">src_ds</span><span class="o">.</span><span class="n">GetRasterBand</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">ReadAsArray</span><span class="p">()</span>
+<span class="n">src_ds</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="c1"># Loop for each file</span>
+<span class="k">for</span> <span class="n">fi</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;Geotiff/EGMS_*.tif&#39;</span><span class="p">):</span>
+
+    <span class="n">src_ds</span> <span class="o">=</span> <span class="n">gdal</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="n">fi</span><span class="p">)</span>
+    <span class="n">band</span> <span class="o">=</span> <span class="n">src_ds</span><span class="o">.</span><span class="n">GetRasterBand</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">ReadAsArray</span><span class="p">()</span>
+    <span class="n">band</span><span class="p">[</span><span class="n">mask</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">9999</span>
+
+    <span class="n">dst_ds</span> <span class="o">=</span> <span class="n">gdal</span><span class="o">.</span><span class="n">GetDriverByName</span><span class="p">(</span><span class="s2">&quot;GTiff&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">Create</span><span class="p">(</span><span class="n">fi</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.tif&#39;</span><span class="p">,</span><span class="s1">&#39;_masked.tif&#39;</span><span class="p">),</span> <span class="n">src_ds</span><span class="o">.</span><span class="n">RasterXSize</span><span class="p">,</span> <span class="n">src_ds</span><span class="o">.</span><span class="n">RasterYSize</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">gdal</span><span class="o">.</span><span class="n">GDT_Float64</span><span class="p">)</span>
+    <span class="n">dst_ds</span><span class="o">.</span><span class="n">SetGeoTransform</span><span class="p">(</span><span class="n">src_ds</span><span class="o">.</span><span class="n">GetGeoTransform</span><span class="p">())</span>
+    <span class="n">dst_ds</span><span class="o">.</span><span class="n">SetProjection</span><span class="p">(</span><span class="n">src_ds</span><span class="o">.</span><span class="n">GetProjection</span><span class="p">())</span>
+    <span class="n">dst_ds</span><span class="o">.</span><span class="n">GetRasterBand</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">WriteArray</span><span class="p">(</span><span class="n">band</span><span class="p">)</span>
+    <span class="n">dst_ds</span><span class="o">.</span><span class="n">GetRasterBand</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">SetNoDataValue</span><span class="p">(</span><span class="o">-</span><span class="mi">9999</span><span class="p">)</span>
+    <span class="n">dst_ds</span><span class="o">.</span><span class="n">FlushCache</span><span class="p">()</span>
+
+    <span class="n">src_ds</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">dst_ds</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+</div>
+<p>Each file ending by <em>_masked.tif</em> - stored in the <em>Geotiff</em> directory - will be the EGMS rasterised datasets.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Advanced examples of EGMS toolkit" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../knownprob.html" class="btn btn-neutral float-right" title="Issues and improvements" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, UCD / iCRAG.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

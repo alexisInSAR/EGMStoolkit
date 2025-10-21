@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Example of EGMS toolkit in Python environment &mdash; EGMS-toolkit  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Advanced examples of EGMS toolkit" href="../advexample/index.html" />
+    <link rel="prev" title="EGMS toolkit" href="../readme.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            EGMS-toolkit
+          </a>
+              <div class="version">
+                0.3.0 Beta
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">EGMS toolkit</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Example of EGMS toolkit in Python environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Import-the-required-modules">Import the required modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Manage-the-Sentinel-1-Burst-ID-map">Manage the Sentinel-1-Burst-ID map</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Create-the-python-variable">Create the python variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Dowloading-of-the-Sentinel-1-Burst-ID-map">Dowloading of the Sentinel-1-Burst-ID map</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#Check-the-tile/bursts-available-according-the-user-inputs">Check the tile/bursts available according the user inputs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Create-the-Python-variable.">Create the Python variable.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Definition-of-some-parameters">Definition of some parameters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#For-the-EGMS-level">For the EGMS level</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#For-the-ROI-(or-bbox)">For the ROI (or bbox)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#For-the-release">For the release</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Conversion-of-the-bbox-to-a-ROI">Conversion of the bbox to a ROI</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Detection-of-the-EGMS-datasets">Detection of the EGMS datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Save-and-load-results-from-detection">Save and load results from detection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Display-a-map">Display a map</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#Download-the-EGMS-data">Download the EGMS data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Create the python variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Update-the-list-of-datasets-(and-create-the-links)">Update the list of datasets (and create the links)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Concatenate-other-searches">Concatenate other searches</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Change-the-user-token">Change the user token</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Download the EGMS data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Unzip-the-files">Unzip the files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Clean-the-unused-files">Clean the unused files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#Post-processing-of-the-EGMS-data">Post-processing of the EGMS data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Merge-the-.csv-files">Merge the .csv files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Merge-the-.tiff-files-(only-for-the-vertical-and-horizontal-displacements)">Merge the .tiff files (only for the vertical and horizontal displacements)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Clip/crop-the-data">Clip/crop the data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Clean-the-raw-files-and-directories">Clean the raw files and directories</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#Post-processing-for-advanced-users">Post-processing for advanced users</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Interpolation-of-point-data-(.csv)-into-a-.tif-raster-file">Interpolation of point data (.csv) into a .tif raster file</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Creation-of-the-dict.-for-the-gridding-parameters">Creation of the dict. for the gridding parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Conversion-of-.csv-files-to-other-vector-format">Conversion of .csv files to other vector format</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../advexample/index.html">Advanced examples of EGMS toolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../knownprob.html">Issues and improvements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Change log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contrib.html">Contribution</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Further information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/alexisInSAR/EGMStoolkit.git">EGMS-toolkit GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.ucd.ie">University College Dublin</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.icrag-centre.org">iCRAG</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://land.copernicus.eu/en/products/european-ground-motion-service">EGMS documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">EGMS-toolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Example of EGMS toolkit in Python environment</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/example/example.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Example-of-EGMS-toolkit-in-Python-environment">
+<h1>Example of EGMS toolkit in Python environment<a class="headerlink" href="#Example-of-EGMS-toolkit-in-Python-environment" title="Permalink to this heading"></a></h1>
+<p><em>Date: 26 Jan. 2024 by Alexis Hrysiewicz</em></p>
+<section id="Import-the-required-modules">
+<h2>Import the required modules<a class="headerlink" href="#Import-the-required-modules" title="Permalink to this heading"></a></h2>
+<p>As a Python package, we import the <strong>EGMS-toolkit</strong> sub-packages. For this example, (and for a complete processing), <strong>EGMS-toolkit</strong> requires 4 modules:</p>
+<ul class="simple">
+<li><p><em>EGMSS1burstIDapi</em>: management of the S1-Burst-ID map (from the <em>classes</em> modules);</p></li>
+<li><p><em>EGMSS1ROIapi</em>: process the selection of datasets based on a ROI (from the <em>classes</em> modules);</p></li>
+<li><p><em>EGMSdownloaderapi</em>: downloader of EGMS data (from the <em>classes</em> modules);</p></li>
+<li><p><em>egmsdatatools</em>: some supplementary tools (from the <em>functions</em> modules).</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">EGMStoolkit.classes</span> <span class="kn">import</span> <span class="n">EGMSS1burstIDapi</span>
+<span class="kn">from</span> <span class="nn">EGMStoolkit.classes</span> <span class="kn">import</span> <span class="n">EGMSS1ROIapi</span>
+<span class="kn">from</span> <span class="nn">EGMStoolkit.classes</span> <span class="kn">import</span> <span class="n">EGMSdownloaderapi</span>
+<span class="kn">from</span> <span class="nn">EGMStoolkit.functions</span> <span class="kn">import</span> <span class="n">egmsdatatools</span>
+</pre></div>
+</div>
+</div>
+<p>Of course, it also is possible to directly import EGMStoolkit:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">EGMStoolkit</span>
+</pre></div>
+</div>
+</section>
+<section id="Manage-the-Sentinel-1-Burst-ID-map">
+<h2>Manage the Sentinel-1-Burst-ID map<a class="headerlink" href="#Manage-the-Sentinel-1-Burst-ID-map" title="Permalink to this heading"></a></h2>
+<p>The first step is the creation of the <em>S1burstIDmap</em> object to manage the Sentinel-1-Burst-ID map.</p>
+<blockquote>
+<div><p><strong>NOTE:</strong> To improve the clarity of this example, the verbose mode will be actived for some selected processing step.</p>
+</div></blockquote>
+<section id="Create-the-python-variable">
+<h3>Create the python variable<a class="headerlink" href="#Create-the-python-variable" title="Permalink to this heading"></a></h3>
+<p>We call the class with the verbose and logging modes deactived.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">info</span> <span class="o">=</span> <span class="n">EGMSS1burstIDapi</span><span class="o">.</span><span class="n">S1burstIDmap</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">log</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Of each <strong>EGMS-toolkit</strong> class, the <em>print()</em> method can be used to visualise its attributes.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">info</span><span class="o">.</span><span class="n">print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+date_str_init: 29/05/2022, dirmap: /Users/alexis_hrysiewicz/Work/UCD_InSAR_Scripts/EGMStoolkit/src/EGMStoolkit/3rdparty, pathIDmap: /Users/alexis_hrysiewicz/Work/UCD_InSAR_Scripts/EGMStoolkit/src/EGMStoolkit/3rdparty/S1_burstid_20220530, list_date: [&#39;20220530&#39;, &#39;20220531&#39;, &#39;20220601&#39;, &#39;20220602&#39;, &#39;20220603&#39;, &#39;20220604&#39;, &#39;20220605&#39;, &#39;20220606&#39;, &#39;20220607&#39;, &#39;20220608&#39;, &#39;20220609&#39;, &#39;20220610&#39;, &#39;20220611&#39;, &#39;20220612&#39;, &#39;20220613&#39;, &#39;20220614&#39;, &#39;20220615&#39;, &#39;20220616&#39;, &#39;20220617&#39;, &#39;20220618&#39;, &#39;20220619&#39;, &#39;20220620&#39;, &#39;20220621&#39;, &#39;20220622&#39;, &#39;20220623&#39;, &#39;20220624&#39;, &#39;20220625&#39;, &#39;20220626&#39;, &#39;20220627&#39;, &#39;20220628&#39;, &#39;20220629&#39;, &#39;20220630&#39;, &#39;20220701&#39;, &#39;20220702&#39;, &#39;20220703&#39;, &#39;20220704&#39;, &#39;20220705&#39;, &#39;20220706&#39;, &#39;20220707&#39;, &#39;20220708&#39;, &#39;20220709&#39;, &#39;20220710&#39;, &#39;20220711&#39;, &#39;20220712&#39;, &#39;20220713&#39;, &#39;20220714&#39;, &#39;20220715&#39;, &#39;20220716&#39;, &#39;20220717&#39;, &#39;20220718&#39;, &#39;20220719&#39;, &#39;20220720&#39;, &#39;20220721&#39;, &#39;20220722&#39;, &#39;20220723&#39;, &#39;20220724&#39;, &#39;20220725&#39;, &#39;20220726&#39;, &#39;20220727&#39;, &#39;20220728&#39;, &#39;20220729&#39;, &#39;20220730&#39;, &#39;20220731&#39;, &#39;20220801&#39;, &#39;20220802&#39;, &#39;20220803&#39;, &#39;20220804&#39;, &#39;20220805&#39;, &#39;20220806&#39;, &#39;20220807&#39;, &#39;20220808&#39;, &#39;20220809&#39;, &#39;20220810&#39;, &#39;20220811&#39;, &#39;20220812&#39;, &#39;20220813&#39;, &#39;20220814&#39;, &#39;20220815&#39;, &#39;20220816&#39;, &#39;20220817&#39;, &#39;20220818&#39;, &#39;20220819&#39;, &#39;20220820&#39;, &#39;20220821&#39;, &#39;20220822&#39;, &#39;20220823&#39;, &#39;20220824&#39;, &#39;20220825&#39;, &#39;20220826&#39;, &#39;20220827&#39;, &#39;20220828&#39;, &#39;20220829&#39;, &#39;20220830&#39;, &#39;20220831&#39;, &#39;20220901&#39;, &#39;20220902&#39;, &#39;20220903&#39;, &#39;20220904&#39;, &#39;20220905&#39;, &#39;20220906&#39;, &#39;20220907&#39;, &#39;20220908&#39;, &#39;20220909&#39;, &#39;20220910&#39;, &#39;20220911&#39;, &#39;20220912&#39;, &#39;20220913&#39;, &#39;20220914&#39;, &#39;20220915&#39;, &#39;20220916&#39;, &#39;20220917&#39;, &#39;20220918&#39;, &#39;20220919&#39;, &#39;20220920&#39;, &#39;20220921&#39;, &#39;20220922&#39;, &#39;20220923&#39;, &#39;20220924&#39;, &#39;20220925&#39;, &#39;20220926&#39;, &#39;20220927&#39;, &#39;20220928&#39;, &#39;20220929&#39;, &#39;20220930&#39;, &#39;20221001&#39;, &#39;20221002&#39;, &#39;20221003&#39;, &#39;20221004&#39;, &#39;20221005&#39;, &#39;20221006&#39;, &#39;20221007&#39;, &#39;20221008&#39;, &#39;20221009&#39;, &#39;20221010&#39;, &#39;20221011&#39;, &#39;20221012&#39;, &#39;20221013&#39;, &#39;20221014&#39;, &#39;20221015&#39;, &#39;20221016&#39;, &#39;20221017&#39;, &#39;20221018&#39;, &#39;20221019&#39;, &#39;20221020&#39;, &#39;20221021&#39;, &#39;20221022&#39;, &#39;20221023&#39;, &#39;20221024&#39;, &#39;20221025&#39;, &#39;20221026&#39;, &#39;20221027&#39;, &#39;20221028&#39;, &#39;20221029&#39;, &#39;20221030&#39;, &#39;20221031&#39;, &#39;20221101&#39;, &#39;20221102&#39;, &#39;20221103&#39;, &#39;20221104&#39;, &#39;20221105&#39;, &#39;20221106&#39;, &#39;20221107&#39;, &#39;20221108&#39;, &#39;20221109&#39;, &#39;20221110&#39;, &#39;20221111&#39;, &#39;20221112&#39;, &#39;20221113&#39;, &#39;20221114&#39;, &#39;20221115&#39;, &#39;20221116&#39;, &#39;20221117&#39;, &#39;20221118&#39;, &#39;20221119&#39;, &#39;20221120&#39;, &#39;20221121&#39;, &#39;20221122&#39;, &#39;20221123&#39;, &#39;20221124&#39;, &#39;20221125&#39;, &#39;20221126&#39;, &#39;20221127&#39;, &#39;20221128&#39;, &#39;20221129&#39;, &#39;20221130&#39;, &#39;20221201&#39;, &#39;20221202&#39;, &#39;20221203&#39;, &#39;20221204&#39;, &#39;20221205&#39;, &#39;20221206&#39;, &#39;20221207&#39;, &#39;20221208&#39;, &#39;20221209&#39;, &#39;20221210&#39;, &#39;20221211&#39;, &#39;20221212&#39;, &#39;20221213&#39;, &#39;20221214&#39;, &#39;20221215&#39;, &#39;20221216&#39;, &#39;20221217&#39;, &#39;20221218&#39;, &#39;20221219&#39;, &#39;20221220&#39;, &#39;20221221&#39;, &#39;20221222&#39;, &#39;20221223&#39;, &#39;20221224&#39;, &#39;20221225&#39;, &#39;20221226&#39;, &#39;20221227&#39;, &#39;20221228&#39;, &#39;20221229&#39;, &#39;20221230&#39;, &#39;20221231&#39;, &#39;20230101&#39;, &#39;20230102&#39;, &#39;20230103&#39;, &#39;20230104&#39;, &#39;20230105&#39;, &#39;20230106&#39;, &#39;20230107&#39;, &#39;20230108&#39;, &#39;20230109&#39;, &#39;20230110&#39;, &#39;20230111&#39;, &#39;20230112&#39;, &#39;20230113&#39;, &#39;20230114&#39;, &#39;20230115&#39;, &#39;20230116&#39;, &#39;20230117&#39;, &#39;20230118&#39;, &#39;20230119&#39;, &#39;20230120&#39;, &#39;20230121&#39;, &#39;20230122&#39;, &#39;20230123&#39;, &#39;20230124&#39;, &#39;20230125&#39;, &#39;20230126&#39;, &#39;20230127&#39;, &#39;20230128&#39;, &#39;20230129&#39;, &#39;20230130&#39;, &#39;20230131&#39;, &#39;20230201&#39;, &#39;20230202&#39;, &#39;20230203&#39;, &#39;20230204&#39;, &#39;20230205&#39;, &#39;20230206&#39;, &#39;20230207&#39;, &#39;20230208&#39;, &#39;20230209&#39;, &#39;20230210&#39;, &#39;20230211&#39;, &#39;20230212&#39;, &#39;20230213&#39;, &#39;20230214&#39;, &#39;20230215&#39;, &#39;20230216&#39;, &#39;20230217&#39;, &#39;20230218&#39;, &#39;20230219&#39;, &#39;20230220&#39;, &#39;20230221&#39;, &#39;20230222&#39;, &#39;20230223&#39;, &#39;20230224&#39;, &#39;20230225&#39;, &#39;20230226&#39;, &#39;20230227&#39;, &#39;20230228&#39;, &#39;20230301&#39;, &#39;20230302&#39;, &#39;20230303&#39;, &#39;20230304&#39;, &#39;20230305&#39;, &#39;20230306&#39;, &#39;20230307&#39;, &#39;20230308&#39;, &#39;20230309&#39;, &#39;20230310&#39;, &#39;20230311&#39;, &#39;20230312&#39;, &#39;20230313&#39;, &#39;20230314&#39;, &#39;20230315&#39;, &#39;20230316&#39;, &#39;20230317&#39;, &#39;20230318&#39;, &#39;20230319&#39;, &#39;20230320&#39;, &#39;20230321&#39;, &#39;20230322&#39;, &#39;20230323&#39;, &#39;20230324&#39;, &#39;20230325&#39;, &#39;20230326&#39;, &#39;20230327&#39;, &#39;20230328&#39;, &#39;20230329&#39;, &#39;20230330&#39;, &#39;20230331&#39;, &#39;20230401&#39;, &#39;20230402&#39;, &#39;20230403&#39;, &#39;20230404&#39;, &#39;20230405&#39;, &#39;20230406&#39;, &#39;20230407&#39;, &#39;20230408&#39;, &#39;20230409&#39;, &#39;20230410&#39;, &#39;20230411&#39;, &#39;20230412&#39;, &#39;20230413&#39;, &#39;20230414&#39;, &#39;20230415&#39;, &#39;20230416&#39;, &#39;20230417&#39;, &#39;20230418&#39;, &#39;20230419&#39;, &#39;20230420&#39;, &#39;20230421&#39;, &#39;20230422&#39;, &#39;20230423&#39;, &#39;20230424&#39;, &#39;20230425&#39;, &#39;20230426&#39;, &#39;20230427&#39;, &#39;20230428&#39;, &#39;20230429&#39;, &#39;20230430&#39;, &#39;20230501&#39;, &#39;20230502&#39;, &#39;20230503&#39;, &#39;20230504&#39;, &#39;20230505&#39;, &#39;20230506&#39;, &#39;20230507&#39;, &#39;20230508&#39;, &#39;20230509&#39;, &#39;20230510&#39;, &#39;20230511&#39;, &#39;20230512&#39;, &#39;20230513&#39;, &#39;20230514&#39;, &#39;20230515&#39;, &#39;20230516&#39;, &#39;20230517&#39;, &#39;20230518&#39;, &#39;20230519&#39;, &#39;20230520&#39;, &#39;20230521&#39;, &#39;20230522&#39;, &#39;20230523&#39;, &#39;20230524&#39;, &#39;20230525&#39;, &#39;20230526&#39;, &#39;20230527&#39;, &#39;20230528&#39;, &#39;20230529&#39;, &#39;20230530&#39;, &#39;20230531&#39;, &#39;20230601&#39;, &#39;20230602&#39;, &#39;20230603&#39;, &#39;20230604&#39;, &#39;20230605&#39;, &#39;20230606&#39;, &#39;20230607&#39;, &#39;20230608&#39;, &#39;20230609&#39;, &#39;20230610&#39;, &#39;20230611&#39;, &#39;20230612&#39;, &#39;20230613&#39;, &#39;20230614&#39;, &#39;20230615&#39;, &#39;20230616&#39;, &#39;20230617&#39;, &#39;20230618&#39;, &#39;20230619&#39;, &#39;20230620&#39;, &#39;20230621&#39;, &#39;20230622&#39;, &#39;20230623&#39;, &#39;20230624&#39;, &#39;20230625&#39;, &#39;20230626&#39;, &#39;20230627&#39;, &#39;20230628&#39;, &#39;20230629&#39;, &#39;20230630&#39;, &#39;20230701&#39;, &#39;20230702&#39;, &#39;20230703&#39;, &#39;20230704&#39;, &#39;20230705&#39;, &#39;20230706&#39;, &#39;20230707&#39;, &#39;20230708&#39;, &#39;20230709&#39;, &#39;20230710&#39;, &#39;20230711&#39;, &#39;20230712&#39;, &#39;20230713&#39;, &#39;20230714&#39;, &#39;20230715&#39;, &#39;20230716&#39;, &#39;20230717&#39;, &#39;20230718&#39;, &#39;20230719&#39;, &#39;20230720&#39;, &#39;20230721&#39;, &#39;20230722&#39;, &#39;20230723&#39;, &#39;20230724&#39;, &#39;20230725&#39;, &#39;20230726&#39;, &#39;20230727&#39;, &#39;20230728&#39;, &#39;20230729&#39;, &#39;20230730&#39;, &#39;20230731&#39;, &#39;20230801&#39;, &#39;20230802&#39;, &#39;20230803&#39;, &#39;20230804&#39;, &#39;20230805&#39;, &#39;20230806&#39;, &#39;20230807&#39;, &#39;20230808&#39;, &#39;20230809&#39;, &#39;20230810&#39;, &#39;20230811&#39;, &#39;20230812&#39;, &#39;20230813&#39;, &#39;20230814&#39;, &#39;20230815&#39;, &#39;20230816&#39;, &#39;20230817&#39;, &#39;20230818&#39;, &#39;20230819&#39;, &#39;20230820&#39;, &#39;20230821&#39;, &#39;20230822&#39;, &#39;20230823&#39;, &#39;20230824&#39;, &#39;20230825&#39;, &#39;20230826&#39;, &#39;20230827&#39;, &#39;20230828&#39;, &#39;20230829&#39;, &#39;20230830&#39;, &#39;20230831&#39;, &#39;20230901&#39;, &#39;20230902&#39;, &#39;20230903&#39;, &#39;20230904&#39;, &#39;20230905&#39;, &#39;20230906&#39;, &#39;20230907&#39;, &#39;20230908&#39;, &#39;20230909&#39;, &#39;20230910&#39;, &#39;20230911&#39;, &#39;20230912&#39;, &#39;20230913&#39;, &#39;20230914&#39;, &#39;20230915&#39;, &#39;20230916&#39;, &#39;20230917&#39;, &#39;20230918&#39;, &#39;20230919&#39;, &#39;20230920&#39;, &#39;20230921&#39;, &#39;20230922&#39;, &#39;20230923&#39;, &#39;20230924&#39;, &#39;20230925&#39;, &#39;20230926&#39;, &#39;20230927&#39;, &#39;20230928&#39;, &#39;20230929&#39;, &#39;20230930&#39;, &#39;20231001&#39;, &#39;20231002&#39;, &#39;20231003&#39;, &#39;20231004&#39;, &#39;20231005&#39;, &#39;20231006&#39;, &#39;20231007&#39;, &#39;20231008&#39;, &#39;20231009&#39;, &#39;20231010&#39;, &#39;20231011&#39;, &#39;20231012&#39;, &#39;20231013&#39;, &#39;20231014&#39;, &#39;20231015&#39;, &#39;20231016&#39;, &#39;20231017&#39;, &#39;20231018&#39;, &#39;20231019&#39;, &#39;20231020&#39;, &#39;20231021&#39;, &#39;20231022&#39;, &#39;20231023&#39;, &#39;20231024&#39;, &#39;20231025&#39;, &#39;20231026&#39;, &#39;20231027&#39;, &#39;20231028&#39;, &#39;20231029&#39;, &#39;20231030&#39;, &#39;20231031&#39;, &#39;20231101&#39;, &#39;20231102&#39;, &#39;20231103&#39;, &#39;20231104&#39;, &#39;20231105&#39;, &#39;20231106&#39;, &#39;20231107&#39;, &#39;20231108&#39;, &#39;20231109&#39;, &#39;20231110&#39;, &#39;20231111&#39;, &#39;20231112&#39;, &#39;20231113&#39;, &#39;20231114&#39;, &#39;20231115&#39;, &#39;20231116&#39;, &#39;20231117&#39;, &#39;20231118&#39;, &#39;20231119&#39;, &#39;20231120&#39;, &#39;20231121&#39;, &#39;20231122&#39;, &#39;20231123&#39;, &#39;20231124&#39;, &#39;20231125&#39;, &#39;20231126&#39;, &#39;20231127&#39;, &#39;20231128&#39;, &#39;20231129&#39;, &#39;20231130&#39;, &#39;20231201&#39;, &#39;20231202&#39;, &#39;20231203&#39;, &#39;20231204&#39;, &#39;20231205&#39;, &#39;20231206&#39;, &#39;20231207&#39;, &#39;20231208&#39;, &#39;20231209&#39;, &#39;20231210&#39;, &#39;20231211&#39;, &#39;20231212&#39;, &#39;20231213&#39;, &#39;20231214&#39;, &#39;20231215&#39;, &#39;20231216&#39;, &#39;20231217&#39;, &#39;20231218&#39;, &#39;20231219&#39;, &#39;20231220&#39;, &#39;20231221&#39;, &#39;20231222&#39;, &#39;20231223&#39;, &#39;20231224&#39;, &#39;20231225&#39;, &#39;20231226&#39;, &#39;20231227&#39;, &#39;20231228&#39;, &#39;20231229&#39;, &#39;20231230&#39;, &#39;20231231&#39;, &#39;20240101&#39;, &#39;20240102&#39;, &#39;20240103&#39;, &#39;20240104&#39;, &#39;20240105&#39;, &#39;20240106&#39;, &#39;20240107&#39;, &#39;20240108&#39;, &#39;20240109&#39;, &#39;20240110&#39;, &#39;20240111&#39;, &#39;20240112&#39;, &#39;20240113&#39;, &#39;20240114&#39;, &#39;20240115&#39;, &#39;20240116&#39;, &#39;20240117&#39;, &#39;20240118&#39;, &#39;20240119&#39;, &#39;20240120&#39;, &#39;20240121&#39;, &#39;20240122&#39;, &#39;20240123&#39;, &#39;20240124&#39;, &#39;20240125&#39;, &#39;20240126&#39;, &#39;20240127&#39;, &#39;20240128&#39;, &#39;20240129&#39;, &#39;20240130&#39;, &#39;20240131&#39;, &#39;20240201&#39;, &#39;20240202&#39;], verbose: False, log: None
+</pre></div></div>
+</div>
+</section>
+<section id="Dowloading-of-the-Sentinel-1-Burst-ID-map">
+<h3>Dowloading of the Sentinel-1-Burst-ID map<a class="headerlink" href="#Dowloading-of-the-Sentinel-1-Burst-ID-map" title="Permalink to this heading"></a></h3>
+<p><strong>EGMS-toolkit</strong> requires the Sentinel-1-Burst-ID map to detect the datasets. <strong>EGMS-toolkit</strong> can check the latest version and download the file by using the following method.</p>
+<p>By default, the file will be stored in the <em>3rdparty</em> directory. However, the user can change the directory by modifying the <em>dirmap</em> attributes of the class.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">info</span><span class="o">.</span><span class="n">downloadfile</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;EGMStoolkit.classes.EGMSS1burstIDapi.S1burstIDmap at 0x169fde0e0&gt;
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="Check-the-tile/bursts-available-according-the-user-inputs">
+<h2>Check the tile/bursts available according the user inputs<a class="headerlink" href="#Check-the-tile/bursts-available-according-the-user-inputs" title="Permalink to this heading"></a></h2>
+<p>From the Sentinel-1-Burst-ID map, <strong>EGMS-toolkit</strong> is now able to detect the associated EGMS datasets. Of course, the user can give some parameters to control the search.</p>
+<section id="Create-the-Python-variable.">
+<h3>Create the Python variable.<a class="headerlink" href="#Create-the-Python-variable." title="Permalink to this heading"></a></h3>
+<p>We call the class.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ROIpara</span> <span class="o">=</span> <span class="n">EGMSS1ROIapi</span><span class="o">.</span><span class="n">S1ROIparameter</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Definition-of-some-parameters">
+<h3>Definition of some parameters<a class="headerlink" href="#Definition-of-some-parameters" title="Permalink to this heading"></a></h3>
+<section id="For-the-EGMS-level">
+<h4>For the EGMS level<a class="headerlink" href="#For-the-EGMS-level" title="Permalink to this heading"></a></h4>
+<p>The user can define the level of EGMS datasets: i.e., L2a, L2b or L3.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ROIpara</span><span class="o">.</span><span class="n">egmslevel</span> <span class="o">=</span> <span class="s1">&#39;L2b&#39;</span> <span class="c1"># Level of EGMS data</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="For-the-ROI-(or-bbox)">
+<h4>For the ROI (or bbox)<a class="headerlink" href="#For-the-ROI-(or-bbox)" title="Permalink to this heading"></a></h4>
+<p>The user must define the ROI. There are three ways to define this parameters:</p>
+<ul class="simple">
+<li><p>by a list of EPSG:4326 coordinates [W,S,E,N];</p></li>
+<li><p>by a country name (i.e., GB, FR, etc.);</p></li>
+<li><p>by a shapefile in EPSG:4326 coordinates (multiline string format).</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ROIpara</span><span class="o">.</span><span class="n">bbox</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">6.427059639290446</span><span class="p">,</span><span class="mf">53.2606655698541</span><span class="p">,</span><span class="o">-</span><span class="mf">6.0952332730202095</span><span class="p">,</span><span class="mf">53.41811986118854</span><span class="p">]</span>
+<br/></pre></div>
+</div>
+</div>
+</section>
+<section id="For-the-release">
+<h4>For the release<a class="headerlink" href="#For-the-release" title="Permalink to this heading"></a></h4>
+<p>Currently, there are two available releases: - 2015-2021; - 2018-2022.</p>
+<p>The user can select one of these releases.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ROIpara</span><span class="o">.</span><span class="n">release</span> <span class="o">=</span> <span class="s1">&#39;2018_2022&#39;</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Conversion-of-the-bbox-to-a-ROI">
+<h4>Conversion of the bbox to a ROI<a class="headerlink" href="#Conversion-of-the-bbox-to-a-ROI" title="Permalink to this heading"></a></h4>
+<p><strong>EGMS-toolkit</strong> requires a conversion of the bbox to a ROI. The toolkit will create a shapefile to store the ROI. The default value is <em>bbox.shp</em>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ROIpara</span><span class="o">.</span><span class="n">createROI</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;EGMStoolkit.classes.EGMSS1ROIapi.S1ROIparameter at 0x169fde020&gt;
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="Detection-of-the-EGMS-datasets">
+<h3>Detection of the EGMS datasets<a class="headerlink" href="#Detection-of-the-EGMS-datasets" title="Permalink to this heading"></a></h3>
+<p>Now, <strong>EGMS-toolkit</strong> has the required information to detect the EGMS datasets.</p>
+<p>By default, all relative orbits and passes will be selected. Of course, the user can used two options to define the relative orbits and pass of Sentinel-1 satellites.</p>
+<blockquote>
+<div><p><strong>NOTE:</strong> Lists of tracks and passes can be given for multiples searches.</p>
+</div></blockquote>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ROIpara</span><span class="o">.</span><span class="n">detectfromIDmap</span><span class="p">(</span><span class="n">info</span><span class="p">,</span><span class="n">Track_user</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">Pass_user</span><span class="o">=</span><span class="s1">&#39;Ascending&#39;</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+################################################################################
+EGMStoolkit 0.2.1 Beta
+
+--------------------------------------------------------------------------------
+EGMStoolkit.classes.EGMSS1ROIapi.EGMStoolkit.classes.EGMSS1ROIapi:
+        Detect the data regarding the burst IDs
+
+        Script: /Users/alexis_hrysiewicz/Work/UCD_InSAR_Scripts/EGMStoolkit/src/EGMStoolkit/classes/EGMSS1ROIapi.py
+                Copyright 2024, UCD / iCRAG
+################################################################################
+
+WARNING in EGMS-toolkit processing: in EGMStoolkit.classes.EGMSS1ROIapi.checkfile
+        /Users/alexis_hrysiewicz/Work/UCD_InSAR_Scripts/EGMStoolkit/src/EGMStoolkit/classes/EGMSS1ROIapi.py
+                --&gt; The use of the S1 burst ID map is less accurate than the use of .xml S1 files.
+For the L2a and L2b levels
+|████████████████████████████████████████| 1127661/1127661 [100%] in 45.1s (24992.20/s)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;EGMStoolkit.classes.EGMSS1ROIapi.S1ROIparameter at 0x169fde020&gt;
+</pre></div></div>
+</div>
+</section>
+<section id="Save-and-load-results-from-detection">
+<h3>Save and load results from detection<a class="headerlink" href="#Save-and-load-results-from-detection" title="Permalink to this heading"></a></h3>
+<p><strong>EGMS-toolkit</strong> can save and load the results of a detection.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save the burst ID list</span>
+<span class="n">ROIpara</span><span class="o">.</span><span class="n">saveIDlistL2</span><span class="p">()</span>
+<span class="c1"># Load the burst ID list</span>
+<span class="n">ROIpara</span><span class="o">.</span><span class="n">loadIDlistL2</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;EGMStoolkit.classes.EGMSS1ROIapi.S1ROIparameter at 0x169fde020&gt;
+</pre></div></div>
+</div>
+<p>By default, the file name is <em>egmslist.pkl</em> but the user can change it with the <em>input</em> option.</p>
+</section>
+<section id="Display-a-map">
+<h3>Display a map<a class="headerlink" href="#Display-a-map" title="Permalink to this heading"></a></h3>
+<p>To visualise the results, <strong>EGMS-toolkit</strong> can display the expected datasets.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ROIpara</span><span class="o">.</span><span class="n">displaymap</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;fig_search.jpg&#39;</span><span class="p">,</span><span class="n">use_folium</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>If the <em>ouput</em> option is not given, the figure will be displayed and not saved.</p>
+<p><img alt="image1" src="../_images/fig_search.jpg" /></p>
+</section>
+</section>
+<section id="Download-the-EGMS-data">
+<h2>Download the EGMS data<a class="headerlink" href="#Download-the-EGMS-data" title="Permalink to this heading"></a></h2>
+<p>The next step therefore is the downloading of the datasets. However, the user needs to create the links.</p>
+<section id="id2">
+<h3>Create the python variable<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<p>We call the class.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">downloadpara</span> <span class="o">=</span> <span class="n">EGMSdownloaderapi</span><span class="o">.</span><span class="n">egmsdownloader</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING in EGMS-toolkit processing: in EGMStoolkit.classes.EGMSdownloaderapi.checkparameter
+        /Users/alexis_hrysiewicz/Work/UCD_InSAR_Scripts/EGMStoolkit/src/EGMStoolkit/classes/EGMSdownloaderapi.py
+                --&gt; The user token is not correct.
+</pre></div></div>
+</div>
+<p>The <strong>WARNING</strong> is due to a incorrect token. The user will modify it later.</p>
+</section>
+<section id="Update-the-list-of-datasets-(and-create-the-links)">
+<h3>Update the list of datasets (and create the links)<a class="headerlink" href="#Update-the-list-of-datasets-(and-create-the-links)" title="Permalink to this heading"></a></h3>
+<p>Now, the user can concatenate their search to create a list of downloading links.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">downloadpara</span><span class="o">.</span><span class="n">updatelist</span><span class="p">(</span><span class="n">infoS1ROIparameter</span><span class="o">=</span><span class="n">ROIpara</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING in EGMS-toolkit processing: in EGMStoolkit.classes.EGMSdownloaderapi.checkparameter
+        /Users/alexis_hrysiewicz/Work/UCD_InSAR_Scripts/EGMStoolkit/src/EGMStoolkit/classes/EGMSdownloaderapi.py
+                --&gt; The user token is not correct.
+WARNING in EGMS-toolkit processing: in EGMStoolkit.classes.EGMSdownloaderapi.checkparameter
+        /Users/alexis_hrysiewicz/Work/UCD_InSAR_Scripts/EGMStoolkit/src/EGMStoolkit/classes/EGMSdownloaderapi.py
+                --&gt; The user token is not correct.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;EGMStoolkit.classes.EGMSdownloaderapi.egmsdownloader at 0x16a5fe470&gt;
+</pre></div></div>
+</div>
+<p>And the user can displayed the lists of datasets.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">downloadpara</span><span class="o">.</span><span class="n">printlist</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING in EGMS-toolkit processing: in EGMStoolkit.classes.EGMSdownloaderapi.checkparameter
+        /Users/alexis_hrysiewicz/Work/UCD_InSAR_Scripts/EGMStoolkit/src/EGMStoolkit/classes/EGMSdownloaderapi.py
+                --&gt; The user token is not correct.
+################################################################################
+EGMStoolkit 0.2.1 Beta
+
+--------------------------------------------------------------------------------
+EGMStoolkit.classes.EGMSdownloaderapi.EGMStoolkit.classes.EGMSdownloaderapi:
+        Print the list(s) of EGMS files
+
+        Script: /Users/alexis_hrysiewicz/Work/UCD_InSAR_Scripts/EGMStoolkit/src/EGMStoolkit/classes/EGMSdownloaderapi.py
+                Copyright 2024, UCD / iCRAG
+################################################################################
+
+For the EGMS data: L2b
+         File 1: EGMS_L2b_001_0314_IW2_VV_2018_2022_1.zip (Release 2018_2022)
+         File 2: EGMS_L2b_001_0314_IW3_VV_2018_2022_1.zip (Release 2018_2022)
+         File 3: EGMS_L2b_001_0315_IW2_VV_2018_2022_1.zip (Release 2018_2022)
+         File 4: EGMS_L2b_001_0315_IW3_VV_2018_2022_1.zip (Release 2018_2022)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;EGMStoolkit.classes.EGMSdownloaderapi.egmsdownloader at 0x16a5fe470&gt;
+</pre></div></div>
+</div>
+</section>
+<section id="Concatenate-other-searches">
+<h3>Concatenate other searches<a class="headerlink" href="#Concatenate-other-searches" title="Permalink to this heading"></a></h3>
+<p>Often, the user would like to download datasets with different parameters (i.e., tracks). <strong>EGMS-toolkit</strong> can concatenate other searches to optimise the downloading time.</p>
+<p>Firstly, the next lines will add the search for L3 vertical EGMS datasets of the 2015-2021 release.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ROIpara</span><span class="o">.</span><span class="n">egmslevel</span> <span class="o">=</span> <span class="s1">&#39;L3&#39;</span>
+<span class="n">ROIpara</span><span class="o">.</span><span class="n">egmsL3component</span> <span class="o">=</span> <span class="s1">&#39;UD&#39;</span>
+<span class="n">ROIpara</span><span class="o">.</span><span class="n">release</span> <span class="o">=</span> <span class="s1">&#39;2015_2021&#39;</span>
+<span class="n">ROIpara</span><span class="o">.</span><span class="n">detectfromIDmap</span><span class="p">(</span><span class="n">infoburstID</span><span class="o">=</span><span class="n">info</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">downloadpara</span><span class="o">.</span><span class="n">updatelist</span><span class="p">(</span><span class="n">infoS1ROIparameter</span><span class="o">=</span><span class="n">ROIpara</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING in EGMS-toolkit processing: in EGMStoolkit.classes.EGMSS1ROIapi.checkfile
+        /Users/alexis_hrysiewicz/Work/UCD_InSAR_Scripts/EGMStoolkit/src/EGMStoolkit/classes/EGMSS1ROIapi.py
+                --&gt; The use of the S1 burst ID map is less accurate than the use of .xml S1 files.
+WARNING in EGMS-toolkit processing: in EGMStoolkit.classes.EGMSdownloaderapi.checkparameter
+        /Users/alexis_hrysiewicz/Work/UCD_InSAR_Scripts/EGMStoolkit/src/EGMStoolkit/classes/EGMSdownloaderapi.py
+                --&gt; The user token is not correct.
+WARNING in EGMS-toolkit processing: in EGMStoolkit.classes.EGMSdownloaderapi.checkparameter
+        /Users/alexis_hrysiewicz/Work/UCD_InSAR_Scripts/EGMStoolkit/src/EGMStoolkit/classes/EGMSdownloaderapi.py
+                --&gt; The user token is not correct.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;EGMStoolkit.classes.EGMSdownloaderapi.egmsdownloader at 0x16a5fe470&gt;
+</pre></div></div>
+</div>
+<p>Secondly, we will also add an other search for L3 horizontal EGMS datasets of the 2018-2022 release.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ROIpara</span><span class="o">.</span><span class="n">egmslevel</span> <span class="o">=</span> <span class="s1">&#39;L3&#39;</span>
+<span class="n">ROIpara</span><span class="o">.</span><span class="n">egmsL3component</span> <span class="o">=</span> <span class="s1">&#39;EW&#39;</span>
+<span class="n">ROIpara</span><span class="o">.</span><span class="n">release</span> <span class="o">=</span> <span class="s1">&#39;2018_2022&#39;</span>
+<span class="n">downloadpara</span><span class="o">.</span><span class="n">updatelist</span><span class="p">(</span><span class="n">infoS1ROIparameter</span><span class="o">=</span><span class="n">ROIpara</span><span class="o">.</span><span class="n">detectfromIDmap</span><span class="p">(</span><span class="n">infoburstID</span><span class="o">=</span><span class="n">info</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING in EGMS-toolkit processing: in EGMStoolkit.classes.EGMSS1ROIapi.checkfile
+        /Users/alexis_hrysiewicz/Work/UCD_InSAR_Scripts/EGMStoolkit/src/EGMStoolkit/classes/EGMSS1ROIapi.py
+                --&gt; The use of the S1 burst ID map is less accurate than the use of .xml S1 files.
+WARNING in EGMS-toolkit processing: in EGMStoolkit.classes.EGMSdownloaderapi.checkparameter
+        /Users/alexis_hrysiewicz/Work/UCD_InSAR_Scripts/EGMStoolkit/src/EGMStoolkit/classes/EGMSdownloaderapi.py
+                --&gt; The user token is not correct.
+WARNING in EGMS-toolkit processing: in EGMStoolkit.classes.EGMSdownloaderapi.checkparameter
+        /Users/alexis_hrysiewicz/Work/UCD_InSAR_Scripts/EGMStoolkit/src/EGMStoolkit/classes/EGMSdownloaderapi.py
+                --&gt; The user token is not correct.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;EGMStoolkit.classes.EGMSdownloaderapi.egmsdownloader at 0x16a5fe470&gt;
+</pre></div></div>
+</div>
+<p>And the user can print the new list.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">downloadpara</span><span class="o">.</span><span class="n">printlist</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING in EGMS-toolkit processing: in EGMStoolkit.classes.EGMSdownloaderapi.checkparameter
+        /Users/alexis_hrysiewicz/Work/UCD_InSAR_Scripts/EGMStoolkit/src/EGMStoolkit/classes/EGMSdownloaderapi.py
+                --&gt; The user token is not correct.
+################################################################################
+EGMStoolkit 0.2.1 Beta
+
+--------------------------------------------------------------------------------
+EGMStoolkit.classes.EGMSdownloaderapi.EGMStoolkit.classes.EGMSdownloaderapi:
+        Print the list(s) of EGMS files
+
+        Script: /Users/alexis_hrysiewicz/Work/UCD_InSAR_Scripts/EGMStoolkit/src/EGMStoolkit/classes/EGMSdownloaderapi.py
+                Copyright 2024, UCD / iCRAG
+################################################################################
+
+For the EGMS data: L2b
+         File 1: EGMS_L2b_001_0314_IW2_VV_2018_2022_1.zip (Release 2018_2022)
+         File 2: EGMS_L2b_001_0314_IW3_VV_2018_2022_1.zip (Release 2018_2022)
+         File 3: EGMS_L2b_001_0315_IW2_VV_2018_2022_1.zip (Release 2018_2022)
+         File 4: EGMS_L2b_001_0315_IW3_VV_2018_2022_1.zip (Release 2018_2022)
+For the EGMS data: L3UD
+         File 1: EGMS_L3_E32N34_100km_U.zip (Release 2015_2021)
+For the EGMS data: L3EW
+         File 1: EGMS_L3_E32N34_100km_E_2018_2022_1.zip (Release 2018_2022)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;EGMStoolkit.classes.EGMSdownloaderapi.egmsdownloader at 0x16a5fe470&gt;
+</pre></div></div>
+</div>
+</section>
+<section id="Change-the-user-token">
+<h3>Change the user token<a class="headerlink" href="#Change-the-user-token" title="Permalink to this heading"></a></h3>
+<p>In order to dowload the EGMS data, the user requires to be authorised on the EGMS servers. The hack is to use the user token which can be found, online, at the end of downloading links.</p>
+<p><strong>This token is time-limited.</strong></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">downloadpara</span><span class="o">.</span><span class="n">token</span> <span class="o">=</span> <span class="s1">&#39;XXXXXXXXXXX&#39;</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h3>Download the EGMS data<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
+<p>Now, it is possible to download the data. All the used options are optionnal and are defined by default.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">downloadpara</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">outputdir</span><span class="o">=</span><span class="s1">&#39;./Output&#39;</span><span class="p">,</span><span class="n">unzipmode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">cleanmode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;EGMStoolkit.classes.EGMSdownloaderapi.egmsdownloader at 0x16a5fe470&gt;
+</pre></div></div>
+</div>
+</section>
+<section id="Unzip-the-files">
+<h3>Unzip the files<a class="headerlink" href="#Unzip-the-files" title="Permalink to this heading"></a></h3>
+<p>The downlaoded files are .zip archives. The following method will unzip the archives.</p>
+<p><strong>However, it is possible to unzip the file directly with the download method by using the unzipmode option.</strong></p>
+<p><em>nbworker</em> option enables the parallel unzipping (number of workers).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">downloadpara</span><span class="o">.</span><span class="n">unzipfile</span><span class="p">(</span><span class="n">outputdir</span><span class="o">=</span><span class="s1">&#39;./Output&#39;</span><span class="p">,</span><span class="n">unzipmode</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">nbworker</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">cleanmode</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+################################################################################
+EGMStoolkit 0.2.1 Beta
+
+--------------------------------------------------------------------------------
+EGMStoolkit.classes.EGMSdownloaderapi.EGMStoolkit.classes.EGMSdownloaderapi:
+        Unzip the EGMS files
+
+        Script: /Users/alexis_hrysiewicz/Work/UCD_InSAR_Scripts/EGMStoolkit/src/EGMStoolkit/classes/EGMSdownloaderapi.py
+                Copyright 2024, UCD / iCRAG
+################################################################################
+
+1 / 6 files: Unzip the file: EGMS_L3_E32N34_100km_E_2018_2022_1.zip
+2 / 6 files: Unzip the file: EGMS_L3_E32N34_100km_U.zip
+3 / 6 files: Unzip the file: EGMS_L2b_001_0314_IW3_VV_2018_2022_1.zip
+4 / 6 files: Unzip the file: EGMS_L2b_001_0315_IW3_VV_2018_2022_1.zip
+5 / 6 files: Unzip the file: EGMS_L2b_001_0315_IW2_VV_2018_2022_1.zip
+6 / 6 files: Unzip the file: EGMS_L2b_001_0314_IW2_VV_2018_2022_1.zip
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;EGMStoolkit.classes.EGMSdownloaderapi.egmsdownloader at 0x16a5fe470&gt;
+</pre></div></div>
+</div>
+</section>
+<section id="Clean-the-unused-files">
+<h3>Clean the unused files<a class="headerlink" href="#Clean-the-unused-files" title="Permalink to this heading"></a></h3>
+<p>Then, the user can delete the files that are not in the lists.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">downloadpara</span><span class="o">.</span><span class="n">clean</span><span class="p">(</span><span class="n">outputdir</span><span class="o">=</span><span class="s1">&#39;./Output&#39;</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;EGMStoolkit.classes.EGMSdownloaderapi.egmsdownloader at 0x16a5fe470&gt;
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="Post-processing-of-the-EGMS-data">
+<h2>Post-processing of the EGMS data<a class="headerlink" href="#Post-processing-of-the-EGMS-data" title="Permalink to this heading"></a></h2>
+<p>The files are in the <em>output</em> directory:</p>
+<pre>
+├── Output
+│   ├── L2a
+│   ├── L2b
+│   │   ├── 2018_2022
+│   │   │   ├── EGMS_L2b_001_0314_IW2_VV_2018_2022_1
+│   │   │   │   ├── EGMS_L2b_001_0314_IW2_VV_2018_2022_1.csv
+│   │   │   │   ├── EGMS_L2b_001_0314_IW2_VV_2018_2022_1.xml
+│   │   │   ├── EGMS_L2b_001_0315_IW2_VV_2018_2022_1
+│   │   │   │   ├── EGMS_L2b_001_0315_IW2_VV_2018_2022_1.csv
+│   │   │   │   ├── EGMS_L2b_001_0315_IW2_VV_2018_2022_1.xml
+│   │   │   ├── EGMS_L2b_001_0314_IW3_VV_2018_2022_1
+│   │   │   │   ├── EGMS_L2b_001_0314_IW3_VV_2018_2022_1.csv
+│   │   │   │   ├── EGMS_L2b_001_0314_IW3_VV_2018_2022_1.xml
+│   │   │   ├── EGMS_L2b_001_0315_IW3_VV_2018_2022_1
+│   │   │   │   ├── EGMS_L2b_001_0315_IW3_VV_2018_2022_1.csv
+│   │   │   │   ├── EGMS_L2b_001_0316_IW3_VV_2018_2022_1.xml
+│   ├── L3EW
+│   │   ├── 2018_2022
+│   │   │   ├── EGMS_L3_E32N34_100km_E_2018_2022_1
+│   │   │   │   ├── EGMS_L3_E32N34_100km_E_2018_2022_1.csv
+│   │   │   │   ├── EGMS_L3_E32N34_100km_E_2018_2022_1.tiff
+│   │   │   │   ├── EGMS_L3_E32N34_100km_E_2018_2022_1.xml
+│   ├── L3UD
+│   │   ├── 2015_2021
+│   │   │   ├── EGMS_L3_E32N34_100km_U
+│   │   │   │   ├── EGMS_L3_E32N34_100km_U.csv
+│   │   │   │   ├── EGMS_L3_E32N34_100km_U.tiff
+│   │   │   │   ├── EGMS_L3_E32N34_100km_U.xml
+</pre><p>It therefore is smarter to post-process the files.</p>
+<p><strong>Of course, all steps are optional.</strong></p>
+<section id="Merge-the-.csv-files">
+<h3>Merge the .csv files<a class="headerlink" href="#Merge-the-.csv-files" title="Permalink to this heading"></a></h3>
+<p>The first post-processing is the merging of .csv. The user can define several options: - <em>outputdir</em> the ouput directory; - <em>inputdir</em> the input directory (where are stored the EGMS .csv files); - <em>verbose</em> the verbose mode - <em>paratosave</em> parameter regarding the EGMS names [‘all’ or string value]. [‘latitude’, ‘longitude’, ‘easting’, ‘northing’, ‘height’, ‘height_wgs84’] which will always be saved.</p>
+<p><strong>The last option is mode. Indeed, the scripts can find the .csv files based on the search lists (onlist mode) or on the stored files (onfiles mode). For the last mode, the downloadpara class is required.</strong></p>
+<p>Three other options are available:</p>
+<ul class="simple">
+<li><p><strong>removeduplicate</strong> (bool): Reduce the duplicate points [Default: True]</p></li>
+<li><p><strong>length_threshold</strong> (int): Length for the concave hull [Default: 1000]</p></li>
+<li><p><strong>usevrtmerging</strong> (bool): Use the vrt for merging [Default: False]</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">egmsdatatools</span><span class="o">.</span><span class="n">datamergingcsv</span><span class="p">(</span><span class="n">infoEGMSdownloader</span><span class="o">=</span><span class="n">downloadpara</span><span class="p">,</span><span class="n">inputdir</span><span class="o">=</span><span class="s1">&#39;./Output&#39;</span><span class="p">,</span><span class="n">outputdir</span><span class="o">=</span><span class="s1">&#39;./Output&#39;</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;onlist&#39;</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">paratosave</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+################################################################################
+EGMStoolkit 0.2.1 Beta
+
+--------------------------------------------------------------------------------
+EGMStoolkit.functions.egmsdatatools.EGMStoolkit.functions.egmsdatatools:
+        Merge the datasets in csv format
+
+        Script: /Users/alexis_hrysiewicz/Work/UCD_InSAR_Scripts/EGMStoolkit/src/EGMStoolkit/functions/egmsdatatools.py
+                Copyright 2024, UCD / iCRAG
+################################################################################
+
+        Output Directory: ./Output
+        Input Directory: ./Output
+        Selected parameters: all
+        Mode: onlist
+Merging for EGMS_L3_2015_2021_UD...
+Merging for EGMS_L2b_001_VV_2018_2022_1...
+Merging for EGMS_L3_2018_2022_1_EW...
+</pre></div></div>
+</div>
+</section>
+<section id="Merge-the-.tiff-files-(only-for-the-vertical-and-horizontal-displacements)">
+<h3>Merge the .tiff files (only for the vertical and horizontal displacements)<a class="headerlink" href="#Merge-the-.tiff-files-(only-for-the-vertical-and-horizontal-displacements)" title="Permalink to this heading"></a></h3>
+<p>The .tiff can also be merged. The options are similar.</p>
+<p><strong>The paratosave option does not exist here.</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">egmsdatatools</span><span class="o">.</span><span class="n">datamergingtiff</span><span class="p">(</span><span class="n">infoEGMSdownloader</span><span class="o">=</span><span class="n">downloadpara</span><span class="p">,</span><span class="n">inputdir</span><span class="o">=</span><span class="s1">&#39;./Output&#39;</span><span class="p">,</span><span class="n">outputdir</span><span class="o">=</span><span class="s1">&#39;./Output&#39;</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;onlist&#39;</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+################################################################################
+EGMStoolkit 0.2.1 Beta
+
+--------------------------------------------------------------------------------
+EGMStoolkit.functions.egmsdatatools.EGMStoolkit.functions.egmsdatatools:
+        Merge the datasets in tiff format (only for L3 level)
+
+        Script: /Users/alexis_hrysiewicz/Work/UCD_InSAR_Scripts/EGMStoolkit/src/EGMStoolkit/functions/egmsdatatools.py
+                Copyright 2024, UCD / iCRAG
+################################################################################
+
+        Output Directory: ./Output
+        Input Directory: ./Output
+        Selected parameters: all
+        Mode: onlist
+Merging for EGMS_L3_2015_2021_UD...
+Used command: gdal_merge.py -o ./Output/EGMS_L3_2015_2021_UD.tiff -n -9999 -a_nodata -9999 ./Output/L3UD/2015_2021/EGMS_L3_E32N34_100km_U/EGMS_L3_E32N34_100km_U.tiff
+0...10...20...30...40...50...60...70...80...90...100 - done.
+Merging for EGMS_L3_2018_2022_1_EW...
+Used command: gdal_merge.py -o ./Output/EGMS_L3_2018_2022_1_EW.tiff -n -9999 -a_nodata -9999 ./Output/L3EW/2018_2022/EGMS_L3_E32N34_100km_E_2018_2022_1/EGMS_L3_E32N34_100km_E_2018_2022_1.tiff
+0...10...20...30...40...50...60...70...80...90...100 - done.
+</pre></div></div>
+</div>
+</section>
+<section id="Clip/crop-the-data">
+<h3>Clip/crop the data<a class="headerlink" href="#Clip/crop-the-data" title="Permalink to this heading"></a></h3>
+<p>The user can clip or crop the files regarding the ROI (or another shapefile).</p>
+<p>The new parameter <em>namefile</em> allows to define the file. By default, ‘all’ will clip/crop all the files. The option <strong>clipuseogr2ogr</strong> (bool, optional) can be used to force the use of ogr2ogr for clipping (default is False).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">egmsdatatools</span><span class="o">.</span><span class="n">dataclipping</span><span class="p">(</span><span class="n">inputdir</span><span class="o">=</span><span class="s1">&#39;./Output&#39;</span><span class="p">,</span><span class="n">outputdir</span><span class="o">=</span><span class="s1">&#39;./Output&#39;</span><span class="p">,</span><span class="n">namefile</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span><span class="n">shapefile</span><span class="o">=</span><span class="s1">&#39;bbox.shp&#39;</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+################################################################################
+EGMStoolkit 0.2.1 Beta
+
+--------------------------------------------------------------------------------
+EGMStoolkit.functions.egmsdatatools.EGMStoolkit.functions.egmsdatatools:
+        Clip the dataset(s)
+
+        Script: /Users/alexis_hrysiewicz/Work/UCD_InSAR_Scripts/EGMStoolkit/src/EGMStoolkit/functions/egmsdatatools.py
+                Copyright 2024, UCD / iCRAG
+################################################################################
+
+        The file name is: all
+        Input Directory: ./Output
+        Output Directory: ./Output
+        Shapefile: bbox.shp
+        1 / 5 file(s): Clip the file ./Output/EGMS_L3_2015_2021_UD.csv to ./Output/EGMS_L3_2015_2021_UD_clipped.csv...
+        2 / 5 file(s): Clip the file ./Output/EGMS_L3_2018_2022_1_EW.csv to ./Output/EGMS_L3_2018_2022_1_EW_clipped.csv...
+        3 / 5 file(s): Clip the file ./Output/EGMS_L2b_001_VV_2018_2022_1.csv to ./Output/EGMS_L2b_001_VV_2018_2022_1_clipped.csv...
+        4 / 5 file(s): Crop the file ./Output/EGMS_L3_2015_2021_UD.tiff to ./Output/EGMS_L3_2015_2021_UD_cropped.tiff...
+        5 / 5 file(s): Crop the file ./Output/EGMS_L3_2018_2022_1_EW.tiff to ./Output/EGMS_L3_2018_2022_1_EW_cropped.tiff...
+</pre></div></div>
+</div>
+</section>
+<section id="Clean-the-raw-files-and-directories">
+<h3>Clean the raw files and directories<a class="headerlink" href="#Clean-the-raw-files-and-directories" title="Permalink to this heading"></a></h3>
+<p>To save space, the raw files and directories can be deleted.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">egmsdatatools</span><span class="o">.</span><span class="n">removerawdata</span><span class="p">(</span><span class="n">inputdir</span><span class="o">=</span><span class="s1">&#39;./Output&#39;</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+################################################################################
+EGMStoolkit 0.2.1 Beta
+
+--------------------------------------------------------------------------------
+EGMStoolkit.functions.egmsdatatools.EGMStoolkit.functions.egmsdatatools:
+        Delete the raw dataset(s) from EGMS
+
+        Script: /Users/alexis_hrysiewicz/Work/UCD_InSAR_Scripts/EGMStoolkit/src/EGMStoolkit/functions/egmsdatatools.py
+                Copyright 2024, UCD / iCRAG
+################################################################################
+
+        Input Directory: ./Output
+Deleting...
+Deleting...
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="Post-processing-for-advanced-users">
+<h2>Post-processing for advanced users<a class="headerlink" href="#Post-processing-for-advanced-users" title="Permalink to this heading"></a></h2>
+<p>The next sections show some other commands to post-process the data.</p>
+<section id="Interpolation-of-point-data-(.csv)-into-a-.tif-raster-file">
+<h3>Interpolation of point data (.csv) into a .tif raster file<a class="headerlink" href="#Interpolation-of-point-data-(.csv)-into-a-.tif-raster-file" title="Permalink to this heading"></a></h3>
+<p>The first command is the possibility to interpolate the point data (from .csv files) into a .tif raster file. Of course, this step can be can be done before the cropping/clipping step.</p>
+<section id="Creation-of-the-dict.-for-the-gridding-parameters">
+<h4>Creation of the dict. for the gridding parameters<a class="headerlink" href="#Creation-of-the-dict.-for-the-gridding-parameters" title="Permalink to this heading"></a></h4>
+<p>The user requires to define a dictionary with the gridding parameter.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">paragrid</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;Xmin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2896000</span> <span class="c1"># Minimal X coordinate in EPGS:3035</span>
+<span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;Ymin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3317250</span> <span class="c1"># Minimal Y coordinate in EPGS:3035</span>
+<span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;Xmax&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3359000</span> <span class="c1"># Maximal X coordinate in EPGS:3035</span>
+<span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;Ymax&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3745500</span> <span class="c1"># Maximal Y coordinate in EPGS:3035</span>
+<span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;xres&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">50</span> <span class="c1"># X spatial resolution in EPGS:3035</span>
+<span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;yres&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">50</span> <span class="c1"># Y spatial resolution in EPGS:3035</span>
+<span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;algo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;average:radius1=50:radius2=50:angle=0.0:nodata=-9999&#39;</span> <span class="c1"># Alfgorithm used and options</span>
+<span class="n">paragrid</span><span class="p">[</span><span class="s1">&#39;variable&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;mean_velocity,mean_velocity_std,acceleration,acceleration_std,seasonality,seasonality_std&#39;</span>
+<span class="c1"># paragrid[&#39;algo&#39;] = &#39;invdist:power=2.0:smoothing=0.0:radius1=0.0:radius2=0.0:angle=0.0:max_points=0:min_points=0:nodata=0.0&#39;</span>
+<span class="c1"># paragrid[&#39;algo&#39;] = &#39;invdistnn:power=2.0:radius=1.0:max_points=12:min_points=0:nodata=0&#39;</span>
+<span class="c1"># paragrid[&#39;algo&#39;] = &#39;average:radius1=0.0:radius2=0.0:angle=0.0:min_points=0:nodata=0.0&#39;</span>
+<span class="c1"># paragrid[&#39;algo&#39;] = &#39;nearest:radius1=0.0:radius2=0.0:angle=0.0:nodata=0.0&#39;</span>
+<span class="c1"># paragrid[&#39;algo&#39;] = &#39;linear:radius=-1.0:nodata=0.0&#39;</span>
+</pre></div>
+</div>
+</div>
+<p>And the user can run the interpolation.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">egmsdatatools</span><span class="o">.</span><span class="n">datagridding</span><span class="p">(</span><span class="n">inputdir</span><span class="o">=</span><span class="s1">&#39;./Output&#39;</span><span class="p">,</span><span class="n">outputdir</span><span class="o">=</span><span class="s1">&#39;./Output&#39;</span><span class="p">,</span><span class="n">namefile</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">paragrid</span><span class="o">=</span><span class="n">paragrid</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="Conversion-of-.csv-files-to-other-vector-format">
+<h3>Conversion of .csv files to other vector format<a class="headerlink" href="#Conversion-of-.csv-files-to-other-vector-format" title="Permalink to this heading"></a></h3>
+<p>The last command will convert the .csv files to other vector formats. The available formats are:</p>
+<ul class="simple">
+<li><p>ESRI Shapefile (default);</p></li>
+<li><p>GPKG;</p></li>
+<li><p>GeoJSON.</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">egmsdatatools</span><span class="o">.</span><span class="n">convertcsv</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../readme.html" class="btn btn-neutral float-left" title="EGMS toolkit" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../advexample/index.html" class="btn btn-neutral float-right" title="Advanced examples of EGMS toolkit" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, UCD / iCRAG.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
