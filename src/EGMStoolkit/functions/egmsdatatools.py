@@ -54,7 +54,7 @@ if int(infoversiongdal.split('.')[0]) < 3:
 elif int(infoversiongdal.split('.')[1]) < 8: 
     usermessage.warningmsg(__name__,__name__,__file__,'The GDAL is lower than 3.8.0 (user version : %s) but this version is required for data gridding.' % (infoversiongdal),None,True)
 
-if platform.system == 'Windows':
+if platform.system() == 'Windows':
     keygdalprog = ''
 else: 
     keygdalprog = '.py'
