@@ -132,6 +132,7 @@ def download_file(url,
 
             if (response.status_code == 502) and (bypass502 == True):
                 usermessage.egmstoolkitprint('The EGMS file does not exist.',log,verbose)
+                time.sleep(2)
                 return 
 
             response.raise_for_status() 
