@@ -37,7 +37,6 @@ import webbrowser
 from typing import Optional, Union
 import io
 from PIL import Image
-import selenium
 from itertools import product
 
 from EGMStoolkit.functions import esa2egmsburstID

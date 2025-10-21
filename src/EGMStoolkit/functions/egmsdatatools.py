@@ -9,6 +9,7 @@ The module adds some functions, required by `EGMStoolkit` to post-process the EG
     (From `EGMStoolkit` package)
 
 Changelog:
+    * 0.3.0: Improve the cross-platform compatibility, Oct. 2025, Alexis Hrysiewicz   
     * 0.2.16: Bug fix in the datagridding (duplication of -of option), Jul. 2025, Alexis Hrysiewicz   
     * 0.2.14: SEcond fix regarding the location of GTiff coordinates (i.e., -co AREA_OR_POINT=Point), end-Jan 2025, Alexis Hrysiewicz
     * 0.2.13: Fix regarding the location of GTiff coordinates (i.e., -co AREA_OR_POINT=Point), Jan 2025, Alexis Hrysiewicz
@@ -52,6 +53,11 @@ if int(infoversiongdal.split('.')[0]) < 3:
     usermessage.warningmsg(__name__,__name__,__file__,'The GDAL is lower than 3.8.0 (user version : %s) but this version is required for data gridding.' % (infoversiongdal),None,True)
 elif int(infoversiongdal.split('.')[1]) < 8: 
     usermessage.warningmsg(__name__,__name__,__file__,'The GDAL is lower than 3.8.0 (user version : %s) but this version is required for data gridding.' % (infoversiongdal),None,True)
+
+if platform.system == 'Windows':
+    keygdalprog = ''
+else: 
+    keygdalprog = '.py'
 
 source_crs = 'epsg:4326'
 """str: Source CRS.
@@ -258,7 +264,7 @@ def datagridding(paragrid,
                 os.system(cmdi)
 
                 if AREA_OR_POINT == 'Point': 
-                    cmdi = 'gdal_edit.py -mo AREA_OR_POINT=%s %s%s%s_%s.tif --config GTIFF_POINT_GEO_IGNORE YES' % (AREA_OR_POINT,outputdir,os.sep,namefile,parai)
+                    cmdi = 'gdal_edit%s -mo AREA_OR_POINT=%s %s%s%s_%s.tif --config GTIFF_POINT_GEO_IGNORE YES' % (keygdalprog,AREA_OR_POINT,outputdir,os.sep,namefile,parai)
                     usermessage.egmstoolkitprint('\t\tThe command will be: %s' % (cmdi),log,verbose)
                     os.system(cmdi)
 
@@ -727,7 +733,7 @@ def filemergingtiff(inputdir,outputdir,name,listfile,verbose,log):
     if os.path.isfile("%s%s%s.tiff" % (outputdir,os.sep,name)):
         os.remove("%s%s%s.tiff" % (outputdir,os.sep,name))
 
-    cmdi= ["gdal_merge.py", "-o", "%s%s%s.tiff" % (outputdir,os.sep,name), "-n -9999 -a_nodata -9999"]
+    cmdi= ["gdal_merge%s" % (keygdalprog), "-o", "%s%s%s.tiff" % (outputdir,os.sep,name), "-n -9999 -a_nodata -9999"]
     for fi in listfile:
         pathfi = glob.glob('%s%s*%s*%s*%s%s.tiff' % (inputdir,os.sep,os.sep,os.sep,os.sep,fi))[0]
         cmdi.append(pathfi)

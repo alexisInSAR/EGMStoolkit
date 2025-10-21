@@ -18,8 +18,10 @@ Attributes:
     __displayline1__ (str): String line (1)
     __displayline2__ (str): String line (2)
     __loggingmode__ (str): Logging level. **Can be modified by the user**. Can be ``NOTSET``, ``DEBUG``, ``INFO``, ``WARN``, ``ERROR``, ``CRITICAL``
+    __chunksize__ (int): Chunk size. **Can be modified by the user**.
 
 Changelog:
+        * 0.3.0: Add the __chunksize__ variable, Oct. 2024, Alexis Hrysiewicz
         * 0.2.7: Add the __unlockfoliumtiles__ parameters, Apr. 2024, Alexis Hrysiewicz
         * 0.2.0: Initial version, Jan. 2024
 
@@ -50,3 +52,5 @@ __displayline2__ = '------------------------------------------------------------
 __loggingmode__ = 'INFO'
 __pathS1map__ = os.path.dirname(__file__)+os.sep+'3rdparty'
 __unlockfoliumtiles__ = False
+
+__chunksize__ = 4092*2

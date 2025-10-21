@@ -9,6 +9,7 @@ The module contains the classe and the methods to download the tile regarding a 
     (From `EGMStoolkit` package)
 
 Changelog:
+    * 0.3.0: Delete the support of wget, Alexis Hrysiewicz, Oct. 2025
     * 0.2.15: Add the possibility to unzip files in parallel, Alexis Hrysiewicz, Apr. 2025
     * 0.2.12: Add the support of the 2019_2023 release, Nov. 2024, Alexis Hrysiewicz
     * 0.2.0: Script structuring, Jan. 2024, Alexis Hrysiewicz
@@ -17,22 +18,16 @@ Changelog:
 """
 
 import os 
-import wget
 import zipfile
 import numpy as np
 import glob
 import shutil
-import time
 from typing import Optional, Union
 from joblib import Parallel, delayed
 
 from EGMStoolkit.functions import egmsapitools
 from EGMStoolkit import usermessage
 from EGMStoolkit import constants
-
-timeerror462 = 15
-"""int: Time breack in seconds
-"""
 
 ################################################################################
 ## Creation of a class to manage the Sentinel-1 burst ID map
@@ -324,15 +319,12 @@ class egmsdownloader:
 
                     if not os.path.isfile('%s%s%s' % (pathdir,os.sep,datatmp[idx])): 
                         if (not ('%s%s%s%s%s%s' % (pathdir,os.sep,datatmp[idx].split('.')[0],os.sep,datatmp[idx].split('.')[0],'.csv'))) or force == True:
-                            try:
-                                # Download the file
-                                filename = wget.download('%s?id=%s' % (datatmplink[idx],self.token), out=pathdir)                              
-                                usermessage.egmstoolkitprint(f"\tFile downloaded: {filename}",self.log,verbose)
 
-                                time.sleep(timeerror462)
-                            except Exception as e:
-                                usermessage.egmstoolkitprint(f"An error occurred: {e}",self.log,verbose)                           
-                                time.sleep(timeerror462)
+                            egmsapitools.download_file('%s?id=%s' % (datatmplink[idx],self.token),
+                                    output_file = pathdir + os.sep + datatmplink[idx].split('/')[-1],
+                                    verbose=verbose, 
+                                    log = self.log)
+
                         else:
                             usermessage.egmstoolkitprint('\tAlready downloaded (detection of the .csv file)',self.log,verbose)        
                     else:                      

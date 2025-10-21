@@ -9,6 +9,7 @@ The module contains the classe and the methods to manage the Sentinel-1 Burst-ID
     (From `EGMStoolkit` package)
 
 Changelog:
+    * 0.3.0: Delete the support of wget, Alexis Hrysiewicz, Oct. 2025
     * 0.2.0: Script structuring, Jan. 2024, Alexis Hrysiewicz
     * 0.1.0: Initial version, Nov. 2023
 
@@ -16,13 +17,13 @@ Changelog:
 
 import datetime 
 import os 
-import wget
 import zipfile
 import urllib.request  
 from typing import Optional, Union
 
 from EGMStoolkit import usermessage
 from EGMStoolkit import constants
+from EGMStoolkit.functions import egmsapitools
 
 ################################################################################
 ## Creation of a class to manage the Sentinel-1 burst ID map
@@ -177,13 +178,11 @@ class S1burstIDmap:
             h = h + 1
             if h == len(self.list_date):
                 raise ValueError(usermessage.errormsg(__name__,'downloadfile',__file__,constants.__copyright__,'No detection of S1 burst ID map...',self.log))
-
-            try:
-                filename = wget.download(self.pathIDmap, out=self.dirmap)
-                usermessage.egmstoolkitprint(f"File downloaded: {filename}",self.log,verbose)
-
-            except Exception as e:
-                raise ValueError(usermessage.errormsg(__name__,'downloadfile',__file__,constants.__copyright__,f"An error occurred: {e}",self.log))
+            
+            egmsapitools.download_file(self.pathIDmap,
+                                       output_file = self.dirmap + os.sep + self.pathIDmap.split('/')[-1], 
+                                       verbose=verbose, 
+                                       log = self.log)
 
             usermessage.egmstoolkitprint("\tUnzip the .zip file %s in %s" %(self.dirmap,i1),self.log,verbose)
 

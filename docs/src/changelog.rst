@@ -3,6 +3,10 @@ Change log
 
 The different versions are as follows:
 
+* 0.3.0: 
+   * Improvement of the cross-platform compatibility, Alexis Hrysiewicz, Oct. 2025
+   * The wget support has been deleted. 
+   * Bug fix of gdal CLI script. 
 * 0.2.16:
    * Bug fix in the datagridding function, Alexis Hrysiewicz, Jul. 2025
 * 0.2.15: 
