@@ -298,7 +298,7 @@ def main():
                     ROIpara.release = releasei
                     downloadpara.updatelist(infoS1ROIparameter=ROIpara)
 
-            ROIpara.displaymap(output='%s%sfig_search_%d.jpg' %(options.outputdir,os.sep,h))
+            # ROIpara.displaymap(output='%s%sfig_search_%d.jpg' %(options.outputdir,os.sep,h))
             h = h + 1
 
         if options.verbose:

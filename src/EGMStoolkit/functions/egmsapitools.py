@@ -96,6 +96,7 @@ def download_file(url,
     password = None,
     output_file=None,
     retries=10,
+    bypass502=False,
     verbose=True,
     log=None):
     """Download function
@@ -128,6 +129,10 @@ def download_file(url,
 
             if response.status_code == 416:
                 usermessage.egmstoolkitprint('EGMS-Toolkit - Downloader - Download already done.',log,verbose)
+
+            if (response.status_code == 502) and (bypass502 == True):
+                usermessage.egmstoolkitprint('The EGMS file does not exist.',log,verbose)
+                return 
 
             response.raise_for_status() 
 

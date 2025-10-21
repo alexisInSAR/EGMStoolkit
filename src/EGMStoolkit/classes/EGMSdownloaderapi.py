@@ -322,6 +322,7 @@ class egmsdownloader:
 
                             egmsapitools.download_file('%s?id=%s' % (datatmplink[idx],self.token),
                                     output_file = pathdir + os.sep + datatmplink[idx].split('/')[-1],
+                                    bypass502=True,
                                     verbose=verbose, 
                                     log = self.log)
 
