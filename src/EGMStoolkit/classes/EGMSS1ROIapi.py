@@ -228,10 +228,10 @@ class S1ROIparameter:
         elif os.path.isfile(self.bbox):
             usermessage.egmstoolkitprint('Use the vector file giving by the user: %s' % (self.bbox),self.log,verbose)
             shape = fiona.open(self.bbox)
-            if shape.schema['geometry'] == 'MultiLineString':
+            if shape.schema['geometry'] == 'MultiLineString' or shape.schema['geometry'] == 'LineString':
                 gdal.VectorTranslate(self.workdirectory+os.sep+'bbox.shp',self.bbox,options='-f "ESRI Shapefile" -t_srs "EPSG:4326"')
             else: 
-                usermessage.egmstoolkitprint('\tThe shapefile is not a MultiLineString shape. It will be converted...',self.log,verbose)
+                usermessage.egmstoolkitprint('\tThe shapefile is neither a MultiLineString or LineString shape. It will be converted...',self.log,verbose)
 
                 with fiona.open(self.bbox) as roifile:   
                     listpts = []        
